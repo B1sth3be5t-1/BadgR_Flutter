@@ -13,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool buttonActive = false;
-  bool test = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
