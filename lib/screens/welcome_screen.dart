@@ -1,3 +1,4 @@
+import 'package:badgr/constants.dart';
 import 'package:badgr/screens/login_screen.dart';
 import 'package:badgr/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
@@ -38,7 +40,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     style: TextStyle(
                       fontSize: 45.0,
                       fontWeight: FontWeight.w900,
-                      color: Colors.blueAccent,
+                      color: kColorDarkBlue,
                     ),
                   ),
                 ),
@@ -51,7 +53,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
                 elevation: 5.0,
-                color: Colors.lightBlueAccent,
+                color: kColorDarkBlue,
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
@@ -68,7 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
-                color: Colors.blueAccent,
+                color: kColorDarkBlue,
                 borderRadius: BorderRadius.circular(30.0),
                 elevation: 5.0,
                 child: MaterialButton(

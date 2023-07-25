@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:badgr/screens/welcome_screen.dart';
 import 'package:badgr/screens/login_screen.dart';
 import 'package:badgr/screens/registration_screen.dart';
-import 'package:badgr/screens/chat_screen.dart';
 
 void main() => runApp(const BadgR());
 
@@ -17,6 +16,7 @@ class BadgR extends StatelessWidget {
           bodyLarge: TextStyle(color: Colors.black54),
         ),
       ),
+      color: Colors.white,
       home: const WelcomeScreen(),
       routes: {
         WelcomeScreen.screenID: (context) => const WelcomeScreen(),
