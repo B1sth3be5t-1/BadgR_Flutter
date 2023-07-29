@@ -1,6 +1,6 @@
-import 'package:badgr/constants.dart';
-import 'package:badgr/screens/login_screen.dart';
-import 'package:badgr/screens/registration_screen.dart';
+import 'package:badgr/classes/constants.dart';
+import 'package:badgr/screens/UserFlow/login_screen.dart';
+import 'package:badgr/screens/UserFlow/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
