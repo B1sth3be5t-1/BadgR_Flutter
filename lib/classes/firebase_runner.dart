@@ -1,4 +1,3 @@
-import 'package:badgr/classes/constants.dart';
 import 'package:badgr/screens/scout_screens/scout_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,6 +19,8 @@ class FirebaseRunner {
         return 'wrongEmailPass';
       } else if (e.message!.contains('too-many-requests')) {
         return 'tooMany';
+      } else if (e.message!.contains('network-request-failed')) {
+        return 'network';
       } else {
         return 'error';
       }
@@ -40,6 +41,8 @@ class FirebaseRunner {
       print(e);
       if (e.message!.contains('email-already-in-use')) {
         return 'emailInUse';
+      } else if (e.message!.contains('network-request-failed')) {
+        return 'network';
       } else {
         return 'error';
       }
@@ -60,5 +63,19 @@ class FirebaseRunner {
   static void _sendUser(BuildContext c) {
     //todo check age and send to respective screen
     Navigator.pushNamed(c, ScoutScreen.screenID);
+  }
+
+  static Future<String> resetPass(String em) async {
+    try {
+      await auth.sendPasswordResetEmail(email: em);
+    } on FirebaseAuthException catch (e) {
+      if (e.message!.contains('network-request-failed')) {
+        return 'network';
+      } else if (e.message!.contains('missing-email')) {
+        return 'enterEmail';
+      }
+      return 'error';
+    }
+    return 'done';
   }
 }

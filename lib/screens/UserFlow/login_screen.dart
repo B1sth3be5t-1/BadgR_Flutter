@@ -1,6 +1,5 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/screens/UserFlow/registration_screen.dart';
-import 'package:badgr/screens/scout_screens/scout_home.dart';
 import 'package:badgr/screens/UserFlow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -114,10 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             try {
                               res = await FirebaseRunner.loginUserWithEandP(
                                   email, pass, context);
-                              if (res != 'done') {
-                                throw const FormatException('hey2.0');
-                              }
-                            } on FormatException catch (e) {
+                              if (res != 'done')
+                                throw FormatException('heyyyyy!');
+                            } on FormatException {
                               if (res == 'wrongEmailPass') {
                                 showDialog<String>(
                                   context: context,
@@ -154,7 +152,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context, RegistrationScreen.screenID);
                                   }
                                 });
-                              } else if (res == 'noEmail') {
                               } else if (res == 'tooMany') {
                                 showDialog<String>(
                                   context: context,
@@ -176,8 +173,49 @@ class _LoginScreenState extends State<LoginScreen> {
                                     backgroundColor: kColorXLightBlue,
                                   ),
                                 );
-                              } else {}
-                              //todo login error
+                              } else if (res == 'network') {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Login Error'),
+                                    content: const Text(
+                                        'A network error has occurred'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop('Ok');
+                                        },
+                                        child: const Text('Ok',
+                                            style: TextStyle(
+                                                color: kColorDarkBlue)),
+                                      ),
+                                    ],
+                                    backgroundColor: kColorXLightBlue,
+                                  ),
+                                );
+                              } else if (res != 'done') {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Login Error'),
+                                    content: const Text(
+                                        'An unknown error has occurred'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop('Ok');
+                                        },
+                                        child: const Text('Ok',
+                                            style: TextStyle(
+                                                color: kColorDarkBlue)),
+                                      ),
+                                    ],
+                                    backgroundColor: kColorXLightBlue,
+                                  ),
+                                );
+                              }
                             }
                             setState(() {
                               showSpinner = false;
@@ -191,16 +229,146 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: () => {
-                  Navigator.pushReplacementNamed(
-                      context, WelcomeScreen.screenID)
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                ),
-                color: kColorDarkBlue,
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () => {
+                      Navigator.pushReplacementNamed(
+                          context, WelcomeScreen.screenID)
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                    ),
+                    color: kColorDarkBlue,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      email = '';
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Reset Password'),
+                          content: TextField(
+                            cursorColor: kColorBlue,
+                            textAlign: TextAlign.center,
+                            onChanged: (value) {
+                              email = value;
+                            },
+                            decoration: const InputDecoration(
+                                hintText: 'Enter your email',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                                border: null,
+                                enabledBorder: kBorderEnabled,
+                                focusedBorder: kBorderFocused),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop('Cancel');
+                              },
+                              child: const Text('Cancel',
+                                  style: TextStyle(color: kColorDarkBlue)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  showSpinner = true;
+                                });
+                                Navigator.of(context).pop('Reset');
+                              },
+                              child: const Text('Reset',
+                                  style: TextStyle(color: kColorDarkBlue)),
+                            ),
+                          ],
+                          backgroundColor: kColorXLightBlue,
+                        ),
+                      ).then((value) async {
+                        if (value == null) return;
+
+                        if (value == 'Reset') {
+                          String res = '';
+                          try {
+                            res = await FirebaseRunner.resetPass(email);
+                            if (res != 'done') throw FormatException('HEY!');
+                          } on FormatException {
+                            if (res == 'network') {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Password Reset Error'),
+                                  content: const Text(
+                                      'A network error has occurred'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop('Ok');
+                                      },
+                                      child: const Text('Ok',
+                                          style:
+                                              TextStyle(color: kColorDarkBlue)),
+                                    ),
+                                  ],
+                                  backgroundColor: kColorXLightBlue,
+                                ),
+                              );
+                            } else if (res == 'enterEmail') {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Password Reset Error'),
+                                  content: const Text(
+                                      'Please enter an email address'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop('Ok');
+                                      },
+                                      child: const Text('Ok',
+                                          style:
+                                              TextStyle(color: kColorDarkBlue)),
+                                    ),
+                                  ],
+                                  backgroundColor: kColorXLightBlue,
+                                ),
+                              );
+                            } else if (res != 'done') {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Password Reset Error'),
+                                  content: const Text(
+                                      'An unknown error has occurred'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop('Ok');
+                                      },
+                                      child: const Text('Ok',
+                                          style:
+                                              TextStyle(color: kColorDarkBlue)),
+                                    ),
+                                  ],
+                                  backgroundColor: kColorXLightBlue,
+                                ),
+                              );
+                            }
+                          }
+                        }
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      });
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(color: kColorDarkBlue),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),

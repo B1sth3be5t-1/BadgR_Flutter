@@ -1,14 +1,10 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/screens/scout_screens/scout_home.dart';
 import 'package:badgr/screens/UserFlow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/screens/UserFlow/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/custom_input.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -20,7 +16,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  final _auth = FirebaseAuth.instance;
   bool validPass = false;
   bool validTroop = false;
   bool validFName = false;
@@ -85,7 +80,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                       validator: (val) {
                         if (!val!.isValidPassword)
-                          return 'Password must contain 8 characters, a letter, and a special character';
+                          return 'Password must contain 8 characters, including a number and a special character';
                         return null;
                       },
                     ),
@@ -183,7 +178,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (res != 'done') {
                             throw const FormatException('hey');
                           }
-                        } on FormatException catch (e) {
+                        } on FormatException {
                           if (res == 'emailInUse') {
                             showDialog<String>(
                               context: context,
@@ -219,6 +214,46 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     context, LoginScreen.screenID);
                               }
                             });
+                          } else if (res == 'network') {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Registration Error'),
+                                content:
+                                    const Text('A network error has occurred'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop('Ok');
+                                    },
+                                    child: const Text('Ok',
+                                        style:
+                                            TextStyle(color: kColorDarkBlue)),
+                                  ),
+                                ],
+                                backgroundColor: kColorXLightBlue,
+                              ),
+                            );
+                          } else {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Registration Error'),
+                                content:
+                                    const Text('An unknown error has occurred'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop('Ok');
+                                    },
+                                    child: const Text('Ok',
+                                        style:
+                                            TextStyle(color: kColorDarkBlue)),
+                                  ),
+                                ],
+                                backgroundColor: kColorXLightBlue,
+                              ),
+                            );
                           }
                         }
                         setState(() {

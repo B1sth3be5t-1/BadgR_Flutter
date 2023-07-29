@@ -66,8 +66,4 @@ extension ExtString on String {
         r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$');
     return passwordRegExp.hasMatch(this);
   }
-
-  bool get isNotNull {
-    return this != null;
-  }
 }
