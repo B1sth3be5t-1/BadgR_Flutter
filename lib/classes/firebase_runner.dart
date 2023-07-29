@@ -1,11 +1,8 @@
-import 'dart:js_interop';
-
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/screens/scout_screens/scout_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class FirebaseRunner {
   static final auth = FirebaseAuth.instance;

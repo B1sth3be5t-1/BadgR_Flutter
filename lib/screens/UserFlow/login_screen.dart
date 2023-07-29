@@ -4,7 +4,8 @@ import 'package:badgr/screens/scout_screens/scout_home.dart';
 import 'package:badgr/screens/UserFlow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:badgr/classes/firebaserunner.dart';
+import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/classes/custom_input.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screenID = 'LoginScreen';
@@ -14,12 +15,6 @@ class LoginScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
-
-  static bool isValidEmail(String s) {
-    return RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(s);
-  }
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -55,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (s) {
-                  if (LoginScreen.isValidEmail(s)) {
+                  if (s.isValidEmail) {
                     setState(() {
                       buttonActive = true;
                     });
