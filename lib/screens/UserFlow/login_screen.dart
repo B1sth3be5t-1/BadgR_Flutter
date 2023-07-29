@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/screens/UserFlow/registration_screen.dart';
 import 'package:badgr/screens/UserFlow/welcome_screen.dart';
@@ -22,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String email = '';
   String pass = '';
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,54 +48,42 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 48.0,
               ),
-              TextField(
-                cursorColor: kColorBlue,
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.center,
-                onChanged: (s) {
-                  if (s.isValidEmail) {
-                    setState(() {
-                      buttonActive = true;
-                    });
-                  } else {
-                    setState(() {
-                      buttonActive = false;
-                    });
-                  }
-                  email = s;
-                },
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email',
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: kBorder,
-                  enabledBorder: kBorderEnabled,
-                  focusedBorder: kBorderFocused,
-                ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                cursorColor: kColorBlue,
-                obscureText: true,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  pass = value;
-                },
-                decoration: const InputDecoration(
-                    hintText: 'Enter your password.',
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    CustomFormField(
+                      hintText: 'Email',
+                      obscureText: false,
+                      onChanged: (val) {
+                        email = val!;
+                        if (email.isValidEmail)
+                          setState(() {
+                            buttonActive = true;
+                          });
+                        else
+                          setState(() {
+                            buttonActive = false;
+                          });
+                      },
+                      validator: (val) {
+                        if (!val!.isValidEmail) return 'Enter valid email';
+                        return null;
+                      },
                     ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                    border: kBorder,
-                    enabledBorder: kBorderEnabled,
-                    focusedBorder: kBorderFocused),
+                    CustomFormField(
+                      hintText: 'Password',
+                      obscureText: true,
+                      onChanged: (val) {
+                        pass = val!;
+                      },
+                      validator: (val) {
+                        if (val! == '') return 'Enter a password';
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 24.0,
@@ -106,120 +98,122 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: !buttonActive
                         ? null
                         : () async {
-                            setState(() {
-                              showSpinner = true;
-                            });
-                            String res = '';
-                            try {
-                              res = await FirebaseRunner.loginUserWithEandP(
-                                  email, pass, context);
-                              if (res != 'done')
-                                throw FormatException('heyyyyy!');
-                            } on FormatException {
-                              if (res == 'wrongEmailPass') {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Login Error'),
-                                    content: const Text(
-                                        'The username or password is incorrect'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop('Reg');
-                                        },
-                                        child: const Text('Register',
-                                            style: TextStyle(
-                                                color: kColorDarkBlue)),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop('ok');
-                                        },
-                                        child: const Text('OK',
-                                            style: TextStyle(
-                                                color: kColorDarkBlue)),
-                                      ),
-                                    ],
-                                    backgroundColor: kColorXLightBlue,
-                                  ),
-                                ).then((value) {
-                                  if (value == null) return;
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                showSpinner = true;
+                              });
+                              String res = '';
+                              try {
+                                res = await FirebaseRunner.loginUserWithEandP(
+                                    email, pass, context);
+                                if (res != 'done')
+                                  throw FormatException('heyyyyy!');
+                              } on FormatException {
+                                if (res == 'wrongEmailPass') {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Login Error'),
+                                      content: const Text(
+                                          'The username or password is incorrect'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop('Reg');
+                                          },
+                                          child: const Text('Register',
+                                              style: TextStyle(
+                                                  color: kColorDarkBlue)),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop('ok');
+                                          },
+                                          child: const Text('OK',
+                                              style: TextStyle(
+                                                  color: kColorDarkBlue)),
+                                        ),
+                                      ],
+                                      backgroundColor: kColorXLightBlue,
+                                    ),
+                                  ).then((value) {
+                                    if (value == null) return;
 
-                                  if (value == 'Reg') {
-                                    Navigator.pushNamed(
-                                        context, RegistrationScreen.screenID);
-                                  }
-                                });
-                              } else if (res == 'tooMany') {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Login Error'),
-                                    content: const Text(
-                                        'You have entered too many incorrect password attempts. \nPlease try again later'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop('Ok');
-                                        },
-                                        child: const Text('Ok',
-                                            style: TextStyle(
-                                                color: kColorDarkBlue)),
-                                      ),
-                                    ],
-                                    backgroundColor: kColorXLightBlue,
-                                  ),
-                                );
-                              } else if (res == 'network') {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Login Error'),
-                                    content: const Text(
-                                        'A network error has occurred'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop('Ok');
-                                        },
-                                        child: const Text('Ok',
-                                            style: TextStyle(
-                                                color: kColorDarkBlue)),
-                                      ),
-                                    ],
-                                    backgroundColor: kColorXLightBlue,
-                                  ),
-                                );
-                              } else if (res != 'done') {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Login Error'),
-                                    content: const Text(
-                                        'An unknown error has occurred'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop('Ok');
-                                        },
-                                        child: const Text('Ok',
-                                            style: TextStyle(
-                                                color: kColorDarkBlue)),
-                                      ),
-                                    ],
-                                    backgroundColor: kColorXLightBlue,
-                                  ),
-                                );
+                                    if (value == 'Reg') {
+                                      Navigator.pushNamed(
+                                          context, RegistrationScreen.screenID);
+                                    }
+                                  });
+                                } else if (res == 'tooMany') {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Login Error'),
+                                      content: const Text(
+                                          'You have entered too many incorrect password attempts. \nPlease try again later'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop('Ok');
+                                          },
+                                          child: const Text('Ok',
+                                              style: TextStyle(
+                                                  color: kColorDarkBlue)),
+                                        ),
+                                      ],
+                                      backgroundColor: kColorXLightBlue,
+                                    ),
+                                  );
+                                } else if (res == 'network') {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Login Error'),
+                                      content: const Text(
+                                          'A network error has occurred'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop('Ok');
+                                          },
+                                          child: const Text('Ok',
+                                              style: TextStyle(
+                                                  color: kColorDarkBlue)),
+                                        ),
+                                      ],
+                                      backgroundColor: kColorXLightBlue,
+                                    ),
+                                  );
+                                } else if (res != 'done') {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Login Error'),
+                                      content: const Text(
+                                          'An unknown error has occurred'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop('Ok');
+                                          },
+                                          child: const Text('Ok',
+                                              style: TextStyle(
+                                                  color: kColorDarkBlue)),
+                                        ),
+                                      ],
+                                      backgroundColor: kColorXLightBlue,
+                                    ),
+                                  );
+                                }
                               }
+                              setState(() {
+                                showSpinner = false;
+                              });
                             }
-                            setState(() {
-                              showSpinner = false;
-                            });
                           },
                     minWidth: 200.0,
                     height: 42.0,
