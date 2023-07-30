@@ -1,16 +1,21 @@
+import 'dart:async';
+
 import 'package:badgr/screens/scout_screens/scout_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:badgr/classes/person.dart';
 
 class FirebaseRunner {
-  static final auth = FirebaseAuth.instance;
-  static var user;
+  static final FirebaseAuth auth = FirebaseAuth.instance;
+  static final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  static var userCred;
+  static late Person user;
 
   static Future<String> loginUserWithEandP(
       String email, String pass, BuildContext c) async {
     try {
-      user =
+      userCred =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -25,9 +30,9 @@ class FirebaseRunner {
         return 'error';
       }
     }
-    if (user == null) return 'null';
+    if (userCred == null) return 'null';
 
-    _sendUser(c);
+    sendUser(c, email);
 
     return 'done';
   }
@@ -35,7 +40,7 @@ class FirebaseRunner {
   static Future<String> registerUserWithEandP(String email, String pass,
       String fn, String ln, int t, int a, BuildContext c) async {
     try {
-      user = await auth.createUserWithEmailAndPassword(
+      userCred = await auth.createUserWithEmailAndPassword(
           email: email, password: pass);
     } on FirebaseAuthException catch (e) {
       print(e);
@@ -47,20 +52,39 @@ class FirebaseRunner {
         return 'error';
       }
     }
-    if (user == null) return 'null';
+    if (userCred == null) return 'null';
 
-    //todo other firestore stuff
+    CollectionReference user_info =
+        FirebaseFirestore.instance.collection('user_info');
+    String res = '';
 
-    _sendUser(c);
+    user_info
+        .add({'age': a, 'email': email, 'fname': fn, 'lname': ln, 'troop': t})
+        .then((value) => res = 'done')
+        .catchError((error) {
+          return 'addInfoError';
+        });
+
+    sendUser(c, email);
     return 'done';
   }
 
-  static dynamic getUser() {
-    if (user == null) throw const FormatException('An error occurred');
-    return user;
-  }
+  static void sendUser(BuildContext c, String email) async {
+    //todo pull user info
+    CollectionReference user_info =
+        FirebaseFirestore.instance.collection('user_info');
 
-  static void _sendUser(BuildContext c) {
+    var info = await user_info.where('email', isEqualTo: email).get();
+    var data = info.docs.toList()[0];
+
+    user = Person(
+        fName: data['fname'],
+        lName: data['lname'],
+        e: email,
+        a: data['age'],
+        troop: data['troop'],
+        cred: userCred);
+    print(user.age);
     //todo check age and send to respective screen
     Navigator.pushNamed(c, ScoutScreen.screenID);
   }

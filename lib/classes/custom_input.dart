@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:badgr/classes/constants.dart';
 
 class CustomFormField extends StatelessWidget {
-  const CustomFormField({
+  CustomFormField({
     Key? key,
     required this.hintText,
     this.errorText,
@@ -14,7 +14,7 @@ class CustomFormField extends StatelessWidget {
   }) : super(key: key);
   final String hintText;
   final String? errorText;
-  final bool obscureText;
+  late final bool obscureText;
   final List<TextInputFormatter>? inputFormatters;
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;

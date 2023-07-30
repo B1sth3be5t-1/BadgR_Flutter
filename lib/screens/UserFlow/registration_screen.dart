@@ -234,6 +234,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 backgroundColor: kColorXLightBlue,
                               ),
                             );
+                          } else if (res == 'addInfoError') {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Registration Error'),
+                                content: const Text(
+                                    'An error has occurred with user info, but your account was added. Change your info in settings as soon as possible'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop('Ok');
+                                    },
+                                    child: const Text('Ok',
+                                        style:
+                                            TextStyle(color: kColorDarkBlue)),
+                                  ),
+                                ],
+                                backgroundColor: kColorXLightBlue,
+                              ),
+                            ).then((value) {
+                              if (value == null) return;
+
+                              if (value == 'Ok') {
+                                FirebaseRunner.sendUser(context, email);
+                              }
+                            });
                           } else {
                             showDialog<String>(
                               context: context,
