@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/screens/UserFlow/registration_screen.dart';
 import 'package:badgr/screens/UserFlow/welcome_screen.dart';
@@ -315,6 +313,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                   title: const Text('Password Reset Error'),
                                   content: const Text(
                                       'Please enter an email address'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop('Ok');
+                                      },
+                                      child: const Text('Ok',
+                                          style:
+                                              TextStyle(color: kColorDarkBlue)),
+                                    ),
+                                  ],
+                                  backgroundColor: kColorXLightBlue,
+                                ),
+                              );
+                            } else if (res == 'user-not-found') {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Password Reset Error'),
+                                  content: const Text(
+                                      'That email does not exist in the system'),
                                   actions: [
                                     TextButton(
                                       onPressed: () {

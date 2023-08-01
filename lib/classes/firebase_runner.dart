@@ -66,7 +66,7 @@ class FirebaseRunner {
         });
 
     sendUser(c, email);
-    return 'done';
+    return res;
   }
 
   static void sendUser(BuildContext c, String email) async {
@@ -85,7 +85,9 @@ class FirebaseRunner {
         troop: data['troop'],
         cred: userCred);
     print(user.age);
-    //todo check age and send to respective screen
+    if (user.age >= 18) {
+      //todo send to SM screen
+    }
     Navigator.pushNamed(c, ScoutScreen.screenID);
   }
 
@@ -93,13 +95,24 @@ class FirebaseRunner {
     try {
       await auth.sendPasswordResetEmail(email: em);
     } on FirebaseAuthException catch (e) {
+      print(e);
       if (e.message!.contains('network-request-failed')) {
         return 'network';
       } else if (e.message!.contains('missing-email')) {
         return 'enterEmail';
+      } else if (e.message!.contains('user-not-found')) {
+        return 'user-not-found';
       }
       return 'error';
     }
     return 'done';
+  }
+
+  static void logoutUser() {
+    auth.signOut();
+  }
+
+  static Person getUser() {
+    return user;
   }
 }
