@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:badgr/screens/scout_screens/scout_home.dart';
+import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -114,5 +114,17 @@ class FirebaseRunner {
 
   static Person getUser() {
     return user;
+  }
+
+  static void getBadgesByUser(String email) async {
+    //todo rename collection
+    final badges = await firestore.collection('userBadges').where('email', isEqualTo: email).get();
+    for (var badge in badges.docs) {
+      print(badge.data());
+    }
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> badgesByUserStream(String email) {
+    return firestore.collection('userBadges').where('email', isEqualTo: email).snapshots();
   }
 }

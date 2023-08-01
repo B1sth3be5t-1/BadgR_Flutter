@@ -1,5 +1,5 @@
 import 'package:badgr/classes/constants.dart';
-import 'package:badgr/screens/scout_screens/scout_home.dart';
+import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/screens/UserFlow/welcome_screen.dart';
 import 'package:badgr/screens/UserFlow/login_screen.dart';
