@@ -1,9 +1,11 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
+import 'package:badgr/screens/scout_screens/scout_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
+
 import '../../classes/person.dart';
 
 class ScoutScreen extends StatefulWidget {
@@ -16,19 +18,25 @@ class ScoutScreen extends StatefulWidget {
 }
 
 class _scoutMainState extends State<ScoutScreen> {
-  late Person user;
+  Person user = FirebaseRunner.getUser();
   bool showSpinner = false;
   int currentPageIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    user = FirebaseRunner.getUser();
-  }
+  final name = FirebaseRunner.getUser().name;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kColorXLightPink,
+        leading: Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(
+            'Welcome $name!',
+            style: TextStyle(color: kColorDarkBlue, fontSize: 30),
+          ),
+        ),
+        leadingWidth: 400,
+      ),
       backgroundColor: Colors.white54,
       body: SizedBox.expand(
         child: ModalProgressHUD(
@@ -51,11 +59,7 @@ class _scoutMainState extends State<ScoutScreen> {
                 child: const Text('Page 2'),
               ),
               const ScoutMyBadges(),
-              Container(
-                color: Colors.purple,
-                alignment: Alignment.center,
-                child: const Text('Page 4'),
-              ),
+              const ScoutSettings(),
             ],
           ),
         ),
@@ -64,7 +68,7 @@ class _scoutMainState extends State<ScoutScreen> {
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
-            });
+          });
         },
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[

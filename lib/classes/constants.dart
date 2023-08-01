@@ -33,6 +33,7 @@ const kBorderEnabled = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(32.0)),
 );
 
+const kColorXDarkBlue = Color.fromRGBO(12, 52, 69, 1);
 const kColorDarkBlue = Color.fromRGBO(25, 105, 138, 1);
 const kColorBlue = Color.fromRGBO(78, 211, 212, 1);
 const kColorLightBlue = Color.fromRGBO(153, 255, 255, 1);
