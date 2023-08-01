@@ -6,7 +6,9 @@ class Person {
   String e;
   int a;
   int troop;
-  UserCredential cred;
+  UserCredential? cred;
+
+  static final Person def = Person(fName: 'Test', lName: 'Person', e: 'test1@gmail.com', a: 19, troop: 39, cred: null);
 
   String get name {
     return fName + ' ' + lName;
@@ -32,4 +34,8 @@ class Person {
     required this.troop,
     required this.cred,
   });
+
+  factory Person.create() {
+    return def;
+  }
 }

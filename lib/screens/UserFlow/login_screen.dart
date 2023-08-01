@@ -210,7 +210,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                               setState(() {
                                 showSpinner = false;
+                                pass = '';
                               });
+
                             }
                           },
                     minWidth: 200.0,

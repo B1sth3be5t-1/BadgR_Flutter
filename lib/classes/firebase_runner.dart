@@ -10,7 +10,7 @@ class FirebaseRunner {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static var userCred;
-  static late Person user;
+  static Person user = Person.create();
 
   static Future<String> loginUserWithEandP(
       String email, String pass, BuildContext c) async {
@@ -70,7 +70,6 @@ class FirebaseRunner {
   }
 
   static void sendUser(BuildContext c, String email) async {
-    //todo pull user info
     CollectionReference user_info =
         FirebaseFirestore.instance.collection('user_info');
 
@@ -84,7 +83,6 @@ class FirebaseRunner {
         a: data['age'],
         troop: data['troop'],
         cred: userCred);
-    print(user.age);
     if (user.age >= 18) {
       //todo send to SM screen
     }
@@ -95,7 +93,6 @@ class FirebaseRunner {
     try {
       await auth.sendPasswordResetEmail(email: em);
     } on FirebaseAuthException catch (e) {
-      print(e);
       if (e.message!.contains('network-request-failed')) {
         return 'network';
       } else if (e.message!.contains('missing-email')) {
@@ -116,13 +113,6 @@ class FirebaseRunner {
     return user;
   }
 
-  static void getBadgesByUser(String email) async {
-    //todo rename collection
-    final badges = await firestore.collection('userBadges').where('email', isEqualTo: email).get();
-    for (var badge in badges.docs) {
-      print(badge.data());
-    }
-  }
 
   static Stream<QuerySnapshot<Map<String, dynamic>>> badgesByUserStream(String email) {
     return firestore.collection('userBadges').where('email', isEqualTo: email).snapshots();

@@ -15,16 +15,10 @@ class ScoutMyBadges extends StatefulWidget {
 }
 
 class _ScoutMyBadges extends State<ScoutMyBadges> {
-  late Person user;
+  final Person user = Person.create(); //todo FirebaseRunner.getUser();
   bool showSpinner = false;
-  late final stream;
+  final stream = FirebaseRunner.badgesByUserStream(FirebaseRunner.getUser().email);
 
-  @override
-  void initState() {
-    super.initState();
-    user = FirebaseRunner.getUser();
-    stream = FirebaseRunner.badgesByUserStream(user.email);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +31,79 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: stream,
               builder: (context, snapshot) {
-                List<Text> wid = [];
-                if (snapshot.hasData) {
+                List<_BadgeView> wid = [];
+                if (!snapshot.hasData) {
+                  return Text('nodata');
+                } else if (snapshot.data?.docs.length == 0) {
+                  //todo no badges
+                }
+                print(snapshot.data?.docs.length);
                   final badges = snapshot.data?.docs;
                   for (var badge in badges!) {
                     final info = badge.data();
-                    wid.add(Text(info['badgeName']));
+                    //todo get completed reqs and all reqs, auto populate
+                    //todo badgeID, reqText, reqNum
+                    wid.add(_BadgeView(reqText: info['badgeName'], badgeID: 0, reqNum: 0,));
                   }
-                }
-                return Column(children: wid,);
+
+                return ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  children: wid,);
               },
             ),
           ),
-          ),
         ),
-      );
+      ),
+    );
 
+  }
+}
+
+class _BadgeViewState extends State<_BadgeView> {
+
+  _BadgeViewState({required this.badgeID, required this.reqNum, required this.reqText});
+
+  bool checked = false;
+  final String reqText;
+  final int badgeID;
+  final int reqNum;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Material(
+        color: kColorLightPink,
+        child: Row(children: [
+          Checkbox(
+            value: checked,
+            onChanged: (val) {
+              setState(() {
+                checked = val!;
+              });
+            },
+            activeColor: kColorBlue,
+            checkColor: Colors.white,
+            hoverColor: kColorBlue,
+            splashRadius: 15,
+          ),
+          Text(reqText)
+        ],),
+      ),
+    );
+  }
+}
+
+class _BadgeView extends StatefulWidget {
+  const _BadgeView({required this.badgeID, required this.reqNum, required this.reqText});
+
+  final String reqText;
+  final int badgeID;
+  final int reqNum;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _BadgeViewState(reqNum: reqNum, reqText: reqText, badgeID: badgeID);
   }
 
 }

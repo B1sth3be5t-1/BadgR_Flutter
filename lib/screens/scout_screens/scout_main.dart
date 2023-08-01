@@ -3,6 +3,7 @@ import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
 import '../../classes/person.dart';
 
 class ScoutScreen extends StatefulWidget {
@@ -18,19 +19,11 @@ class _scoutMainState extends State<ScoutScreen> {
   late Person user;
   bool showSpinner = false;
   int currentPageIndex = 0;
-  late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
     user = FirebaseRunner.getUser();
-    _pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 
   @override
@@ -40,11 +33,12 @@ class _scoutMainState extends State<ScoutScreen> {
       body: SizedBox.expand(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
-          child: PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() => currentPageIndex = index);
-            },
+          child: FadeIndexedStack(
+            beginOpacity: 0.5,
+            endOpacity: 1.0,
+            curve: Curves.easeIn,
+            duration: const Duration(milliseconds: 400),
+            index: currentPageIndex,
             children: <Widget>[
               Container(
                 color: Colors.red,
@@ -56,7 +50,7 @@ class _scoutMainState extends State<ScoutScreen> {
                 alignment: Alignment.center,
                 child: const Text('Page 2'),
               ),
-              ScoutMyBadges(),
+              const ScoutMyBadges(),
               Container(
                 color: Colors.purple,
                 alignment: Alignment.center,
@@ -70,9 +64,7 @@ class _scoutMainState extends State<ScoutScreen> {
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
-            _pageController.animateToPage(index,
-                duration: Duration(milliseconds: 350), curve: Curves.easeOut);
-          });
+            });
         },
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
