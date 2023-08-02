@@ -37,7 +37,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
                 } else if (snapshot.data?.docs.length == 0) {
                   //todo no badges
                 }
-                print(snapshot.data?.docs.length);
+
                 final badges = snapshot.data?.docs;
                 for (var badge in badges!) {
                   final info = badge.data();

@@ -16,7 +16,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
       backgroundColor: Colors.white,
       body: SizedBox.expand(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
           child: ListView(
             children: [settingsField(func: () {}, text: 'Account')],
           ),

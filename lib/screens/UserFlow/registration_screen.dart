@@ -178,6 +178,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (res != 'done') {
                             throw const FormatException('hey');
                           }
+                          print(res);
                         } on FormatException {
                           if (res == 'emailInUse') {
                             showDialog<String>(
@@ -261,6 +262,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                             });
                           } else {
+                            print(res);
                             showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(

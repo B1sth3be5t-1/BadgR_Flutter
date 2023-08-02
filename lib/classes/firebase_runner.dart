@@ -9,7 +9,7 @@ import 'package:badgr/classes/person.dart';
 class FirebaseRunner {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  static var userCred;
+  static late UserCredential? userCred;
   static Person user = Person.create();
 
   static Future<String> loginUserWithEandP(
@@ -56,10 +56,11 @@ class FirebaseRunner {
 
     CollectionReference user_info =
         FirebaseFirestore.instance.collection('user_info');
-    String res = '';
+    String res = 'done';
 
     user_info
-        .add({'age': a, 'email': email, 'fname': fn, 'lname': ln, 'troop': t})
+        .doc('${userCred?.user!.uid}')
+        .set({'age': a, 'email': email, 'fname': fn, 'lname': ln, 'troop': t})
         .then((value) => res = 'done')
         .catchError((error) {
           return 'addInfoError';
@@ -113,8 +114,11 @@ class FirebaseRunner {
     return user;
   }
 
-
-  static Stream<QuerySnapshot<Map<String, dynamic>>> badgesByUserStream(String email) {
-    return firestore.collection('userBadges').where('email', isEqualTo: email).snapshots();
+  static Stream<QuerySnapshot<Map<String, dynamic>>> badgesByUserStream(
+      String email) {
+    return firestore
+        .collection('userBadges')
+        .where('email', isEqualTo: email)
+        .snapshots();
   }
 }
