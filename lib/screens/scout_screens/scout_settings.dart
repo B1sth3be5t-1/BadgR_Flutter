@@ -1,6 +1,6 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/classes/widgets/settings.dart';
 
 class ScoutSettings extends StatefulWidget {
   const ScoutSettings({super.key});
@@ -10,39 +10,21 @@ class ScoutSettings extends StatefulWidget {
 }
 
 class _ScoutSettingsState extends State<ScoutSettings> {
+  static Map<String, Function()> map = Map();
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SizedBox.expand(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-          child: ListView(
-            children: [settingsField(func: () {}, text: 'Account')],
-          ),
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    map['Account'] = () {};
+    map['Personalization'] = () {};
   }
-}
-
-class settingsField extends StatelessWidget {
-  settingsField({required this.func, required this.text});
-
-  final Function() func;
-  final String text;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: kColorLightPink,
-      child: TextButton(
-        onPressed: func,
-        child: Text(
-          text,
-          style: TextStyle(color: kColorXDarkBlue),
-        ),
-      ),
+    return SettingsWidget(
+      BGcolor: kColorLightPink,
+      textColor: kColorXDarkBlue,
+      map: map,
     );
   }
 }

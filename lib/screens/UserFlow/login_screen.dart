@@ -4,7 +4,7 @@ import 'package:badgr/screens/UserFlow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/classes/custom_input.dart';
+import 'package:badgr/classes/Widgets/custom_input.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screenID = 'LoginScreen';
@@ -212,7 +212,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 showSpinner = false;
                                 pass = '';
                               });
-
                             }
                           },
                     minWidth: 200.0,
