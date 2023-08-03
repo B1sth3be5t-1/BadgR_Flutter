@@ -1,4 +1,7 @@
+import 'package:accordion/controllers.dart';
+import 'package:badgr/classes/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:accordion/accordion.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget(
@@ -6,7 +9,7 @@ class SettingsWidget extends StatefulWidget {
 
   final Color BGcolor;
   final Color textColor;
-  final Map<String, Function()> map;
+  final Map<String, Widget> map;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -20,9 +23,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
   final Color BGcolor;
   final Color textColor;
-  final Map<String, Function()> map;
-  late final List<settingsField> list;
+  final Map<String, Widget> map;
+  late final List<AccordionSection> list;
 
+  final _headerStyle = const TextStyle(
+      color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
   @override
   void initState() {
     super.initState();
@@ -36,7 +41,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       body: SizedBox.expand(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          child: ListView(
+          child: Accordion(
+            maxOpenSections: 1,
+            headerBackgroundColorOpened: kColorLightBlue,
+            headerBackgroundColor: kColorLightPink,
+            contentBorderColor: kColorLightBlue,
+            scaleWhenAnimating: true,
+            openAndCloseAnimation: true,
+            headerPadding:
+                const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+            sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+            sectionClosingHapticFeedback: SectionHapticFeedback.light,
             children: list,
           ),
         ),
@@ -44,51 +59,16 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     );
   }
 
-  List<settingsField> getList() {
-    List<settingsField> lis = [];
-
+  List<AccordionSection> getList() {
+    List<AccordionSection> lis = [];
     for (var entry in map.entries) {
-      lis.add(settingsField(
-        func: entry.value,
-        text: entry.key,
-        BGcolor: BGcolor,
-        textColor: textColor,
-      ));
-    }
-
-    return lis;
-  }
-}
-
-class settingsField extends StatelessWidget {
-  settingsField(
-      {required this.func,
-      required this.text,
-      required this.BGcolor,
-      required this.textColor});
-
-  final Function() func;
-  final String text;
-  final Color BGcolor;
-  final Color textColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Material(
-        color: BGcolor,
-        child: Padding(
-          padding: EdgeInsets.all(5),
-          child: TextButton(
-            onPressed: func,
-            child: Text(
-              text,
-              style: TextStyle(color: textColor),
-            ),
+      lis.add(AccordionSection(
+          header: Text(
+            entry.key,
+            style: _headerStyle,
           ),
-        ),
-      ),
-    );
+          content: entry.value));
+    }
+    return lis;
   }
 }

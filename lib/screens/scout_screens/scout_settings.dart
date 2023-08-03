@@ -4,19 +4,20 @@ import 'package:badgr/classes/widgets/settings.dart';
 
 class ScoutSettings extends StatefulWidget {
   const ScoutSettings({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _ScoutSettingsState createState() => _ScoutSettingsState();
 }
 
 class _ScoutSettingsState extends State<ScoutSettings> {
-  static Map<String, Function()> map = Map();
+  static Map<String, Widget> map = Map();
 
   @override
   void initState() {
     super.initState();
-    map['Account'] = () {};
-    map['Personalization'] = () {};
+    map['Account'] = Text('Hello');
+    map['Personalization'] = Text('There');
   }
 
   @override
