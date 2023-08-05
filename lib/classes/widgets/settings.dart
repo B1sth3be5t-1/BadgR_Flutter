@@ -5,29 +5,38 @@ import 'package:accordion/accordion.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget(
-      {required this.BGcolor, required this.textColor, required this.map});
+      {required this.BGcolor,
+      required this.textColor,
+      required this.map,
+      required this.headerStyle});
 
   final Color BGcolor;
   final Color textColor;
   final Map<String, Widget> map;
+  final TextStyle headerStyle;
 
   @override
   // ignore: library_private_types_in_public_api
-  _SettingsWidgetState createState() =>
-      _SettingsWidgetState(BGcolor: BGcolor, textColor: textColor, map: map);
+  _SettingsWidgetState createState() => _SettingsWidgetState(
+      BGcolor: BGcolor,
+      textColor: textColor,
+      map: map,
+      headerStyle: headerStyle);
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
   _SettingsWidgetState(
-      {required this.BGcolor, required this.textColor, required this.map});
+      {required this.BGcolor,
+      required this.textColor,
+      required this.map,
+      required this.headerStyle});
 
   final Color BGcolor;
   final Color textColor;
   final Map<String, Widget> map;
   late final List<AccordionSection> list;
+  final TextStyle headerStyle;
 
-  final _headerStyle = const TextStyle(
-      color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
   @override
   void initState() {
     super.initState();
@@ -40,7 +49,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       backgroundColor: Colors.white,
       body: SizedBox.expand(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
           child: Accordion(
             maxOpenSections: 1,
             headerBackgroundColorOpened: kColorLightBlue,
@@ -65,7 +74,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       lis.add(AccordionSection(
           header: Text(
             entry.key,
-            style: _headerStyle,
+            style: headerStyle,
           ),
           content: entry.value));
     }

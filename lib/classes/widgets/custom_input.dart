@@ -8,6 +8,7 @@ class CustomFormField extends StatelessWidget {
     required this.hintText,
     this.errorText,
     required this.obscureText,
+    this.controller,
     this.inputFormatters,
     this.onChanged,
     this.validator,
@@ -18,11 +19,14 @@ class CustomFormField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: controller,
         inputFormatters: inputFormatters,
         validator: validator,
         onChanged: onChanged,
