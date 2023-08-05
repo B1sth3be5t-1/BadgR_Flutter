@@ -140,7 +140,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
               direction: Axis.horizontal,
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Material(
                     color: kColorDarkBlue,
                     borderRadius: const BorderRadius.all(Radius.circular(30.0)),
@@ -154,6 +154,11 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(
+                    width: 5,
                   ),
                 ),
                 Expanded(
@@ -177,7 +182,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

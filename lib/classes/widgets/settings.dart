@@ -2,6 +2,7 @@ import 'package:accordion/controllers.dart';
 import 'package:badgr/classes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
+import 'package:badgr/classes/widgets/custom_header.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget(
@@ -49,19 +50,24 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       backgroundColor: Colors.white,
       body: SizedBox.expand(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-          child: Accordion(
-            maxOpenSections: 1,
-            headerBackgroundColorOpened: kColorLightBlue,
-            headerBackgroundColor: kColorLightPink,
-            contentBorderColor: kColorLightBlue,
-            scaleWhenAnimating: true,
-            openAndCloseAnimation: true,
-            headerPadding:
-                const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-            sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
-            sectionClosingHapticFeedback: SectionHapticFeedback.light,
-            children: list,
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+          child: Column(
+            children: [
+              CustomHeader('Settings', kColorDarkBlue),
+              Accordion(
+                maxOpenSections: 1,
+                headerBackgroundColorOpened: kColorLightBlue,
+                headerBackgroundColor: kColorLightPink,
+                contentBorderColor: kColorLightBlue,
+                scaleWhenAnimating: true,
+                openAndCloseAnimation: true,
+                headerPadding:
+                    const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+                sectionClosingHapticFeedback: SectionHapticFeedback.light,
+                children: list,
+              ),
+            ],
           ),
         ),
       ),

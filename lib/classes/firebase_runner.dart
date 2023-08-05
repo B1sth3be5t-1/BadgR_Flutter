@@ -121,4 +121,17 @@ class FirebaseRunner {
         .where('email', isEqualTo: email)
         .snapshots();
   }
+
+  static Future<List<String>> getSearchResults() async {
+    List<String> lis = [];
+
+    CollectionReference badges =
+        FirebaseFirestore.instance.collection('user_info');
+
+    //var info = await badges.where('badgeName', : email).get();
+
+    // todo https://stackoverflow.com/questions/54482517/how-to-merge-multiple-collections-with-firebase
+
+    return lis;
+  }
 }
