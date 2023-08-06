@@ -1,5 +1,6 @@
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/constants.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/settings.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
@@ -36,6 +37,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
         headerBackgroundColorOpened: kColorLightBlue,
         children: [
           AccordionSection(
+            isOpen: true,
             header: Text(
               'Edit first name',
               style: _headerStyle,
@@ -148,7 +150,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                     borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                     elevation: 5.0,
                     child: TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           Map<String, String> m = Map();
                           if (_controller1.text != '')
@@ -159,11 +161,40 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                             m['age'] = _controller3.text;
                           if (_controller4.text != '')
                             m['troop'] = _controller4.text;
-                          try {
-                            FirebaseRunner.updateAccount(m);
-                          } catch (e) {
-                            print(e);
+                          if (!m.isEmpty) {
+                            try {
+                              String res =
+                                  await FirebaseRunner.updateAccount(m);
+                              if (res == 'Error') throw Exception('Error!');
+                              showDiag(
+                                  'Update Success',
+                                  'Your updates have been successful',
+                                  context,
+                                  ['Ok'],
+                                  kColorXLightBlue,
+                                  kColorDarkBlue);
+                            } on Exception {
+                              showDiag(
+                                  'Update Failure',
+                                  'Your updates have failed',
+                                  context,
+                                  ['Ok'],
+                                  kColorXLightBlue,
+                                  kColorDarkBlue);
+                            }
+                          } else {
+                            showDiag(
+                                'Update Failure',
+                                'Please enter at least one value',
+                                context,
+                                ['Ok'],
+                                kColorXLightBlue,
+                                kColorDarkBlue);
                           }
+                          _controller1.clear();
+                          _controller2.clear();
+                          _controller3.clear();
+                          _controller4.clear();
                         }
                       },
                       child: Text(
