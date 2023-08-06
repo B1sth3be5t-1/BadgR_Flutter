@@ -6,10 +6,13 @@ import 'package:badgr/screens/UserFlow/login_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/Widgets/custom_input.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String screenID = 'RegisterScreen';
+
   const RegistrationScreen({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _RegistrationScreenState createState() => _RegistrationScreenState();
@@ -181,80 +184,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           print(res);
                         } on FormatException {
                           if (res == 'emailInUse') {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Registration Error'),
-                                content:
-                                    const Text('This email is already in use'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop('Log');
-                                    },
-                                    child: const Text('Login',
-                                        style:
-                                            TextStyle(color: kColorDarkBlue)),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop('ok');
-                                    },
-                                    child: const Text('OK',
-                                        style:
-                                            TextStyle(color: kColorDarkBlue)),
-                                  ),
-                                ],
-                                backgroundColor: kColorXLightBlue,
-                              ),
-                            ).then((value) {
+                            showDiag(
+                                    'Registration Error',
+                                    'This email is already in use',
+                                    context,
+                                    ['Login', 'Ok'],
+                                    kColorXLightBlue,
+                                    kColorDarkBlue)
+                                .then((value) {
                               if (value == null) return;
 
-                              if (value == 'Log') {
+                              if (value == 'Login') {
                                 Navigator.pushNamed(
                                     context, LoginScreen.screenID);
                               }
                             });
                           } else if (res == 'network') {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Registration Error'),
-                                content:
-                                    const Text('A network error has occurred'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop('Ok');
-                                    },
-                                    child: const Text('Ok',
-                                        style:
-                                            TextStyle(color: kColorDarkBlue)),
-                                  ),
-                                ],
-                                backgroundColor: kColorXLightBlue,
-                              ),
-                            );
+                            showDiag(
+                                'Registration Error',
+                                'A network error has occurred',
+                                context,
+                                ['Ok'],
+                                kColorXLightBlue,
+                                kColorDarkBlue);
                           } else if (res == 'addInfoError') {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Registration Error'),
-                                content: const Text(
-                                    'An error has occurred with user info, but your account was added. Change your info in settings as soon as possible'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop('Ok');
-                                    },
-                                    child: const Text('Ok',
-                                        style:
-                                            TextStyle(color: kColorDarkBlue)),
-                                  ),
-                                ],
-                                backgroundColor: kColorXLightBlue,
-                              ),
-                            ).then((value) {
+                            showDiag(
+                                    'Registration Error',
+                                    'An error has occurred with user info, but your account was added. \nChange your info in settings as soon as possible',
+                                    context,
+                                    ['Ok'],
+                                    kColorXLightBlue,
+                                    kColorDarkBlue)
+                                .then((value) {
                               if (value == null) return;
 
                               if (value == 'Ok') {
@@ -262,26 +223,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                             });
                           } else {
-                            print(res);
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Registration Error'),
-                                content:
-                                    const Text('An unknown error has occurred'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop('Ok');
-                                    },
-                                    child: const Text('Ok',
-                                        style:
-                                            TextStyle(color: kColorDarkBlue)),
-                                  ),
-                                ],
-                                backgroundColor: kColorXLightBlue,
-                              ),
-                            );
+                            showDiag(
+                                'Registration Error',
+                                'An unknown error has occurred',
+                                context,
+                                ['Ok'],
+                                kColorXLightBlue,
+                                kColorDarkBlue);
                           }
                         }
                         setState(() {

@@ -9,7 +9,7 @@ Widget CustomHeader(String s, Color c) {
       ),
       SizedBox(
         child: Padding(
-          padding: EdgeInsets.only(top: 7, bottom: 5),
+          padding: EdgeInsets.only(top: 7, bottom: 5, right: 50, left: 50),
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: c,

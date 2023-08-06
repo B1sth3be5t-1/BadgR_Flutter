@@ -48,27 +48,25 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SizedBox.expand(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-          child: Column(
-            children: [
-              CustomHeader('Settings', kColorDarkBlue),
-              Accordion(
-                maxOpenSections: 1,
-                headerBackgroundColorOpened: kColorLightBlue,
-                headerBackgroundColor: kColorLightPink,
-                contentBorderColor: kColorLightBlue,
-                scaleWhenAnimating: true,
-                openAndCloseAnimation: true,
-                headerPadding:
-                    const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-                sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
-                sectionClosingHapticFeedback: SectionHapticFeedback.light,
-                children: list,
-              ),
-            ],
-          ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+        child: ListView(
+          children: [
+            CustomHeader('Settings', kColorDarkBlue),
+            Accordion(
+              maxOpenSections: 1,
+              headerBackgroundColorOpened: kColorLightBlue,
+              headerBackgroundColor: kColorLightPink,
+              contentBorderColor: kColorLightBlue,
+              scaleWhenAnimating: true,
+              openAndCloseAnimation: true,
+              headerPadding:
+                  const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+              sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+              sectionClosingHapticFeedback: SectionHapticFeedback.light,
+              children: list,
+            ),
+          ],
         ),
       ),
     );

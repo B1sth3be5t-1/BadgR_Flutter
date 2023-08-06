@@ -134,4 +134,30 @@ class FirebaseRunner {
 
     return lis;
   }
+
+  static void updateAccount(Map<String, String> m) async {
+    for (var entry in m.entries) {
+      print(entry.key + ' ' + entry.value);
+      if (entry.key == 'fname')
+        FirebaseFirestore.instance
+            .collection('user_info')
+            .doc('${userCred?.user!.uid}')
+            .update({'fname': entry.value});
+      if (entry.key == 'lname')
+        FirebaseFirestore.instance
+            .collection('user_info')
+            .doc('${userCred?.user!.uid}')
+            .update({'lname': entry.value});
+      if (entry.key == 'age')
+        FirebaseFirestore.instance
+            .collection('user_info')
+            .doc('${userCred?.user!.uid}')
+            .update({'age': int.parse(entry.value)});
+      if (entry.key == 'troop')
+        FirebaseFirestore.instance
+            .collection('user_info')
+            .doc('${userCred?.user!.uid}')
+            .update({'troop': int.parse(entry.value)});
+    }
+  }
 }

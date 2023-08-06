@@ -5,6 +5,8 @@ import 'package:badgr/classes/widgets/settings.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:flutter/services.dart';
 
+import '../../classes/firebase_runner.dart';
+
 class ScoutSettings extends StatefulWidget {
   const ScoutSettings({super.key});
 
@@ -147,7 +149,22 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                     elevation: 5.0,
                     child: TextButton(
                       onPressed: () {
-                        _formKey.currentState!.validate();
+                        if (_formKey.currentState!.validate()) {
+                          Map<String, String> m = Map();
+                          if (_controller1.text != '')
+                            m['fname'] = _controller1.text;
+                          if (_controller2.text != '')
+                            m['lname'] = _controller2.text;
+                          if (_controller3.text != '')
+                            m['age'] = _controller3.text;
+                          if (_controller4.text != '')
+                            m['troop'] = _controller4.text;
+                          try {
+                            FirebaseRunner.updateAccount(m);
+                          } catch (e) {
+                            print(e);
+                          }
+                        }
                       },
                       child: Text(
                         'Submit',
