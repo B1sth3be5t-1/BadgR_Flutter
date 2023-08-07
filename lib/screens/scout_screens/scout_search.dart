@@ -1,5 +1,7 @@
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/constants.dart';
+import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:badgr/classes/firebase_runner.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_header.dart';
@@ -16,6 +18,11 @@ class _ScoutSearchState extends State<ScoutSearch> {
   final _headerStyle = const TextStyle(
       color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
   final TextEditingController _tec = TextEditingController();
+  Widget Acc = Text(
+    'Enter a search word',
+    style: const TextStyle(
+        color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(10),
-        child: Column(
+        child: ListView(
           children: [
             CustomHeader('Search', kColorDarkBlue),
             Flex(
@@ -44,7 +51,9 @@ class _ScoutSearchState extends State<ScoutSearch> {
                     elevation: 5.0,
                     child: TextButton(
                       onPressed: () {
-                        buildAccordion();
+                        setState(() {
+                          Acc = buildAccordion();
+                        });
                       },
                       child: Text(
                         'Search',
@@ -55,18 +64,32 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 ),
               ],
             ),
-            buildAccordion(),
+            Acc
           ],
         ),
       ),
     );
   }
 
-  Accordion buildAccordion() {
+  Widget buildAccordion() {
     List<AccordionSection> lis = [];
-    //todo get db stuff here
+    List<MeritBadge> mbs = FirebaseRunner.getSearchResults(_tec.text);
 
-    Accordion acc = Accordion(
+    for (MeritBadge mb in mbs) {
+      AccordionSection AS = AccordionSection(
+        header: Text(
+          mb.name,
+          style: _headerStyle,
+        ),
+        content: Text(
+          'TODO',
+        ),
+      );
+
+      lis.add(AS);
+    }
+
+    Widget acc = Accordion(
       maxOpenSections: 20,
       headerBackgroundColor: kColorLightPink,
       headerBackgroundColorOpened: kColorLightBlue,

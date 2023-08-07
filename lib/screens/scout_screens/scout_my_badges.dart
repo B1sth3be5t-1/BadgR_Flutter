@@ -67,7 +67,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
           },
           backgroundColor: kColorBlue,
           child: Icon(
-            Icons.add,
+            Icons.send,
             color: kColorDarkBlue,
           ),
           hoverColor: kColorLightBlue,

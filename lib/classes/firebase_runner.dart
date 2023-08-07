@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:badgr/classes/person.dart';
 
+import 'merit_badge_info.dart';
+
 class FirebaseRunner {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -18,6 +20,7 @@ class FirebaseRunner {
       userCred =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
     } on FirebaseAuthException catch (e) {
+      print('Login Error ----------------------------');
       print(e.message);
       if (e.message!.contains('wrong-password') ||
           e.message!.contains('user-not-found')) {
@@ -30,6 +33,7 @@ class FirebaseRunner {
         return 'error';
       }
     }
+
     if (userCred == null) return 'null';
 
     sendUser(c, email);
@@ -43,6 +47,7 @@ class FirebaseRunner {
       userCred = await auth.createUserWithEmailAndPassword(
           email: email, password: pass);
     } on FirebaseAuthException catch (e) {
+      print('Reg Error ----------------------------');
       print(e);
       if (e.message!.contains('email-already-in-use')) {
         return 'emailInUse';
@@ -71,12 +76,14 @@ class FirebaseRunner {
   }
 
   static void sendUser(BuildContext c, String email) async {
-    CollectionReference user_info =
-        FirebaseFirestore.instance.collection('user_info');
+    var user_info = firestore.collection('user_info').doc(userCred?.user?.uid);
 
-    var info = await user_info.where('email', isEqualTo: email).get();
-    var data = info.docs.toList()[0];
+    var info = await user_info.get();
+    var data = info.data();
 
+    if (data!.isEmpty) return;
+
+    print('past send');
     user = Person(
         fName: data['fname'],
         lName: data['lname'],
@@ -122,17 +129,29 @@ class FirebaseRunner {
         .snapshots();
   }
 
-  static Future<List<String>> getSearchResults() async {
-    List<String> lis = [];
-
-    CollectionReference badges =
-        FirebaseFirestore.instance.collection('user_info');
-
-    //var info = await badges.where('badgeName', : email).get();
-
-    // todo https://stackoverflow.com/questions/54482517/how-to-merge-multiple-collections-with-firebase
+  static List<MeritBadge> getSearchResults(String s) {
+    List<MeritBadge> lis = [];
+    for (var e in AllMeritBadges.allBadges.entries) {
+      lis.add(e.value);
+    }
 
     return lis;
+  }
+
+  static Future<Map<int, MeritBadge>> setAllBadges() async {
+    Map<int, MeritBadge> mbs = Map();
+
+    CollectionReference badges =
+        FirebaseFirestore.instance.collection('badge_table');
+
+    var info = await badges.get();
+    var data = info.docs.toList();
+    for (var d in data) {
+      mbs[d['id']] = MeritBadge(
+          d['id'], d['name'], d['isEagleRequired'], d['numReqs'], Map());
+    }
+
+    return mbs;
   }
 
   static Future<String> updateAccount(Map<String, String> m) async {
@@ -163,5 +182,19 @@ class FirebaseRunner {
       return 'Error';
     }
     return 'Done';
+  }
+
+  static void inputBadges(List<MeritBadge> b) {
+    CollectionReference badges =
+        FirebaseFirestore.instance.collection('badge_table');
+
+    for (MeritBadge mb in b) {
+      badges.doc('${mb.name}').set({
+        'id': mb.id,
+        'name': mb.name,
+        'numReqs': mb.numReqs,
+        'isEagleRequired': mb.isEagleRequired
+      });
+    }
   }
 }

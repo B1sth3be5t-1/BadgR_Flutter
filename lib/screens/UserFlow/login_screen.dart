@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               String res = '';
                               try {
                                 res = await FirebaseRunner.loginUserWithEandP(
-                                    email, pass, context);
+                                    email.toLowerCase(), pass, context);
                                 if (res != 'done')
                                   throw FormatException('heyyyyy!');
                               } on FormatException {
@@ -234,85 +234,37 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (res != 'done') throw FormatException('HEY!');
                           } on FormatException {
                             if (res == 'network') {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Password Reset Error'),
-                                  content: const Text(
-                                      'A network error has occurred'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop('Ok');
-                                      },
-                                      child: const Text('Ok',
-                                          style:
-                                              TextStyle(color: kColorDarkBlue)),
-                                    ),
-                                  ],
-                                  backgroundColor: kColorXLightBlue,
-                                ),
-                              );
+                              showDiag(
+                                  'Password Reset Error',
+                                  'A network error has occurred',
+                                  context,
+                                  ['Ok'],
+                                  kColorXLightBlue,
+                                  kColorDarkBlue);
                             } else if (res == 'enterEmail') {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Password Reset Error'),
-                                  content: const Text(
-                                      'Please enter an email address'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop('Ok');
-                                      },
-                                      child: const Text('Ok',
-                                          style:
-                                              TextStyle(color: kColorDarkBlue)),
-                                    ),
-                                  ],
-                                  backgroundColor: kColorXLightBlue,
-                                ),
-                              );
+                              showDiag(
+                                  'Password Reset Error',
+                                  'Please enter an email address',
+                                  context,
+                                  ['Ok'],
+                                  kColorXLightBlue,
+                                  kColorDarkBlue);
                             } else if (res == 'user-not-found') {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Password Reset Error'),
-                                  content: const Text(
-                                      'That email does not exist in the system'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop('Ok');
-                                      },
-                                      child: const Text('Ok',
-                                          style:
-                                              TextStyle(color: kColorDarkBlue)),
-                                    ),
-                                  ],
-                                  backgroundColor: kColorXLightBlue,
-                                ),
-                              );
+                              showDiag(
+                                  'Password Reset Error',
+                                  'Email does not exist',
+                                  context,
+                                  ['Ok'],
+                                  kColorXLightBlue,
+                                  kColorDarkBlue);
                             } else if (res != 'done') {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Password Reset Error'),
-                                  content: const Text(
-                                      'An unknown error has occurred'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop('Ok');
-                                      },
-                                      child: const Text('Ok',
-                                          style:
-                                              TextStyle(color: kColorDarkBlue)),
-                                    ),
-                                  ],
-                                  backgroundColor: kColorXLightBlue,
-                                ),
-                              );
+                              showDiag(
+                                  'Password Reset Error',
+                                  'An unknown error occurred',
+                                  context,
+                                  ['Ok'],
+                                  kColorXLightBlue,
+                                  kColorDarkBlue);
                             }
                           }
                         }

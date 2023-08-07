@@ -5,6 +5,7 @@ import 'package:badgr/screens/scout_screens/scout_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
 import 'package:badgr/screens/scout_screens/scout_search.dart';
+import 'package:badgr/classes/merit_badge_info.dart';
 
 import '../../classes/person.dart';
 
@@ -22,6 +23,12 @@ class _scoutMainState extends State<ScoutScreen> {
   bool showSpinner = false;
   int currentPageIndex = 0;
   final name = FirebaseRunner.getUser().name;
+
+  @override
+  void initState() {
+    super.initState();
+    AllMeritBadges().setAllBadges();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -162,6 +162,19 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                           if (_controller4.text != '')
                             m['troop'] = _controller4.text;
                           if (!m.isEmpty) {
+                            bool cont = true;
+                            await showDiag(
+                                    'Confirm Submit',
+                                    'Are you sure you want to submit information?',
+                                    context,
+                                    ['Cancel', 'Ok'],
+                                    kColorXLightBlue,
+                                    kColorDarkBlue)
+                                .then((value) {
+                              if (value == null) return;
+                              if (value == 'Cancel') cont = false;
+                            });
+                            if (!cont) return;
                             try {
                               String res =
                                   await FirebaseRunner.updateAccount(m);
@@ -205,11 +218,13 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                   ),
                 ),
                 Expanded(
+                  flex: 1,
                   child: SizedBox(
                     width: 5,
                   ),
                 ),
                 Expanded(
+                  flex: 2,
                   child: Material(
                     color: kColorDarkBlue,
                     borderRadius: const BorderRadius.all(Radius.circular(30.0)),
