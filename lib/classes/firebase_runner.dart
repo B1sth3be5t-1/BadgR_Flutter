@@ -132,9 +132,9 @@ class FirebaseRunner {
   static List<MeritBadge> getSearchResults(String s) {
     List<MeritBadge> lis = [];
     for (var e in AllMeritBadges.allBadges.entries) {
-      lis.add(e.value);
+      if (e.value.name.toLowerCase().contains(s.toLowerCase()))
+        lis.add(e.value);
     }
-
     return lis;
   }
 

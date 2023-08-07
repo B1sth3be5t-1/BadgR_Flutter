@@ -5,6 +5,7 @@ import 'package:badgr/classes/firebase_runner.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_header.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ScoutSearch extends StatefulWidget {
   const ScoutSearch({super.key});
@@ -23,68 +24,104 @@ class _ScoutSearchState extends State<ScoutSearch> {
     style: const TextStyle(
         color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
   );
+  bool showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            CustomHeader('Search', kColorDarkBlue),
-            Flex(
-              direction: Axis.horizontal,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: CustomFormField(
-                      controller: _tec,
-                      hintText: 'Enter a full or partial badge name',
-                      obscureText: false),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Material(
-                    color: kColorDarkBlue,
-                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                    elevation: 5.0,
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          Acc = buildAccordion();
-                        });
-                      },
-                      child: Text(
-                        'Search',
-                        style: TextStyle(color: Colors.white),
+    return ModalProgressHUD(
+      inAsyncCall: showSpinner,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: EdgeInsets.all(10),
+          child: ListView(
+            children: [
+              CustomHeader('Search', kColorDarkBlue),
+              Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: CustomFormField(
+                        controller: _tec,
+                        hintText: 'Enter a full or partial badge name',
+                        obscureText: false),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Material(
+                      color: kColorDarkBlue,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(30.0)),
+                      elevation: 5.0,
+                      child: TextButton(
+                        onPressed: () async {
+                          setState(() {
+                            showSpinner = true;
+                          });
+                          Widget a = await buildAccordion();
+                          setState(() {
+                            Acc = a;
+                          });
+                        },
+                        child: Text(
+                          'Search',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Acc
-          ],
+                ],
+              ),
+              Acc
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget buildAccordion() {
+  Future<Widget> buildAccordion() async {
+    setState(() {
+      showSpinner = true;
+    });
     List<AccordionSection> lis = [];
     List<MeritBadge> mbs = FirebaseRunner.getSearchResults(_tec.text);
 
     for (MeritBadge mb in mbs) {
       AccordionSection AS = AccordionSection(
-        header: Text(
-          mb.name,
-          style: _headerStyle,
-        ),
-        content: Text(
-          'TODO',
-        ),
-      );
+          header: Text(
+            mb.name,
+            style: _headerStyle,
+          ),
+          content: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Text('Todo'), //Image.asset('images/badges/${mb.name}'),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: 10,
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  mb.name,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(),
+                ),
+              ),
+              Expanded(
+                child: Checkbox(
+                  value: false,
+                  onChanged: (val) {}, //todo a lot of stuff here
+                ),
+              ),
+            ],
+          ));
 
       lis.add(AS);
     }
@@ -96,6 +133,9 @@ class _ScoutSearchState extends State<ScoutSearch> {
       children: lis,
     );
 
+    setState(() {
+      showSpinner = false;
+    });
     return acc;
   }
 }
