@@ -47,7 +47,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             },
             content: CustomFormField(
               controller: _controller1,
-              hintText: 'First Name',
+              hintText: 'Enter First Name',
+              labelText: 'First Name',
               obscureText: false,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
@@ -71,7 +72,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             },
             content: CustomFormField(
               controller: _controller2,
-              hintText: 'Last Name',
+              hintText: 'Enter Last Name',
+              labelText: 'Last Name',
               obscureText: false,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
@@ -95,7 +97,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             },
             content: CustomFormField(
               controller: _controller3,
-              hintText: 'Age',
+              hintText: 'Enter Age',
+              labelText: 'Age',
               obscureText: false,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
@@ -120,7 +123,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             },
             content: CustomFormField(
               controller: _controller4,
-              hintText: 'Troop',
+              labelText: 'Troop',
+              hintText: 'Enter Troop num',
               obscureText: false,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
@@ -212,7 +216,6 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                       },
                       child: Text(
                         'Submit',
-                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -238,7 +241,6 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                       },
                       child: Text(
                         'Clear',
-                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),

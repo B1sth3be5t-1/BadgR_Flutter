@@ -43,6 +43,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                   Expanded(
                     flex: 5,
                     child: CustomFormField(
+                        labelText: 'Badge Name',
                         controller: _tec,
                         hintText: 'Enter a full or partial badge name',
                         obscureText: false),

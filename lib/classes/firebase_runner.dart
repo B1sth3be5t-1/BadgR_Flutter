@@ -12,7 +12,7 @@ class FirebaseRunner {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static late UserCredential? userCred;
   static Person user = Person.create();
-  static Scout? scout;
+  static Scout? scout = Scout.create();
 
   static Future<String> loginUserWithEandP(
       String email, String pass, BuildContext c) async {
@@ -213,7 +213,7 @@ class FirebaseRunner {
     return 'Done';
   }
 
-  /*static void inputBadges(List<MeritBadge> b) {
+/*static void inputBadges(List<MeritBadge> b) {
     CollectionReference badges =
         FirebaseFirestore.instance.collection('badge_table');
 

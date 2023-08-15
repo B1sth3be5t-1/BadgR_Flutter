@@ -39,7 +39,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -63,7 +62,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Column(
                   children: [
                     CustomFormField(
-                      hintText: 'Email',
+                      labelText: 'Email',
+                      hintText: 'Enter Email',
                       obscureText: false,
                       onChanged: (val) {
                         email = val!;
@@ -75,7 +75,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                     ),
                     CustomFormField(
-                      hintText: 'Password',
+                      labelText: 'Password',
+                      hintText: 'Enter Password',
                       obscureText: true,
                       onChanged: (val) {
                         pass = val!;
@@ -88,7 +89,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                     ),
                     CustomFormField(
-                      hintText: 'First Name',
+                      labelText: 'First Name',
+                      hintText: 'Enter First Name',
                       obscureText: false,
                       onChanged: (val) {
                         fname = val!;
@@ -105,7 +107,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                     ),
                     CustomFormField(
-                      hintText: 'Last Name',
+                      labelText: 'Last Name',
+                      hintText: 'Enter Last Name',
                       obscureText: false,
                       onChanged: (val) {
                         lname = val!;
@@ -117,7 +120,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                     ),
                     CustomFormField(
-                      hintText: 'Age',
+                      labelText: 'Age',
+                      hintText: 'Enter Age',
                       obscureText: false,
                       onChanged: (val) {
                         age = int.parse(val!);
@@ -136,7 +140,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                     ),
                     CustomFormField(
-                      hintText: 'Troop Number',
+                      hintText: 'Enter Troop Number',
+                      labelText: 'Troop',
                       obscureText: false,
                       onChanged: (val) {
                         troop = int.parse(val!);
@@ -165,7 +170,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   color: kColorDarkBlue,
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
-                  child: MaterialButton(
+                  child: TextButton(
                     onPressed: () async {
                       setState(() {
                         clickedBut = true;
@@ -237,8 +242,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         });
                       }
                     },
-                    minWidth: 200.0,
-                    height: 42.0,
                     child: const Text(
                       'Register',
                     ),

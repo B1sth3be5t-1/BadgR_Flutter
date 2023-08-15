@@ -7,6 +7,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ScoutMyBadges extends StatefulWidget {
   const ScoutMyBadges({super.key});
+
   static String screenID = 'scoutMainScreen';
 
   @override
@@ -23,7 +24,6 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white54,
       body: SizedBox.expand(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,

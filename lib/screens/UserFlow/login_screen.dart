@@ -4,8 +4,9 @@ import 'package:badgr/screens/UserFlow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/classes/Widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
+
+import '../../classes/Widgets/custom_input.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screenID = 'LoginScreen';
@@ -19,7 +20,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool showSpinner = false;
-  bool buttonActive = false;
   String email = '';
   String pass = '';
 
@@ -29,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -53,18 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     CustomFormField(
-                      hintText: 'Email',
+                      hintText: 'Enter your email',
+                      labelText: 'Email',
                       obscureText: false,
                       onChanged: (val) {
                         email = val!;
-                        if (email.isValidEmail)
-                          setState(() {
-                            buttonActive = true;
-                          });
-                        else
-                          setState(() {
-                            buttonActive = false;
-                          });
                       },
                       validator: (val) {
                         if (!val!.isValidEmail) return 'Enter valid email';
@@ -73,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     CustomFormField(
                       controller: _tex,
-                      hintText: 'Password',
+                      labelText: 'Password',
+                      hintText: 'Enter your password',
                       obscureText: true,
                       onChanged: (val) {
                         pass = val!;
@@ -95,73 +88,68 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: kColorDarkBlue,
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
-                  child: MaterialButton(
-                    onPressed: !buttonActive
-                        ? null
-                        : () async {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() {
-                                showSpinner = true;
-                              });
-                              String res = '';
-                              try {
-                                res = await FirebaseRunner.loginUserWithEandP(
-                                    email.toLowerCase(), pass, context);
-                                if (res != 'done')
-                                  throw FormatException('heyyyyy!');
-                              } on FormatException {
-                                if (res == 'wrongEmailPass') {
-                                  showDiag(
-                                          'Login Error',
-                                          'The username or password is incorrect',
-                                          context,
-                                          ['Register', 'Ok'],
-                                          kColorXLightBlue,
-                                          kColorDarkBlue)
-                                      .then((value) {
-                                    if (value == null) return;
+                  child: TextButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          showSpinner = true;
+                        });
+                        String res = '';
+                        try {
+                          res = await FirebaseRunner.loginUserWithEandP(
+                              email.toLowerCase(), pass, context);
+                          if (res != 'done') throw FormatException('heyyyyy!');
+                        } on FormatException {
+                          if (res == 'wrongEmailPass') {
+                            showDiag(
+                                    'Login Error',
+                                    'The username or password is incorrect',
+                                    context,
+                                    ['Register', 'Ok'],
+                                    kColorXLightBlue,
+                                    kColorDarkBlue)
+                                .then((value) {
+                              if (value == null) return;
 
-                                    if (value == 'Register') {
-                                      Navigator.pushNamed(
-                                          context, RegistrationScreen.screenID);
-                                    }
-                                  });
-                                } else if (res == 'tooMany') {
-                                  showDiag(
-                                      'Login Error',
-                                      'You have entered too many incorrect password attempts. \nPlease try again later',
-                                      context,
-                                      ['Ok'],
-                                      kColorXLightBlue,
-                                      kColorDarkBlue);
-                                } else if (res == 'network') {
-                                  showDiag(
-                                      'Login Error',
-                                      'A network error has occurred',
-                                      context,
-                                      ['Ok'],
-                                      kColorXLightBlue,
-                                      kColorDarkBlue);
-                                } else if (res != 'done') {
-                                  showDiag(
-                                      'Login Error',
-                                      'An unknown error has occurred',
-                                      context,
-                                      ['Ok'],
-                                      kColorXLightBlue,
-                                      kColorDarkBlue);
-                                }
+                              if (value == 'Register') {
+                                Navigator.pushNamed(
+                                    context, RegistrationScreen.screenID);
                               }
-                              setState(() {
-                                showSpinner = false;
-                                pass = '';
-                              });
-                            }
-                            _tex.clear();
-                            pass = '';
-                          },
-                    minWidth: 200.0,
-                    height: 42.0,
+                            });
+                          } else if (res == 'tooMany') {
+                            showDiag(
+                                'Login Error',
+                                'You have entered too many incorrect password attempts. \nPlease try again later',
+                                context,
+                                ['Ok'],
+                                kColorXLightBlue,
+                                kColorDarkBlue);
+                          } else if (res == 'network') {
+                            showDiag(
+                                'Login Error',
+                                'A network error has occurred',
+                                context,
+                                ['Ok'],
+                                kColorXLightBlue,
+                                kColorDarkBlue);
+                          } else if (res != 'done') {
+                            showDiag(
+                                'Login Error',
+                                'An unknown error has occurred',
+                                context,
+                                ['Ok'],
+                                kColorXLightBlue,
+                                kColorDarkBlue);
+                          }
+                        }
+                        setState(() {
+                          showSpinner = false;
+                          pass = '';
+                        });
+                      }
+                      _tex.clear();
+                      pass = '';
+                    },
                     child: const Text(
                       'Log In',
                     ),
@@ -208,8 +196,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: () {
                                 Navigator.of(context).pop('Cancel');
                               },
-                              child: const Text('Cancel',
-                                  style: TextStyle(color: kColorDarkBlue)),
+                              child: const Text(
+                                'Cancel',
+                              ),
                             ),
                             TextButton(
                               onPressed: () {
@@ -218,8 +207,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 });
                                 Navigator.of(context).pop('Reset');
                               },
-                              child: const Text('Reset',
-                                  style: TextStyle(color: kColorDarkBlue)),
+                              child: const Text(
+                                'Reset',
+                              ),
                             ),
                           ],
                           backgroundColor: kColorXLightBlue,
@@ -275,7 +265,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Text(
                       'Forgot Password?',
-                      style: TextStyle(color: kColorDarkBlue),
                     ),
                   )
                 ],

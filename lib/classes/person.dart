@@ -59,4 +59,16 @@ class Scout extends Person {
       required super.cred,
       required super.e,
       required super.a});
+
+  static final Scout def = Scout(
+      fName: 'Test',
+      lName: 'Person',
+      e: 'test1@gmail.com',
+      a: 19,
+      troop: 39,
+      cred: null);
+
+  factory Scout.create() {
+    return def;
+  }
 }

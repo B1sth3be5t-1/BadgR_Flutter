@@ -11,6 +11,7 @@ import '../../classes/person.dart';
 
 class ScoutScreen extends StatefulWidget {
   const ScoutScreen({super.key});
+
   static String screenID = 'scoutMainScreen';
 
   @override
@@ -44,7 +45,6 @@ class _scoutMainState extends State<ScoutScreen> {
         ),
         leadingWidth: 400,
       ),
-      backgroundColor: Colors.white54,
       body: SizedBox.expand(
         child: FadeIndexedStack(
           beginOpacity: 0.5,
@@ -92,7 +92,8 @@ class _scoutMainState extends State<ScoutScreen> {
             label: 'Settings',
           ),
         ],
-        indicatorColor: kColorDarkPink,
+        indicatorColor: kColorBlue,
+        backgroundColor: kColorLightPink,
       ),
     );
   }

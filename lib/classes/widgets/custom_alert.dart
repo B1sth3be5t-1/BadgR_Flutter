@@ -9,7 +9,6 @@ Future<String?> showDiag(String title, String mess, BuildContext c,
       onPressed: () => Navigator.of(c).pop(s),
       child: Text(
         s,
-        style: TextStyle(color: textColor),
       ),
     ));
   }
