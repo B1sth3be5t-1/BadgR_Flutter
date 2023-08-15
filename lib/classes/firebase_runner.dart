@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +12,7 @@ class FirebaseRunner {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static late UserCredential? userCred;
   static Person user = Person.create();
+  static Scout? scout;
 
   static Future<String> loginUserWithEandP(
       String email, String pass, BuildContext c) async {
@@ -94,7 +94,36 @@ class FirebaseRunner {
     if (user.age >= 18) {
       //todo send to SM screen
     }
+    scout = Scout(
+        fName: user.fName,
+        lName: user.lName,
+        a: user.a,
+        e: user.e,
+        troop: user.troop,
+        cred: user.cred);
+
+    List responses = [];
+    try {
+      responses =
+          await Future.wait([getCompleted(scout), getInProgressReqs(scout)]);
+    } catch (e) {
+      //todo error
+    }
+    scout?.completed = responses[0];
+    scout?.inProgressReqs = responses[1];
     Navigator.pushNamed(c, ScoutScreen.screenID);
+  }
+
+  static Future<List<MeritBadge>> getCompleted(Scout? s) async {
+    List<MeritBadge> badges = [];
+
+    return badges;
+  }
+
+  static Future<Map<String, Map<int, bool>>> getInProgressReqs(Scout? s) async {
+    Map<String, Map<int, bool>> reqs = Map();
+
+    return reqs;
   }
 
   static Future<String> resetPass(String em) async {
@@ -117,8 +146,8 @@ class FirebaseRunner {
     auth.signOut();
   }
 
-  static Person getUser() {
-    return user;
+  static Scout? getScout() {
+    return scout;
   }
 
   static Stream<QuerySnapshot<Map<String, dynamic>>> badgesByUserStream(
@@ -184,7 +213,7 @@ class FirebaseRunner {
     return 'Done';
   }
 
-  static void inputBadges(List<MeritBadge> b) {
+  /*static void inputBadges(List<MeritBadge> b) {
     CollectionReference badges =
         FirebaseFirestore.instance.collection('badge_table');
 
@@ -196,5 +225,5 @@ class FirebaseRunner {
         'isEagleRequired': mb.isEagleRequired
       });
     }
-  }
+  } */
 }

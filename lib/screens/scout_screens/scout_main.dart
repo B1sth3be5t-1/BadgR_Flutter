@@ -19,10 +19,10 @@ class ScoutScreen extends StatefulWidget {
 }
 
 class _scoutMainState extends State<ScoutScreen> {
-  Person user = FirebaseRunner.getUser();
+  Scout? user = FirebaseRunner.getScout();
   bool showSpinner = false;
   int currentPageIndex = 0;
-  final name = FirebaseRunner.getUser().name;
+  final name = FirebaseRunner.getScout()!.name;
 
   @override
   void initState() {

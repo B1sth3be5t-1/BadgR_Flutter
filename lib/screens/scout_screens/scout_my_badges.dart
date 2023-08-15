@@ -18,7 +18,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
   final Person user = Person.create(); //todo FirebaseRunner.getUser();
   bool showSpinner = false;
   final stream =
-      FirebaseRunner.badgesByUserStream(FirebaseRunner.getUser().email);
+      FirebaseRunner.badgesByUserStream(FirebaseRunner.getScout()!.email);
 
   @override
   Widget build(BuildContext context) {

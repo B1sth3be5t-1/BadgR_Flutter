@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'merit_badge_info.dart';
+
 class Person {
   String fName;
   String lName;
@@ -8,7 +10,13 @@ class Person {
   int troop;
   UserCredential? cred;
 
-  static final Person def = Person(fName: 'Test', lName: 'Person', e: 'test1@gmail.com', a: 19, troop: 39, cred: null);
+  static final Person def = Person(
+      fName: 'Test',
+      lName: 'Person',
+      e: 'test1@gmail.com',
+      a: 19,
+      troop: 39,
+      cred: null);
 
   String get name {
     return fName + ' ' + lName;
@@ -38,4 +46,17 @@ class Person {
   factory Person.create() {
     return def;
   }
+}
+
+class Scout extends Person {
+  Map<String, Map<int, bool>> inProgressReqs = Map();
+  List<MeritBadge> completed = [];
+
+  Scout(
+      {required super.fName,
+      required super.lName,
+      required super.troop,
+      required super.cred,
+      required super.e,
+      required super.a});
 }

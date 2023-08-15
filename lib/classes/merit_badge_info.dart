@@ -1,6 +1,6 @@
 import 'firebase_runner.dart';
 
-void enterData() {
+/* void enterData() {
   List<MeritBadge> badges = [
     MeritBadge(2, 'American Cultures', false, 5, Map()),
     MeritBadge(3, 'American Heritage', false, 6, Map()),
@@ -138,7 +138,7 @@ void enterData() {
   ];
 
   FirebaseRunner.inputBadges(badges);
-}
+} */
 
 class MeritBadge {
   final String name;
