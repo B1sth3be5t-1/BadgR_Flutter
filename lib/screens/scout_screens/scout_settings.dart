@@ -1,4 +1,5 @@
 import 'package:accordion/accordion.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:flutter/services.dart';
 
 import '../../classes/firebase_runner.dart';
+import 'package:badgr/classes/themes.dart';
 
 class ScoutSettings extends StatefulWidget {
   const ScoutSettings({super.key});
@@ -18,8 +20,10 @@ class ScoutSettings extends StatefulWidget {
 
 class _ScoutSettingsState extends State<ScoutSettings> {
   static Map<String, Widget> map = Map();
-  final _headerStyle = const TextStyle(
-      color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
+  final _headerStyle = TextStyle(
+      color: isLight() ? kColorDarkBlue : kColorDarkBlue,
+      fontSize: 15,
+      fontWeight: FontWeight.bold);
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller1 = new TextEditingController();
   final TextEditingController _controller2 = new TextEditingController();
@@ -29,12 +33,44 @@ class _ScoutSettingsState extends State<ScoutSettings> {
   @override
   void initState() {
     super.initState();
-    map['Account'] = Form(
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('rebuilt');
+    map['Account'] = setForm();
+    map['Personalization'] = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: TextButton(
+        onPressed: () {
+          switchTheme(context);
+          setState(() {
+            map['Account'] = setForm();
+          });
+        },
+        child: Text('Switch app appearance'),
+      ),
+    );
+
+    return SettingsWidget(
+      map: map,
+      headerStyle: _headerStyle,
+    );
+  }
+
+  Form setForm() {
+    bool l = isLight();
+    print(l);
+    return Form(
       key: _formKey,
       child: Accordion(
         maxOpenSections: 5,
-        headerBackgroundColor: kColorLightPink,
-        headerBackgroundColorOpened: kColorLightBlue,
+        headerBackgroundColor: l ? kColorLightPink : kColorPink,
+        headerBackgroundColorOpened: l ? kColorBlue : kColorLightPink,
+        contentBackgroundColor: l
+            ? kThemeLight.scaffoldBackgroundColor
+            : kThemeDark.scaffoldBackgroundColor,
+        contentBorderColor: l ? kColorDarkBlue : kColorLightPink,
         children: [
           AccordionSection(
             isOpen: true,
@@ -149,74 +185,68 @@ class _ScoutSettingsState extends State<ScoutSettings> {
               children: [
                 Expanded(
                   flex: 4,
-                  child: Material(
-                    color: kColorDarkBlue,
-                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                    elevation: 5.0,
-                    child: TextButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          Map<String, String> m = Map();
-                          if (_controller1.text != '')
-                            m['fname'] = _controller1.text;
-                          if (_controller2.text != '')
-                            m['lname'] = _controller2.text;
-                          if (_controller3.text != '')
-                            m['age'] = _controller3.text;
-                          if (_controller4.text != '')
-                            m['troop'] = _controller4.text;
-                          if (!m.isEmpty) {
-                            bool cont = true;
-                            await showDiag(
-                                    'Confirm Submit',
-                                    'Are you sure you want to submit information?',
-                                    context,
-                                    ['Cancel', 'Ok'],
-                                    kColorXLightBlue,
-                                    kColorDarkBlue)
-                                .then((value) {
-                              if (value == null) return;
-                              if (value == 'Cancel') cont = false;
-                            });
-                            if (!cont) return;
-                            try {
-                              String res =
-                                  await FirebaseRunner.updateAccount(m);
-                              if (res == 'Error') throw Exception('Error!');
-                              showDiag(
-                                  'Update Success',
-                                  'Your updates have been successful',
+                  child: TextButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        Map<String, String> m = Map();
+                        if (_controller1.text != '')
+                          m['fname'] = _controller1.text;
+                        if (_controller2.text != '')
+                          m['lname'] = _controller2.text;
+                        if (_controller3.text != '')
+                          m['age'] = _controller3.text;
+                        if (_controller4.text != '')
+                          m['troop'] = _controller4.text;
+                        if (!m.isEmpty) {
+                          bool cont = true;
+                          await showDiag(
+                                  'Confirm Submit',
+                                  'Are you sure you want to submit information?',
                                   context,
-                                  ['Ok'],
+                                  ['Cancel', 'Ok'],
                                   kColorXLightBlue,
-                                  kColorDarkBlue);
-                            } on Exception {
-                              showDiag(
-                                  'Update Failure',
-                                  'Your updates have failed',
-                                  context,
-                                  ['Ok'],
-                                  kColorXLightBlue,
-                                  kColorDarkBlue);
-                            }
-                          } else {
+                                  kColorDarkBlue)
+                              .then((value) {
+                            if (value == null) return;
+                            if (value == 'Cancel') cont = false;
+                          });
+                          if (!cont) return;
+                          try {
+                            String res = await FirebaseRunner.updateAccount(m);
+                            if (res == 'Error') throw Exception('Error!');
+                            showDiag(
+                                'Update Success',
+                                'Your updates have been successful',
+                                context,
+                                ['Ok'],
+                                kColorXLightBlue,
+                                kColorDarkBlue);
+                          } on Exception {
                             showDiag(
                                 'Update Failure',
-                                'Please enter at least one value',
+                                'Your updates have failed',
                                 context,
                                 ['Ok'],
                                 kColorXLightBlue,
                                 kColorDarkBlue);
                           }
-                          _controller1.clear();
-                          _controller2.clear();
-                          _controller3.clear();
-                          _controller4.clear();
+                        } else {
+                          showDiag(
+                              'Update Failure',
+                              'Please enter at least one value',
+                              context,
+                              ['Ok'],
+                              kColorXLightBlue,
+                              kColorDarkBlue);
                         }
-                      },
-                      child: Text(
-                        'Submit',
-                      ),
+                        _controller1.clear();
+                        _controller2.clear();
+                        _controller3.clear();
+                        _controller4.clear();
+                      }
+                    },
+                    child: Text(
+                      'Submit',
                     ),
                   ),
                 ),
@@ -229,7 +259,6 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                 Expanded(
                   flex: 2,
                   child: Material(
-                    color: kColorDarkBlue,
                     borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                     elevation: 5.0,
                     child: TextButton(
@@ -250,17 +279,6 @@ class _ScoutSettingsState extends State<ScoutSettings> {
           ),
         ],
       ),
-    );
-    map['Personalization'] = Text('Work in Progress');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SettingsWidget(
-      BGcolor: kColorLightPink,
-      textColor: kColorXDarkBlue,
-      map: map,
-      headerStyle: _headerStyle,
     );
   }
 }

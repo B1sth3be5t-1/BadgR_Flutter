@@ -83,7 +83,6 @@ class FirebaseRunner {
 
     if (data!.isEmpty) return;
 
-    print('past send');
     user = Person(
         fName: data['fname'],
         lName: data['lname'],
@@ -108,6 +107,7 @@ class FirebaseRunner {
           await Future.wait([getCompleted(scout), getInProgressReqs(scout)]);
     } catch (e) {
       //todo error
+      print(e);
     }
     scout?.completed = responses[0];
     scout?.inProgressReqs = responses[1];
@@ -150,9 +150,8 @@ class FirebaseRunner {
     return scout;
   }
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> badgesByUserStream(
-      String email) {
-    return firestore
+  static Stream<QuerySnapshot> badgesByUserStream(String email) {
+    return FirebaseFirestore.instance
         .collection('userBadges')
         .where('email', isEqualTo: email)
         .snapshots();
@@ -170,7 +169,7 @@ class FirebaseRunner {
   static Future<Map<int, MeritBadge>> setAllBadges() async {
     Map<int, MeritBadge> mbs = Map();
 
-    CollectionReference badges =
+    /* CollectionReference badges =
         FirebaseFirestore.instance.collection('badge_table');
 
     var info = await badges.get();
@@ -178,8 +177,11 @@ class FirebaseRunner {
     for (var d in data) {
       mbs[d['id']] = MeritBadge(
           d['id'], d['name'], d['isEagleRequired'], d['numReqs'], Map());
-    }
+    } */ //This is taking up way too many reads. Will keep merit badges in application instead of in database
+    //It would only allow 294 openings of the app before I would run out of reads, not to mention the number of
+    //other read transactions that would occur
 
+    for (MeritBadge mb in badges) mbs[mb.id] = mb;
     return mbs;
   }
 

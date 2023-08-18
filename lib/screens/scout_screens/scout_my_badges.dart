@@ -18,8 +18,6 @@ class ScoutMyBadges extends StatefulWidget {
 class _ScoutMyBadges extends State<ScoutMyBadges> {
   final Person user = Person.create(); //todo FirebaseRunner.getUser();
   bool showSpinner = false;
-  final stream =
-      FirebaseRunner.badgesByUserStream(FirebaseRunner.getScout()!.email);
 
   @override
   Widget build(BuildContext context) {
@@ -28,31 +26,29 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: Center(
-            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: stream,
-              builder: (context, snapshot) {
-                List<_BadgeView> wid = [];
-                if (!snapshot.hasData) {
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseRunner.badgesByUserStream(
+                  FirebaseRunner.getScout()!.email),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData || snapshot.hasError) {
                   return Text('nodata');
                 } else if (snapshot.data?.docs.length == 0) {
                   //todo no badges
                 }
 
-                final badges = snapshot.data?.docs;
-                for (var badge in badges!) {
-                  final info = badge.data();
-                  //todo get completed reqs and all reqs, auto populate
-                  //todo badgeID, reqText, reqNum
-                  wid.add(_BadgeView(
-                      reqText: info['badgeName'],
-                      badgeID: 0,
-                      reqNum: 0,
-                      initState: false));
-                }
-
                 return ListView(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  children: wid,
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                    return _BadgeView(
+                        reqText: data['badgeName'],
+                        badgeID: 0,
+                        reqNum: 0,
+                        initState: false);
+                  }).toList(),
                 );
               },
             ),

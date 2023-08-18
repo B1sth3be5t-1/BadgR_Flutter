@@ -3,37 +3,23 @@ import 'package:badgr/classes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/widgets/custom_header.dart';
+import 'package:badgr/classes/themes.dart';
 
 class SettingsWidget extends StatefulWidget {
-  const SettingsWidget(
-      {required this.BGcolor,
-      required this.textColor,
-      required this.map,
-      required this.headerStyle});
+  const SettingsWidget({required this.map, required this.headerStyle});
 
-  final Color BGcolor;
-  final Color textColor;
   final Map<String, Widget> map;
   final TextStyle headerStyle;
 
   @override
   // ignore: library_private_types_in_public_api
-  _SettingsWidgetState createState() => _SettingsWidgetState(
-      BGcolor: BGcolor,
-      textColor: textColor,
-      map: map,
-      headerStyle: headerStyle);
+  _SettingsWidgetState createState() =>
+      _SettingsWidgetState(map: map, headerStyle: headerStyle);
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
-  _SettingsWidgetState(
-      {required this.BGcolor,
-      required this.textColor,
-      required this.map,
-      required this.headerStyle});
+  _SettingsWidgetState({required this.map, required this.headerStyle});
 
-  final Color BGcolor;
-  final Color textColor;
   final Map<String, Widget> map;
   late final List<AccordionSection> list;
   final TextStyle headerStyle;
@@ -51,12 +37,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
         child: ListView(
           children: [
-            CustomHeader('Settings', kColorDarkBlue),
+            CustomHeader(
+                'Settings', isLight() ? kColorDarkBlue : kColorXLightBlue),
             Accordion(
+              contentBackgroundColor: isLight()
+                  ? kThemeLight.scaffoldBackgroundColor
+                  : kThemeDark.scaffoldBackgroundColor,
               maxOpenSections: 1,
-              headerBackgroundColorOpened: kColorLightBlue,
-              headerBackgroundColor: kColorLightPink,
-              contentBorderColor: kColorLightBlue,
+              headerBackgroundColorOpened:
+                  isLight() ? kColorBlue : kColorLightPink,
+              headerBackgroundColor: isLight() ? kColorLightPink : kColorPink,
+              contentBorderColor: isLight() ? kColorDarkBlue : kColorLightPink,
               scaleWhenAnimating: true,
               openAndCloseAnimation: true,
               headerPadding:

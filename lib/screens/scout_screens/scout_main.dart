@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
 import 'package:badgr/screens/scout_screens/scout_search.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:badgr/classes/themes.dart';
 
 import '../../classes/person.dart';
 
@@ -33,6 +35,7 @@ class _scoutMainState extends State<ScoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AdaptiveTheme.of(context).mode.isLight ? setLight(true) : setLight(false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorXLightPink,

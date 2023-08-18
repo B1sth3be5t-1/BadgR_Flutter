@@ -3,6 +3,7 @@ import 'package:badgr/screens/UserFlow/login_screen.dart';
 import 'package:badgr/screens/UserFlow/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:badgr/classes/themes.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String screenID = 'badgr_screen';
@@ -70,27 +71,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: TextButton(
-                    onPressed: () => AdaptiveTheme.of(context).setDark(),
-                    child: Text('Set Dark theme'),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: TextButton(
-                    onPressed: () => AdaptiveTheme.of(context).setLight(),
-                    child: Text('Set Light theme'),
-                  ),
-                ),
-              ],
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 120),
+              child: TextButton(
+                onPressed: () => switchTheme(context),
+                child: Text('Switch app appearance'),
+              ),
             ),
           ],
         ),

@@ -8,6 +8,7 @@ import 'package:badgr/screens/UserFlow/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'classes/firebase_options.dart';
 import 'classes/constants.dart';
+import 'classes/themes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

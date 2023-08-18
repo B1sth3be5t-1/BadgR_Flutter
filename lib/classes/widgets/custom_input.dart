@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:badgr/classes/constants.dart';
+import 'package:badgr/classes/themes.dart';
 
 class CustomFormField extends StatelessWidget {
   CustomFormField(
@@ -40,19 +41,7 @@ class CustomFormField extends StatelessWidget {
           icon: icon,
           hintText: hintText,
           labelText: labelText,
-          labelStyle: TextStyle(color: Colors.black),
           errorText: errorText,
-          hintStyle: const TextStyle(
-            color: Colors.grey,
-          ),
-          errorStyle: const TextStyle(
-            color: kColorDarkPink,
-          ),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          border: kBorder,
-          enabledBorder: kBorderEnabled,
-          focusedBorder: kBorderFocused,
         ),
         cursorColor: kColorBlue,
         textAlign: TextAlign.center,

@@ -31,7 +31,6 @@ class _ScoutSearchState extends State<ScoutSearch> {
     return ModalProgressHUD(
       inAsyncCall: showSpinner,
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: Padding(
           padding: EdgeInsets.all(10),
           child: ListView(
