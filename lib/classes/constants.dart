@@ -57,6 +57,13 @@ final kThemeLight = ThemeData(
   buttonTheme: ButtonThemeData(
       buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
   progressIndicatorTheme: ProgressIndicatorThemeData(color: kColorDarkBlue),
+  checkboxTheme: CheckboxThemeData(
+    fillColor: MaterialStateProperty.resolveWith((states) => kColorBlue),
+    checkColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+    overlayColor:
+        MaterialStateProperty.resolveWith((states) => kColorLightBlue),
+    splashRadius: 17,
+  ),
 );
 
 //------------------------------------------------------------------------------------------------------------------
@@ -91,8 +98,15 @@ final kThemeDark = ThemeData(
   buttonTheme: ButtonThemeData(
       buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
   progressIndicatorTheme: ProgressIndicatorThemeData(color: kColorDarkBlue),
+  checkboxTheme: CheckboxThemeData(
+    fillColor: MaterialStateProperty.resolveWith((states) => kColorBlue),
+    checkColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+    overlayColor:
+        MaterialStateProperty.resolveWith((states) => kColorLightBlue),
+    splashRadius: 17,
+  ),
 );
-//borderRadius: BorderRadius.circular(30.0),
+
 Color _getColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{
     MaterialState.pressed,
