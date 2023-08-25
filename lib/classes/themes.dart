@@ -14,6 +14,12 @@ void switchTheme(BuildContext c) {
   }
 }
 
+Color getBackgroundColor() {
+  return _isLight
+      ? kThemeLight.scaffoldBackgroundColor
+      : kThemeDark.scaffoldBackgroundColor;
+}
+
 final kThemeLight = ThemeData(
   useMaterial3: true,
   primaryTextTheme: TextTheme(

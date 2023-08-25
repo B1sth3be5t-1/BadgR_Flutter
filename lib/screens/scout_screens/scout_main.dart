@@ -12,20 +12,24 @@ import 'package:badgr/classes/themes.dart';
 import '../../classes/person.dart';
 
 class ScoutScreen extends StatefulWidget {
-  const ScoutScreen({super.key});
+  ScoutScreen({required this.isSettings});
 
+  final bool isSettings;
   static String screenID = 'scoutMainScreen';
 
   @override
   // ignore: library_private_types_in_public_api
-  _scoutMainState createState() => _scoutMainState();
+  _scoutMainState createState() => _scoutMainState(args: isSettings);
 }
 
 class _scoutMainState extends State<ScoutScreen> {
+  _scoutMainState({required this.args});
+
   Scout? user = FirebaseRunner.getScout();
   bool showSpinner = false;
   int currentPageIndex = 0;
   final name = FirebaseRunner.getScout()!.name;
+  final bool args;
 
   @override
   void initState() {
@@ -35,6 +39,7 @@ class _scoutMainState extends State<ScoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (args) currentPageIndex = 3;
     AdaptiveTheme.of(context).mode.isLight ? setLight(true) : setLight(false);
     return Scaffold(
       appBar: AppBar(

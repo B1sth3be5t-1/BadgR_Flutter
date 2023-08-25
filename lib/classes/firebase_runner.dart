@@ -111,7 +111,7 @@ class FirebaseRunner {
     }
     scout?.completed = responses[0];
     scout?.inProgressReqs = responses[1];
-    Navigator.pushNamed(c, ScoutScreen.screenID);
+    Navigator.pushNamed(c, ScoutScreen.screenID, arguments: false);
   }
 
   static Future<List<MeritBadge>> getCompleted(Scout? s) async {

@@ -1,7 +1,7 @@
 import 'package:accordion/accordion.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/settings.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
@@ -29,9 +29,6 @@ class _ScoutSettingsState extends State<ScoutSettings> {
   final TextEditingController _controller2 = new TextEditingController();
   final TextEditingController _controller3 = new TextEditingController();
   final TextEditingController _controller4 = new TextEditingController();
-  final _backgroundColor = isLight()
-      ? kThemeLight.scaffoldBackgroundColor
-      : kThemeDark.scaffoldBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
       child: TextButton(
         onPressed: () {
           switchTheme(context);
-          map['Account'] = setForm();
+          Navigator.pushNamed(context, ScoutScreen.screenID, arguments: true);
         },
         child: Text('Switch app appearance'),
       ),
@@ -62,7 +59,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
         maxOpenSections: 5,
         headerBackgroundColor: l ? kColorLightPink : kColorPink,
         headerBackgroundColorOpened: l ? kColorBlue : kColorLightPink,
-        contentBackgroundColor: _backgroundColor,
+        contentBackgroundColor: getBackgroundColor(),
         contentBorderColor: l ? kColorDarkBlue : kColorLightPink,
         children: [
           AccordionSection(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/widgets/custom_header.dart';
 import 'package:badgr/classes/themes.dart';
-import 'package:badgr/classes/themes.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({required this.map, required this.headerStyle});
@@ -39,11 +38,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         child: ListView(
           children: [
             CustomHeader(
-                'Settings', isLight() ? kColorDarkBlue : kColorXLightBlue),
+                'Settings', isLight() ? kColorDarkBlue : kColorLightBlue),
             Accordion(
-              contentBackgroundColor: isLight()
-                  ? kThemeLight.scaffoldBackgroundColor
-                  : kThemeDark.scaffoldBackgroundColor,
+              contentBackgroundColor: getBackgroundColor(),
               maxOpenSections: 1,
               headerBackgroundColorOpened:
                   isLight() ? kColorBlue : kColorLightPink,
