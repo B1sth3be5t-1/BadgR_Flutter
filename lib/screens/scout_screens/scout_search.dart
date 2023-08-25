@@ -20,7 +20,9 @@ class _ScoutSearchState extends State<ScoutSearch> {
   final _headerStyle = const TextStyle(
       color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
   final TextEditingController _tec = TextEditingController();
-  List<bool> bools = [];
+  final List<bool> bools =
+      List.filled(AllMeritBadges.allBadges.length + 1, false);
+
   Widget Acc = Padding(
     padding: EdgeInsets.only(left: 5),
     child: Text(
@@ -71,7 +73,6 @@ class _ScoutSearchState extends State<ScoutSearch> {
                         },
                         child: Text(
                           'Search',
-                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -80,6 +81,19 @@ class _ScoutSearchState extends State<ScoutSearch> {
               ),
               Acc
             ],
+          ),
+        ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.all(10),
+          child: FloatingActionButton(
+            onPressed: () {
+              //todo update
+            },
+            child: Icon(
+              Icons.send,
+              color: kColorDarkBlue,
+            ),
+            tooltip: 'Submit',
           ),
         ),
       ),
@@ -92,12 +106,10 @@ class _ScoutSearchState extends State<ScoutSearch> {
     });
     List<AccordionSection> lis = [];
     List<MeritBadge> mbs = FirebaseRunner.getSearchResults(_tec.text);
-
-    int count = -1;
+    mbs.sort((a, b) => a.name.compareTo(b.name));
     for (MeritBadge mb in mbs) {
-      count++;
-      bools.add(false);
       //todo get already added badges
+
       AccordionSection AS = AccordionSection(
           header: Text(
             mb.name,
@@ -120,13 +132,27 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 child: Text(
                   mb.name,
                   textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: 10,
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  'This badge is \nalready completed',
+                  textAlign: TextAlign.right,
                   style: TextStyle(),
                 ),
               ),
               Expanded(
                 child: CustomCheckbox(
-                  checked: false,
-                  id: count,
+                  checked: false, //todo lots of stuff
+                  id: mb.id,
+                  completed: false, //todo
                 ),
               ),
             ],

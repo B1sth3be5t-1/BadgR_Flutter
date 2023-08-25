@@ -152,7 +152,7 @@ class MeritBadge {
 }
 
 class AllMeritBadges {
-  static late Map<int, MeritBadge> allBadges;
+  static Map<int, MeritBadge> allBadges = Map();
 
   void setAllBadges() async {
     allBadges = await FirebaseRunner.setAllBadges();

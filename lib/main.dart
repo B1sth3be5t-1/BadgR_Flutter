@@ -41,7 +41,6 @@ class BadgR extends StatelessWidget {
         onGenerateRoute: (settings) {
           // If you push the PassArguments route
           final args = settings.arguments;
-          print('went here');
           if (settings.name == ScoutScreen.screenID) {
             bool arg = false;
             if (args != null) arg = args as bool;

@@ -32,7 +32,6 @@ class _ScoutSettingsState extends State<ScoutSettings> {
 
   @override
   Widget build(BuildContext context) {
-    print('rebuilt');
     map['Account'] = setForm();
     map['Personalization'] = Padding(
       padding: const EdgeInsets.symmetric(vertical: 18.0),

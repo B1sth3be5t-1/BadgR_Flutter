@@ -75,6 +75,10 @@ final kThemeLight = ThemeData(
         MaterialStateProperty.resolveWith((states) => kColorLightBlue),
     splashRadius: 17,
   ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    hoverColor: kColorLightBlue,
+    backgroundColor: kColorBlue,
+  ),
 );
 
 //------------------------------------------------------------------------------------------------------------------
@@ -134,6 +138,10 @@ final kThemeDark = ThemeData(
     overlayColor:
         MaterialStateProperty.resolveWith((states) => kColorLightBlue),
     splashRadius: 17,
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    hoverColor: kColorLightBlue,
+    backgroundColor: kColorBlue,
   ),
 );
 

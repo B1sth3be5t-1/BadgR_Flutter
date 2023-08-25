@@ -27,7 +27,7 @@ class _scoutMainState extends State<ScoutScreen> {
 
   Scout? user = FirebaseRunner.getScout();
   bool showSpinner = false;
-  int currentPageIndex = 0;
+  late int currentPageIndex;
   final name = FirebaseRunner.getScout()!.name;
   final bool args;
 
@@ -35,11 +35,11 @@ class _scoutMainState extends State<ScoutScreen> {
   void initState() {
     super.initState();
     AllMeritBadges().setAllBadges();
+    currentPageIndex = args ? 3 : 0;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (args) currentPageIndex = 3;
     AdaptiveTheme.of(context).mode.isLight ? setLight(true) : setLight(false);
     return Scaffold(
       appBar: AppBar(

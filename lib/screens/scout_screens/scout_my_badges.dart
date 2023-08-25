@@ -61,12 +61,10 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
           onPressed: () {
             //todo update
           },
-          backgroundColor: kColorBlue,
           child: Icon(
             Icons.send,
             color: kColorDarkBlue,
           ),
-          hoverColor: kColorLightBlue,
           tooltip: 'Submit',
         ),
       ),
