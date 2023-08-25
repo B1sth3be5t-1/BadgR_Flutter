@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/widgets/custom_header.dart';
 import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/themes.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({required this.map, required this.headerStyle});

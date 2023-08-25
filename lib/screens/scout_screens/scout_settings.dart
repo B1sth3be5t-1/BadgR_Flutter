@@ -29,24 +29,20 @@ class _ScoutSettingsState extends State<ScoutSettings> {
   final TextEditingController _controller2 = new TextEditingController();
   final TextEditingController _controller3 = new TextEditingController();
   final TextEditingController _controller4 = new TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final _backgroundColor = isLight()
+      ? kThemeLight.scaffoldBackgroundColor
+      : kThemeDark.scaffoldBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
     print('rebuilt');
     map['Account'] = setForm();
     map['Personalization'] = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 18.0),
       child: TextButton(
         onPressed: () {
           switchTheme(context);
-          setState(() {
-            map['Account'] = setForm();
-          });
+          map['Account'] = setForm();
         },
         child: Text('Switch app appearance'),
       ),
@@ -60,16 +56,13 @@ class _ScoutSettingsState extends State<ScoutSettings> {
 
   Form setForm() {
     bool l = isLight();
-    print(l);
     return Form(
       key: _formKey,
       child: Accordion(
         maxOpenSections: 5,
         headerBackgroundColor: l ? kColorLightPink : kColorPink,
         headerBackgroundColorOpened: l ? kColorBlue : kColorLightPink,
-        contentBackgroundColor: l
-            ? kThemeLight.scaffoldBackgroundColor
-            : kThemeDark.scaffoldBackgroundColor,
+        contentBackgroundColor: _backgroundColor,
         contentBorderColor: l ? kColorDarkBlue : kColorLightPink,
         children: [
           AccordionSection(
