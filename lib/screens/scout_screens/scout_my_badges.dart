@@ -120,10 +120,6 @@ class _BadgeViewState extends State<_BadgeView> {
                   checked = val!;
                 });
               },
-              activeColor: kColorBlue,
-              checkColor: Colors.white,
-              hoverColor: kColorBlue,
-              splashRadius: 15,
             ),
             SizedBox(
               width: 10,

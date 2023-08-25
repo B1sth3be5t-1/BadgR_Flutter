@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:badgr/classes/widgets/custom_checkbox.dart';
 
 class ScoutSearch extends StatefulWidget {
   const ScoutSearch({super.key});
@@ -19,10 +20,14 @@ class _ScoutSearchState extends State<ScoutSearch> {
   final _headerStyle = const TextStyle(
       color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
   final TextEditingController _tec = TextEditingController();
-  Widget Acc = Text(
-    'Enter a search word',
-    style: const TextStyle(
-        color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
+  List<bool> bools = [];
+  Widget Acc = Padding(
+    padding: EdgeInsets.only(left: 5),
+    child: Text(
+      'Enter a search word',
+      style: const TextStyle(
+          color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
+    ),
   );
   bool showSpinner = false;
 
@@ -88,7 +93,11 @@ class _ScoutSearchState extends State<ScoutSearch> {
     List<AccordionSection> lis = [];
     List<MeritBadge> mbs = FirebaseRunner.getSearchResults(_tec.text);
 
+    int count = -1;
     for (MeritBadge mb in mbs) {
+      count++;
+      bools.add(false);
+      //todo get already added badges
       AccordionSection AS = AccordionSection(
           header: Text(
             mb.name,
@@ -115,9 +124,9 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 ),
               ),
               Expanded(
-                child: Checkbox(
-                  value: false,
-                  onChanged: (val) {}, //todo a lot of stuff here
+                child: CustomCheckbox(
+                  checked: false,
+                  id: count,
                 ),
               ),
             ],
