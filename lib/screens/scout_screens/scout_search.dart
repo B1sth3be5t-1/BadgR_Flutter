@@ -120,7 +120,8 @@ class _ScoutSearchState extends State<ScoutSearch> {
             children: [
               Expanded(
                 flex: 2,
-                child: Text('Todo'), //Image.asset('images/badges/${mb.name}'),
+                child:
+                    Image.asset('images/badges/${mb.getBadgeIconName()}.png'),
               ),
               Expanded(
                 child: SizedBox(

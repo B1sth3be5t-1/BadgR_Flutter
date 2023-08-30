@@ -1,3 +1,5 @@
+import 'package:badgr/classes/widgets/custom_input.dart';
+
 import 'firebase_runner.dart';
 
 List<MeritBadge> badges = [
@@ -149,6 +151,15 @@ class MeritBadge {
   void setComp(int i, bool b) {
     compReqs[i] = b;
   }
+
+  String getBadgeIconName() {
+    String s = '';
+
+    for (String str in name.split(' ')) {
+      s += str.capitalize();
+    }
+    return s;
+  }
 }
 
 class AllMeritBadges {
@@ -159,3 +170,12 @@ class AllMeritBadges {
     return;
   }
 }
+
+/*
+medicine
+geneology
+entrepreneurship
+communication
+composite materials
+
+ */

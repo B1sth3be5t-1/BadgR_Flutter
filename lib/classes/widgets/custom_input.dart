@@ -67,4 +67,8 @@ extension ExtString on String {
         r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$');
     return passwordRegExp.hasMatch(this);
   }
+
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
 }
