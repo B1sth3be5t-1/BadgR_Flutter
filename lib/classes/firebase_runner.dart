@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -102,29 +101,7 @@ class FirebaseRunner {
         troop: user.troop,
         cred: user.cred);
 
-    List responses = [];
-    try {
-      responses =
-          await Future.wait([getCompleted(scout), getInProgressReqs(scout)]);
-    } catch (e) {
-      //todo error
-      print(e);
-    }
-    scout?.completed = responses[0];
-    scout?.inProgressReqs = responses[1];
     Navigator.pushNamed(c, ScoutScreen.screenID, arguments: false);
-  }
-
-  static Future<List<MeritBadge>> getCompleted(Scout? s) async {
-    List<MeritBadge> badges = [];
-
-    return badges;
-  }
-
-  static Future<Map<String, Map<int, bool>>> getInProgressReqs(Scout? s) async {
-    Map<String, Map<int, bool>> reqs = Map();
-
-    return reqs;
   }
 
   static Future<String> resetPass(String em) async {
@@ -165,6 +142,26 @@ class FirebaseRunner {
         lis.add(e.value);
     }
     return lis;
+  }
+
+  static Future<List<Map<int, bool>>> getInProgressBadges(Scout s) async {
+    Map<int, bool> retAdded = {};
+    Map<int, bool> retCompl = {};
+    try {
+      var badge_info = FirebaseFirestore.instance
+          .collection('user_added_badges')
+          .where('uid', isEqualTo: s.cred?.user!.uid);
+
+      var info = await badge_info.get();
+      var docs = info.docs;
+      for (var d in docs) {
+        Map<String, dynamic> data = d.data();
+        if (data['inProgress']) retAdded[data['badgeID']] = true;
+        if (data['isComplete']) retCompl[data['badgeID']] = true;
+      }
+    } catch (e) {}
+
+    return [retAdded, retCompl];
   }
 
   static Future<Map<int, MeritBadge>> setAllBadges() async {
@@ -216,16 +213,23 @@ class FirebaseRunner {
     return 'Done';
   }
 
-  static Future<String> toggleAddedBadge(int id, bool checked) async {
+  static Future<String> toggleAddedBadge(int id, bool checked, Scout s) async {
     try {
-      FirebaseFirestore.instance
-          .collection('user_added_badges')
-          .doc('${userCred?.user!.uid}::$id')
-          .set({
-        'inProgress': checked,
-        'uid': userCred?.user!.uid,
-        'badgeID': id
-      });
+      if (!checked)
+        FirebaseFirestore.instance
+            .collection('user_added_badges')
+            .doc('${s.cred?.user!.uid}::$id')
+            .delete();
+      else
+        FirebaseFirestore.instance
+            .collection('user_added_badges')
+            .doc('${s.cred?.user!.uid}::$id')
+            .set({
+          'inProgress': checked,
+          'uid': s.cred?.user!.uid,
+          'badgeID': id,
+          'isComplete': false
+        });
     } catch (e) {
       return 'Error';
     }

@@ -1,5 +1,6 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/screens/scout_screens/scout_completed.dart';
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
 import 'package:badgr/screens/scout_screens/scout_settings.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +31,18 @@ class _scoutMainState extends State<ScoutScreen> {
   late int currentPageIndex;
   final name = FirebaseRunner.getScout()!.name;
   final bool args;
+  List<Widget> lis = [];
+
+  ScoutMyBadges smb = const ScoutMyBadges();
+  ScoutCompleted sc = const ScoutCompleted();
+  ScoutSettings ss = const ScoutSettings();
 
   @override
   void initState() {
     super.initState();
     AllMeritBadges.setAllBadges();
     currentPageIndex = args ? 3 : 0;
+    getChildren();
   }
 
   @override
@@ -60,22 +67,14 @@ class _scoutMainState extends State<ScoutScreen> {
           curve: Curves.easeIn,
           duration: const Duration(milliseconds: 400),
           index: currentPageIndex,
-          children: <Widget>[
-            Container(
-              color: Colors.red,
-              alignment: Alignment.center,
-              child: const Text('Page 1'),
-            ),
-            const ScoutSearch(),
-            const ScoutMyBadges(),
-            const ScoutSettings(),
-          ],
+          children: lis,
         ),
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
+            getChildren();
           });
         },
         selectedIndex: currentPageIndex,
@@ -90,9 +89,13 @@ class _scoutMainState extends State<ScoutScreen> {
             label: 'Search Badges',
           ),
           NavigationDestination(
+            icon: Icon(Icons.data_usage),
+            label: 'Saved Badges',
+          ),
+          NavigationDestination(
             selectedIcon: Icon(Icons.check_box),
             icon: Icon(Icons.check_box_outlined),
-            label: 'Saved Badges',
+            label: 'Completed',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.settings),
@@ -104,5 +107,23 @@ class _scoutMainState extends State<ScoutScreen> {
         backgroundColor: kColorLightPink,
       ),
     );
+  }
+
+  void getChildren() {
+    lis.clear();
+
+    lis.add(
+      Container(
+        color: Colors.blueGrey,
+        alignment: Alignment.center,
+        child: const Text('Page 1'),
+      ),
+    );
+
+    lis.add(ScoutSearch());
+    lis.add(smb);
+    lis.add(sc);
+    lis.add(ss);
+    setState(() {});
   }
 }

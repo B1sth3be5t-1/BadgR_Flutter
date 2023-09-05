@@ -34,7 +34,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: ListView(
           children: [
             CustomHeader(

@@ -7,18 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'dart:convert';
 import 'package:accordion/accordion.dart';
+import 'package:accordion/accordion_section.dart';
 
-class ScoutMyBadges extends StatefulWidget {
-  const ScoutMyBadges({super.key});
+class ScoutCompleted extends StatefulWidget {
+  const ScoutCompleted({super.key});
 
   static String screenID = 'scoutMainScreen';
 
   @override
   // ignore: library_private_types_in_public_api
-  _ScoutMyBadges createState() => _ScoutMyBadges();
+  _ScoutCompleted createState() => _ScoutCompleted();
 }
 
-class _ScoutMyBadges extends State<ScoutMyBadges> {
+class _ScoutCompleted extends State<ScoutCompleted> {
   bool showSpinner = false;
 
   @override
@@ -31,7 +32,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
             padding: const EdgeInsets.all(10.0),
             child: ListView(
               children: [
-                CustomHeader('My Badges', kColorDarkBlue),
+                CustomHeader('Completed Badges', kColorDarkBlue),
                 StreamBuilder<QuerySnapshot>(
                   stream: FirebaseRunner.badgesByUserStream(),
                   builder: (BuildContext context,
@@ -60,8 +61,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
 
                       dynamic data = jsonDecode(jsonStr);
                       int badgeID = int.parse(data['badgeID']);
-                      if (data['inProgress'] != 'true' ||
-                          data['isComplete'] == 'true') continue;
+                      if (data['isComplete'] != 'true') continue;
                       MeritBadge mb = AllMeritBadges.getBadgeByID(badgeID);
                       lis.add(
                         getBadgeSection(mb),

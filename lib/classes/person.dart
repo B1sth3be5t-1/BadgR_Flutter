@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'merit_badge_info.dart';
-
 class Person {
   String fName;
   String lName;
@@ -49,9 +47,6 @@ class Person {
 }
 
 class Scout extends Person {
-  Map<String, Map<int, bool>> inProgressReqs = Map();
-  List<MeritBadge> completed = [];
-
   Scout(
       {required super.fName,
       required super.lName,

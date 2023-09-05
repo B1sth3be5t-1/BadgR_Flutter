@@ -33,9 +33,10 @@ class _checkbox extends State<CustomCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    if (completed)
+    if (completed) {
       str = 'This badge is \nalready completed!';
-    else if (checked)
+      checked = true;
+    } else if (checked)
       str = 'This badge is \nin your list';
     else
       str = 'Add this badge \nto your list';
@@ -51,31 +52,30 @@ class _checkbox extends State<CustomCheckbox> {
         ),
         Checkbox(
           value: checked,
-          onChanged: (val) async {
-            if (completed) {
-              setState(() {
-                checked = true;
-              });
-            }
-            String str = "";
-            try {
-              str = await FirebaseRunner.toggleAddedBadge(id, val!);
-              if (str != "Done") throw Exception('Error!');
-            } catch (e) {
-              showDiag(
-                  'Error',
-                  'An unknown error has occurred. \nPlease try again',
-                  context,
-                  ['Ok'],
-                  kColorXLightBlue,
-                  kColorDarkBlue);
-              //todo fix
-              return;
-            }
-            setState(() {
-              checked = val;
-            });
-          },
+          checkColor: completed ? kColorDarkPink : Colors.white,
+          onChanged: completed
+              ? null
+              : (val) async {
+                  String str = "";
+                  try {
+                    str = await FirebaseRunner.toggleAddedBadge(
+                        id, val!, FirebaseRunner.getScout()!);
+                    if (str != "Done") throw Exception('Error!');
+                  } catch (e) {
+                    showDiag(
+                        'Error',
+                        'An unknown error has occurred. \nPlease try again',
+                        context,
+                        ['Ok'],
+                        kColorXLightBlue,
+                        kColorDarkBlue);
+                    //todo fix
+                    return;
+                  }
+                  setState(() {
+                    checked = val;
+                  });
+                },
         ),
       ],
     );

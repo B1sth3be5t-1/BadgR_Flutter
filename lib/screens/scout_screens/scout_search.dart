@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
@@ -9,7 +11,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/widgets/custom_checkbox.dart';
 
 class ScoutSearch extends StatefulWidget {
-  const ScoutSearch({super.key});
+  ScoutSearch({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -20,6 +22,8 @@ class _ScoutSearchState extends State<ScoutSearch> {
   final _headerStyle = const TextStyle(
       color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
   final TextEditingController _tec = TextEditingController();
+  static Map<int, bool> bools = {};
+  static Map<int, bool> completes = {};
 
   Widget Acc = Padding(
     padding: EdgeInsets.only(left: 5),
@@ -30,9 +34,33 @@ class _ScoutSearchState extends State<ScoutSearch> {
     ),
   );
   bool showSpinner = false;
+  bool fromButton = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseRunner.getInProgressBadges(FirebaseRunner.getScout()!)
+        .then((value) {
+      bools = value[0];
+      completes = value[1];
+    });
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (!fromButton) {
+      Acc = Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: Text(
+          'Enter a search word',
+          style: const TextStyle(
+              color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+      );
+    }
+    fromButton = false;
     return ModalProgressHUD(
       inAsyncCall: showSpinner,
       child: Scaffold(
@@ -61,9 +89,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                       elevation: 5.0,
                       child: TextButton(
                         onPressed: () async {
-                          setState(() {
-                            showSpinner = true;
-                          });
+                          fromButton = true;
                           Widget a = await buildAccordion();
                           setState(() {
                             Acc = a;
@@ -81,20 +107,47 @@ class _ScoutSearchState extends State<ScoutSearch> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            fromButton = true;
+            Widget a = await buildAccordion();
+            setState(() {
+              Acc = a;
+            });
+          },
+          child: Icon(Icons.clear),
+          tooltip: 'Collapse Boxes',
+        ),
       ),
     );
   }
 
   Future<Widget> buildAccordion() async {
-    setState(() {
-      showSpinner = true;
-    });
     List<AccordionSection> lis = [];
     List<MeritBadge> mbs = FirebaseRunner.getSearchResults(_tec.text);
-    mbs.sort((a, b) => a.name.compareTo(b.name));
-    for (MeritBadge mb in mbs) {
-      //todo get already added badges
 
+    if (mbs.isEmpty)
+      return Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: Text(
+          'Enter a search word',
+          style: const TextStyle(
+              color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+      );
+
+    mbs.sort((a, b) => a.name.compareTo(b.name));
+
+    var li =
+        await FirebaseRunner.getInProgressBadges(FirebaseRunner.getScout()!);
+    bools = li[0];
+    completes = li[1];
+
+    for (MeritBadge mb in mbs) {
+      bool isChecked = false;
+      bool isComplete = false;
+      if (!bools[mb.id].isNull) isChecked = true;
+      if (!completes[mb.id].isNull) isComplete = true;
       AccordionSection AS = AccordionSection(
           header: Text(
             mb.name,
@@ -122,9 +175,9 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 width: 10,
               ),
               CustomCheckbox(
-                checked: false, //todo lots of stuff
+                checked: isChecked,
                 id: mb.id,
-                completed: false, //todo
+                completed: isComplete,
               ),
             ],
           ));
@@ -138,10 +191,6 @@ class _ScoutSearchState extends State<ScoutSearch> {
       headerBackgroundColorOpened: kColorLightBlue,
       children: lis,
     );
-
-    setState(() {
-      showSpinner = false;
-    });
     return acc;
   }
 }
