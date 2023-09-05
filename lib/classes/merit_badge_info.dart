@@ -165,9 +165,13 @@ class MeritBadge {
 class AllMeritBadges {
   static Map<int, MeritBadge> allBadges = Map();
 
-  void setAllBadges() async {
+  static void setAllBadges() async {
     allBadges = await FirebaseRunner.setAllBadges();
     return;
+  }
+
+  static MeritBadge getBadgeByID(int id) {
+    return allBadges[id]!;
   }
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Future<String?> showDiag(String title, String mess, BuildContext c,
-    List<String> list, Color back, Color textColor) {
+    List<String> list, Color backG, Color textColor) {
   List<Widget> ac = [];
 
   for (String s in list) {
@@ -19,7 +19,7 @@ Future<String?> showDiag(String title, String mess, BuildContext c,
       title: Text(title),
       content: Text(mess),
       actions: ac,
-      backgroundColor: back,
+      backgroundColor: backG,
     ),
   );
 }

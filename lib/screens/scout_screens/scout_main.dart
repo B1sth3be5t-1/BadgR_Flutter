@@ -34,7 +34,7 @@ class _scoutMainState extends State<ScoutScreen> {
   @override
   void initState() {
     super.initState();
-    AllMeritBadges().setAllBadges();
+    AllMeritBadges.setAllBadges();
     currentPageIndex = args ? 3 : 0;
   }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -150,10 +151,10 @@ class FirebaseRunner {
     return scout;
   }
 
-  static Stream<QuerySnapshot> badgesByUserStream(String email) {
+  static Stream<QuerySnapshot> badgesByUserStream() {
     return FirebaseFirestore.instance
-        .collection('userBadges')
-        .where('email', isEqualTo: email)
+        .collection('user_added_badges')
+        .where('uid', isEqualTo: userCred?.user!.uid)
         .snapshots();
   }
 
@@ -209,6 +210,22 @@ class FirebaseRunner {
               .doc('${userCred?.user!.uid}')
               .update({'troop': int.parse(entry.value)});
       }
+    } catch (e) {
+      return 'Error';
+    }
+    return 'Done';
+  }
+
+  static Future<String> toggleAddedBadge(int id, bool checked) async {
+    try {
+      FirebaseFirestore.instance
+          .collection('user_added_badges')
+          .doc('${userCred?.user!.uid}::$id')
+          .set({
+        'inProgress': checked,
+        'uid': userCred?.user!.uid,
+        'badgeID': id
+      });
     } catch (e) {
       return 'Error';
     }

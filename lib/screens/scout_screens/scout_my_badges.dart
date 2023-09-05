@@ -1,5 +1,6 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/person.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
           inAsyncCall: showSpinner,
           child: Center(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseRunner.badgesByUserStream(
-                  FirebaseRunner.getScout()!.email),
+              stream: FirebaseRunner.badgesByUserStream(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData || snapshot.hasError) {
@@ -43,10 +43,12 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
                       snapshot.data!.docs.map((DocumentSnapshot document) {
                     Map<String, dynamic> data =
                         document.data()! as Map<String, dynamic>;
+                    int badgeID = data['badgeID'];
+                    MeritBadge badge = AllMeritBadges.getBadgeByID(badgeID);
                     return _BadgeView(
-                        reqText: data['badgeName'],
-                        badgeID: 0,
-                        reqNum: 0,
+                        reqText: badge.name,
+                        badgeID: badge.id,
+                        reqNum: badge.numReqs,
                         initState: false);
                   }).toList(),
                 );
