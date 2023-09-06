@@ -50,12 +50,14 @@ class _scoutMainState extends State<ScoutScreen> {
     AdaptiveTheme.of(context).mode.isLight ? setLight(true) : setLight(false);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kColorXLightPink,
         leading: Padding(
           padding: EdgeInsets.all(10),
           child: Text(
             'Welcome $name!',
-            style: TextStyle(color: kColorDarkBlue, fontSize: 30),
+            style: Theme.of(context)
+                .primaryTextTheme
+                .displayLarge
+                ?.copyWith(fontSize: 30),
           ),
         ),
         leadingWidth: 400,
@@ -103,8 +105,6 @@ class _scoutMainState extends State<ScoutScreen> {
             label: 'Settings',
           ),
         ],
-        indicatorColor: kColorBlue,
-        backgroundColor: kColorLightPink,
       ),
     );
   }

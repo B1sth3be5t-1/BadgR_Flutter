@@ -37,6 +37,9 @@ class CustomFormField extends StatelessWidget {
         validator: validator,
         onChanged: onChanged,
         obscureText: obscureText,
+        style: isLight()
+            ? kThemeLight.primaryTextTheme.labelMedium
+            : kThemeDark.primaryTextTheme.labelMedium,
         decoration: InputDecoration(
           icon: icon,
           hintText: hintText,

@@ -56,10 +56,10 @@ class _ScoutSettingsState extends State<ScoutSettings> {
       key: _formKey,
       child: Accordion(
         maxOpenSections: 5,
-        headerBackgroundColor: l ? kColorLightPink : kColorPink,
-        headerBackgroundColorOpened: l ? kColorBlue : kColorLightPink,
-        contentBackgroundColor: getBackgroundColor(),
-        contentBorderColor: l ? kColorDarkBlue : kColorLightPink,
+        headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+        headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened,
+        contentBackgroundColor: AccordionTheme.contentBackgroundColor,
+        contentBorderColor: AccordionTheme.contentBorderColor,
         children: [
           AccordionSection(
             isOpen: true,
@@ -193,8 +193,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                                   'Are you sure you want to submit information?',
                                   context,
                                   ['Cancel', 'Ok'],
-                                  kColorXLightBlue,
-                                  kColorDarkBlue)
+                                  AlertDiagTheme.backgroundColor,
+                                  AlertDiagTheme.textColor)
                               .then((value) {
                             if (value == null) return;
                             if (value == 'Cancel') cont = false;
@@ -208,8 +208,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                                     'Your updates have been successful',
                                     context,
                                     ['Ok'],
-                                    kColorXLightBlue,
-                                    kColorDarkBlue)
+                                    AlertDiagTheme.backgroundColor,
+                                    AlertDiagTheme.textColor)
                                 .then((value) => FirebaseRunner.sendUser(
                                     context, FirebaseRunner.getScout()!.email,
                                     b: true));
@@ -219,8 +219,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                                 'Your updates have failed',
                                 context,
                                 ['Ok'],
-                                kColorXLightBlue,
-                                kColorDarkBlue);
+                                AlertDiagTheme.backgroundColor,
+                                AlertDiagTheme.textColor);
                           }
                         } else {
                           showDiag(
@@ -228,8 +228,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                               'Please enter at least one value',
                               context,
                               ['Ok'],
-                              kColorXLightBlue,
-                              kColorDarkBlue);
+                              AlertDiagTheme.backgroundColor,
+                              AlertDiagTheme.textColor);
                         }
                         _controller1.clear();
                         _controller2.clear();

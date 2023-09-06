@@ -23,11 +23,21 @@ Color getBackgroundColor() {
 final kThemeLight = ThemeData(
   useMaterial3: true,
   primaryTextTheme: TextTheme(
+    displaySmall: TextStyle(
+      color: kColorDarkBlue,
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+    ),
     bodyLarge: TextStyle(color: Colors.white),
     labelLarge: TextStyle(color: Colors.white),
     displayLarge: TextStyle(
       fontSize: 45.0,
       fontWeight: FontWeight.w900,
+      color: kColorDarkBlue,
+    ),
+    displayMedium: TextStyle(
+      fontSize: 30.0,
+      fontWeight: FontWeight.bold,
       color: kColorDarkBlue,
     ),
     labelMedium: TextStyle(color: Colors.black),
@@ -83,6 +93,10 @@ final kThemeLight = ThemeData(
     style: ButtonStyle(
       iconColor: MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
     ),
+  ),
+  navigationBarTheme: NavigationBarThemeData(
+    indicatorColor: kColorBlue,
+    backgroundColor: kColorLightPink,
   ),
 );
 
@@ -153,6 +167,15 @@ final kThemeDark = ThemeData(
 class AlertDiagTheme {
   static Color backgroundColor = isLight() ? kColorXLightBlue : kColorBlue;
   static Color textColor = isLight() ? kColorDarkBlue : kColorXLightBlue;
+}
+
+class AccordionTheme {
+  static Color headerBackgroundColor = isLight() ? kColorLightPink : kColorPink;
+  static Color headerBackgroundColorOpened =
+      isLight() ? kColorBlue : kColorLightPink;
+  static Color contentBackgroundColor = getBackgroundColor();
+  static Color contentBorderColor =
+      isLight() ? kColorDarkBlue : kColorLightPink;
 }
 
 Color _getColor(Set<MaterialState> states) {

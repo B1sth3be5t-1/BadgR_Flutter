@@ -1,4 +1,3 @@
-import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
@@ -33,7 +32,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
             padding: const EdgeInsets.all(10.0),
             child: ListView(
               children: [
-                CustomHeader('My Badges', kColorDarkBlue),
+                CustomHeader('My Badges'),
                 StreamBuilder<QuerySnapshot>(
                   stream: FirebaseRunner.badgesByUserStream(),
                   builder: (BuildContext context,
@@ -66,21 +65,22 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
                           data['isComplete'] == 'true') continue;
                       MeritBadge mb = AllMeritBadges.getBadgeByID(badgeID);
                       lis.add(
-                        getBadgeSection(mb),
+                        getBadgeSection(mb, context),
                       );
                     }
 
                     lis.sort((AccordionSection a, AccordionSection b) {
                       return a.index - b.index;
                     });
-                    bool l = isLight();
                     Accordion acc = Accordion(
                       children: lis,
-                      headerBackgroundColor: l ? kColorLightPink : kColorPink,
+                      headerBackgroundColor:
+                          AccordionTheme.headerBackgroundColor,
                       headerBackgroundColorOpened:
-                          l ? kColorBlue : kColorLightPink,
-                      contentBackgroundColor: getBackgroundColor(),
-                      contentBorderColor: l ? kColorDarkBlue : kColorLightPink,
+                          AccordionTheme.headerBackgroundColorOpened,
+                      contentBackgroundColor:
+                          AccordionTheme.contentBackgroundColor,
+                      contentBorderColor: AccordionTheme.contentBorderColor,
                     );
                     return acc;
                   },
@@ -94,12 +94,12 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
   }
 }
 
-AccordionSection getBadgeSection(MeritBadge mb) {
+AccordionSection getBadgeSection(MeritBadge mb, BuildContext context) {
   return AccordionSection(
     index: mb.id,
     header: Text(
       mb.name,
-      style: TextStyle(color: kColorXDarkBlue),
+      style: Theme.of(context).primaryTextTheme.displaySmall,
     ),
     content: Text('todo'),
   );

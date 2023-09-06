@@ -1,5 +1,6 @@
 import 'dart:js_interop';
 
+import 'package:badgr/classes/themes.dart';
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
@@ -19,19 +20,22 @@ class ScoutSearch extends StatefulWidget {
 }
 
 class _ScoutSearchState extends State<ScoutSearch> {
-  final _headerStyle = const TextStyle(
-      color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold);
+  final _headerStyle = isLight()
+      ? kThemeLight.primaryTextTheme.displaySmall
+      : kThemeDark.primaryTextTheme.displaySmall;
+  final _searchStyle = isLight()
+      ? kThemeLight.primaryTextTheme.displayMedium
+      : kThemeDark.primaryTextTheme.displayMedium;
   final TextEditingController _tec = TextEditingController();
   static Map<int, bool> bools = {};
   static Map<int, bool> completes = {};
 
   Widget Acc = Padding(
     padding: EdgeInsets.only(left: 5),
-    child: Text(
-      'Enter a search word',
-      style: const TextStyle(
-          color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
-    ),
+    child: Text('Enter a search word',
+        style: isLight()
+            ? kThemeLight.primaryTextTheme.displayMedium
+            : kThemeDark.primaryTextTheme.displayMedium),
   );
   bool showSpinner = false;
   bool fromButton = false;
@@ -55,8 +59,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
         padding: EdgeInsets.only(left: 5),
         child: Text(
           'Enter a search word',
-          style: const TextStyle(
-              color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
+          style: _searchStyle,
         ),
       );
     }
@@ -68,7 +71,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
           padding: EdgeInsets.all(10),
           child: ListView(
             children: [
-              CustomHeader('Search', kColorDarkBlue),
+              CustomHeader('Search'),
               Flex(
                 direction: Axis.horizontal,
                 children: [
@@ -131,8 +134,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
         padding: EdgeInsets.only(left: 5),
         child: Text(
           'Enter a search word',
-          style: const TextStyle(
-              color: kColorDarkBlue, fontSize: 15, fontWeight: FontWeight.bold),
+          style: _searchStyle,
         ),
       );
 
