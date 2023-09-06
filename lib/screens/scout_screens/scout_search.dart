@@ -6,7 +6,7 @@ import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
-import 'package:badgr/classes/widgets/custom_header.dart';
+import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/widgets/custom_checkbox.dart';
 

@@ -2,7 +2,7 @@ import 'package:accordion/controllers.dart';
 import 'package:badgr/classes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
-import 'package:badgr/classes/widgets/custom_header.dart';
+import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:badgr/classes/themes.dart';
 
 class SettingsWidget extends StatefulWidget {

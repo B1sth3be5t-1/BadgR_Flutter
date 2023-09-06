@@ -1,12 +1,14 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
-import 'package:badgr/classes/widgets/custom_header.dart';
+import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'dart:convert';
 import 'package:accordion/accordion.dart';
+
+import '../../classes/themes.dart';
 
 class ScoutMyBadges extends StatefulWidget {
   const ScoutMyBadges({super.key});
@@ -71,7 +73,15 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
                     lis.sort((AccordionSection a, AccordionSection b) {
                       return a.index - b.index;
                     });
-                    Accordion acc = Accordion(children: lis);
+                    bool l = isLight();
+                    Accordion acc = Accordion(
+                      children: lis,
+                      headerBackgroundColor: l ? kColorLightPink : kColorPink,
+                      headerBackgroundColorOpened:
+                          l ? kColorBlue : kColorLightPink,
+                      contentBackgroundColor: getBackgroundColor(),
+                      contentBorderColor: l ? kColorDarkBlue : kColorLightPink,
+                    );
                     return acc;
                   },
                 ),

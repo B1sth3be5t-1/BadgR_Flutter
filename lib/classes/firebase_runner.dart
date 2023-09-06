@@ -75,7 +75,7 @@ class FirebaseRunner {
     return res;
   }
 
-  static void sendUser(BuildContext c, String email) async {
+  static void sendUser(BuildContext c, String email, {bool b = false}) async {
     var user_info = firestore.collection('user_info').doc(userCred?.user?.uid);
 
     var info = await user_info.get();
@@ -101,7 +101,7 @@ class FirebaseRunner {
         troop: user.troop,
         cred: user.cred);
 
-    Navigator.pushNamed(c, ScoutScreen.screenID, arguments: false);
+    Navigator.pushNamed(c, ScoutScreen.screenID, arguments: b);
   }
 
   static Future<String> resetPass(String em) async {
@@ -230,6 +230,23 @@ class FirebaseRunner {
           'badgeID': id,
           'isComplete': false
         });
+    } catch (e) {
+      return 'Error';
+    }
+    return 'Done';
+  }
+
+  static Future<String> removeCompletedBadge(int id) async {
+    try {
+      FirebaseFirestore.instance
+          .collection('user_added_badges')
+          .doc('${user.cred?.user!.uid}::$id')
+          .set({
+        'inProgress': true,
+        'uid': user.cred?.user!.uid,
+        'badgeID': id,
+        'isComplete': false
+      });
     } catch (e) {
       return 'Error';
     }

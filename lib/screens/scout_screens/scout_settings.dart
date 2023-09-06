@@ -204,12 +204,15 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                             String res = await FirebaseRunner.updateAccount(m);
                             if (res == 'Error') throw Exception('Error!');
                             showDiag(
-                                'Update Success',
-                                'Your updates have been successful',
-                                context,
-                                ['Ok'],
-                                kColorXLightBlue,
-                                kColorDarkBlue);
+                                    'Update Success',
+                                    'Your updates have been successful',
+                                    context,
+                                    ['Ok'],
+                                    kColorXLightBlue,
+                                    kColorDarkBlue)
+                                .then((value) => FirebaseRunner.sendUser(
+                                    context, FirebaseRunner.getScout()!.email,
+                                    b: true));
                           } on Exception {
                             showDiag(
                                 'Update Failure',
