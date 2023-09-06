@@ -23,7 +23,8 @@ class FirebaseRunner {
       print('Login Error ----------------------------');
       print(e.message);
       if (e.message!.contains('wrong-password') ||
-          e.message!.contains('user-not-found')) {
+          e.message!.contains('user-not-found') ||
+          e.message!.contains('password is invalid')) {
         return 'wrongEmailPass';
       } else if (e.message!.contains('too-many-requests')) {
         return 'tooMany';

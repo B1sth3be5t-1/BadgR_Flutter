@@ -7,6 +7,7 @@ import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 
 import '../../classes/Widgets/custom_input.dart';
+import '../../classes/themes.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screenID = 'LoginScreen';
@@ -85,7 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Material(
-                  color: kColorDarkBlue,
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
                   child: TextButton(
@@ -106,8 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     'The username or password is incorrect',
                                     context,
                                     ['Register', 'Ok'],
-                                    kColorXLightBlue,
-                                    kColorDarkBlue)
+                                    AlertDiagTheme.backgroundColor,
+                                    AlertDiagTheme.textColor)
                                 .then((value) {
                               if (value == null) return;
 
@@ -122,24 +122,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'You have entered too many incorrect password attempts. \nPlease try again later',
                                 context,
                                 ['Ok'],
-                                kColorXLightBlue,
-                                kColorDarkBlue);
+                                AlertDiagTheme.backgroundColor,
+                                AlertDiagTheme.textColor);
                           } else if (res == 'network') {
                             showDiag(
                                 'Login Error',
                                 'A network error has occurred',
                                 context,
                                 ['Ok'],
-                                kColorXLightBlue,
-                                kColorDarkBlue);
+                                AlertDiagTheme.backgroundColor,
+                                AlertDiagTheme.textColor);
                           } else if (res != 'done') {
                             showDiag(
                                 'Login Error',
                                 'An unknown error has occurred',
                                 context,
                                 ['Ok'],
-                                kColorXLightBlue,
-                                kColorDarkBlue);
+                                AlertDiagTheme.backgroundColor,
+                                AlertDiagTheme.textColor);
                           }
                         }
                         setState(() {
@@ -167,7 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     icon: const Icon(
                       Icons.arrow_back,
                     ),
-                    color: kColorDarkBlue,
                   ),
                   TextButton(
                     onPressed: () {
@@ -183,13 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               email = value;
                             },
                             decoration: const InputDecoration(
-                                hintText: 'Enter your email',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
-                                border: null,
-                                enabledBorder: kBorderEnabled,
-                                focusedBorder: kBorderFocused),
+                              hintText: 'Enter your email',
+                            ),
                           ),
                           actions: [
                             TextButton(
@@ -212,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ],
-                          backgroundColor: kColorXLightBlue,
+                          backgroundColor: AlertDiagTheme.backgroundColor,
                         ),
                       ).then((value) async {
                         if (value == null) return;
@@ -229,32 +223,32 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'A network error has occurred',
                                   context,
                                   ['Ok'],
-                                  kColorXLightBlue,
-                                  kColorDarkBlue);
+                                  AlertDiagTheme.backgroundColor,
+                                  AlertDiagTheme.textColor);
                             } else if (res == 'enterEmail') {
                               showDiag(
                                   'Password Reset Error',
                                   'Please enter an email address',
                                   context,
                                   ['Ok'],
-                                  kColorXLightBlue,
-                                  kColorDarkBlue);
+                                  AlertDiagTheme.backgroundColor,
+                                  AlertDiagTheme.textColor);
                             } else if (res == 'user-not-found') {
                               showDiag(
                                   'Password Reset Error',
                                   'Email does not exist',
                                   context,
                                   ['Ok'],
-                                  kColorXLightBlue,
-                                  kColorDarkBlue);
+                                  AlertDiagTheme.backgroundColor,
+                                  AlertDiagTheme.textColor);
                             } else if (res != 'done') {
                               showDiag(
                                   'Password Reset Error',
                                   'An unknown error occurred',
                                   context,
                                   ['Ok'],
-                                  kColorXLightBlue,
-                                  kColorDarkBlue);
+                                  AlertDiagTheme.backgroundColor,
+                                  AlertDiagTheme.textColor);
                             }
                           }
                         }

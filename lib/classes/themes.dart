@@ -79,6 +79,11 @@ final kThemeLight = ThemeData(
     hoverColor: kColorLightBlue,
     backgroundColor: kColorBlue,
   ),
+  iconButtonTheme: IconButtonThemeData(
+    style: ButtonStyle(
+      iconColor: MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
+    ),
+  ),
 );
 
 //------------------------------------------------------------------------------------------------------------------
@@ -92,7 +97,7 @@ final kThemeDark = ThemeData(
     displayLarge: TextStyle(
       fontSize: 45.0,
       fontWeight: FontWeight.w900,
-      color: kColorDarkBlue,
+      color: kColorBlue,
     ),
     labelMedium: TextStyle(color: Colors.white),
     labelSmall: TextStyle(color: Colors.white),
@@ -144,6 +149,11 @@ final kThemeDark = ThemeData(
     backgroundColor: kColorBlue,
   ),
 );
+
+class AlertDiagTheme {
+  static Color backgroundColor = isLight() ? kColorXLightBlue : kColorBlue;
+  static Color textColor = isLight() ? kColorDarkBlue : kColorXLightBlue;
+}
 
 Color _getColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{

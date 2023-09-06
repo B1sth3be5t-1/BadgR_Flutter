@@ -8,6 +8,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/Widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 
+import '../../classes/themes.dart';
+
 class RegistrationScreen extends StatefulWidget {
   static const String screenID = 'RegisterScreen';
 
@@ -167,7 +169,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Material(
-                  color: kColorDarkBlue,
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
                   child: TextButton(
@@ -194,8 +195,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     'This email is already in use',
                                     context,
                                     ['Login', 'Ok'],
-                                    kColorXLightBlue,
-                                    kColorDarkBlue)
+                                    AlertDiagTheme.backgroundColor,
+                                    AlertDiagTheme.textColor)
                                 .then((value) {
                               if (value == null) return;
 
@@ -210,16 +211,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 'A network error has occurred',
                                 context,
                                 ['Ok'],
-                                kColorXLightBlue,
-                                kColorDarkBlue);
+                                AlertDiagTheme.backgroundColor,
+                                AlertDiagTheme.textColor);
                           } else if (res == 'addInfoError') {
                             showDiag(
                                     'Registration Error',
                                     'An error has occurred with user info, but your account was added. \nChange your info in settings as soon as possible',
                                     context,
                                     ['Ok'],
-                                    kColorXLightBlue,
-                                    kColorDarkBlue)
+                                    AlertDiagTheme.backgroundColor,
+                                    AlertDiagTheme.textColor)
                                 .then((value) {
                               if (value == null) return;
 
@@ -233,8 +234,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 'An unknown error has occurred',
                                 context,
                                 ['Ok'],
-                                kColorXLightBlue,
-                                kColorDarkBlue);
+                                AlertDiagTheme.backgroundColor,
+                                AlertDiagTheme.textColor);
                           }
                         }
                         setState(() {
@@ -256,7 +257,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 icon: const Icon(
                   Icons.arrow_back,
                 ),
-                color: kColorDarkBlue,
               ),
             ],
           ),
