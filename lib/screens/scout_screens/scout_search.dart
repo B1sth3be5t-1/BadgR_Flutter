@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:badgr/classes/widgets/custom_checkbox.dart';
+import 'package:badgr/classes/widgets/custom_search_checkbox.dart';
 
 class ScoutSearch extends StatefulWidget {
   ScoutSearch({Key? key}) : super(key: key);
@@ -176,7 +176,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
               SizedBox(
                 width: 10,
               ),
-              CustomCheckbox(
+              CustomSearchCheckbox(
                 checked: isChecked,
                 id: mb.id,
                 completed: isComplete,

@@ -6,9 +6,9 @@ import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'dart:convert';
 import 'package:accordion/accordion.dart';
 
+import '../../classes/constants.dart';
 import '../../classes/themes.dart';
 
 class ScoutCompleted extends StatefulWidget {
@@ -23,6 +23,11 @@ class ScoutCompleted extends StatefulWidget {
 
 class _ScoutCompleted extends State<ScoutCompleted> {
   bool showSpinner = false;
+
+  final _headerStyle = TextStyle(
+      color: isLight() ? kColorDarkBlue : kColorDarkBlue,
+      fontSize: 20,
+      fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +47,12 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                     if (!snapshot.hasData || snapshot.hasError) {
                       return Text('nodata');
                     } else if (snapshot.data?.docs.length == 0) {
-                      //todo no badges
+                      return Center(
+                        child: Text(
+                          'Go add some badges!',
+                          style: _headerStyle,
+                        ),
+                      );
                     }
 
                     List<AccordionSection> lis = [];
@@ -64,6 +74,17 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                       );
                     }
 
+                    if (lis.isEmpty)
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Go finish some badges!',
+                            style: _headerStyle,
+                          ),
+                        ),
+                      );
+
                     lis.sort((AccordionSection a, AccordionSection b) {
                       return a.index - b.index;
                     });
@@ -77,6 +98,7 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                           AccordionTheme.contentBackgroundColor,
                       contentBorderColor: AccordionTheme.contentBorderColor,
                     );
+
                     return acc;
                   },
                 ),

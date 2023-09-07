@@ -31,19 +31,26 @@ class _CAHState extends State<CustomAccordionHeader> {
             style: TextStyle(fontSize: 14),
           ),
         ),
-        center: percent < 1
-            ? Text('${percent * 100}%')
-            : Text(
-                'Complete!',
-                style: TextStyle(color: Colors.white),
-              ),
+        center: percent < .45
+            ? Text(
+                '${percent * 100}%',
+              )
+            : percent < 1
+                ? Text(
+                    '${percent * 100}%',
+                    style: TextStyle(color: Colors.white),
+                  )
+                : Text(
+                    'Complete!',
+                    style: TextStyle(color: Colors.white),
+                  ),
         width: 196,
         lineHeight: 20.0,
         animation: true,
         animationDuration: 600,
         percent: percent,
         //todo COLORS
-        backgroundColor: kColorLightPink,
+        backgroundColor: kColorPink,
         progressColor: kColorDarkBlue,
       ),
     );

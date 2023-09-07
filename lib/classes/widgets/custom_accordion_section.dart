@@ -22,15 +22,11 @@ class CustomAccordionSection extends StatelessWidget with CommonParams {
   /// The text to be displayed in the header
   final Widget header;
 
-  /// The widget to be displayed as the content of the section when open
-  final Widget content;
-
   CustomAccordionSection({
     Key? key,
     this.index = 0,
     this.isOpen = false,
     required this.header,
-    required this.content,
     Color? headerBackgroundColor,
     Color? headerBorderColor,
     Color? headerBorderColorOpened,
@@ -39,12 +35,6 @@ class CustomAccordionSection extends StatelessWidget with CommonParams {
     EdgeInsets? headerPadding,
     Widget? leftIcon,
     Widget? rightIcon,
-    Color? contentBackgroundColor,
-    Color? contentBorderColor,
-    double? contentBorderWidth,
-    double? contentBorderRadius,
-    double? contentHorizontalPadding,
-    double? contentVerticalPadding,
     double? paddingBetweenOpenSections,
     double? paddingBetweenClosedSections,
     ScrollIntoViewOfItems? scrollIntoViewOfItems,
@@ -63,12 +53,6 @@ class CustomAccordionSection extends StatelessWidget with CommonParams {
     this.headerPadding = headerPadding;
     this.leftIcon = leftIcon;
     this.rightIcon = rightIcon;
-    this.contentBackgroundColor = contentBackgroundColor;
-    this.contentBorderColor = contentBorderColor;
-    this.contentBorderWidth = contentBorderWidth;
-    this.contentBorderRadius = contentBorderRadius;
-    this.contentHorizontalPadding = contentHorizontalPadding;
-    this.contentVerticalPadding = contentVerticalPadding;
     this.paddingBetweenOpenSections = paddingBetweenOpenSections;
     this.paddingBetweenClosedSections = paddingBetweenClosedSections;
     this.scrollIntoViewOfItems =
@@ -109,7 +93,6 @@ class CustomAccordionSection extends StatelessWidget with CommonParams {
   @override
   build(context) {
     final borderRadius = headerBorderRadius ?? 10;
-    final contentBorderRadius = this.contentBorderRadius ?? 10;
 
     return Obx(
       () => Column(
@@ -152,64 +135,6 @@ class CustomAccordionSection extends StatelessWidget with CommonParams {
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                bottom: _isOpen
-                    ? paddingBetweenOpenSections ?? 10
-                    : paddingBetweenClosedSections ?? 10),
-            child: SizeTransition(
-              sizeFactor: sectionCtrl.controller,
-              child: ScaleTransition(
-                scale: Accordion.sectionScaleAnimation
-                    ? sectionCtrl.controller
-                    : const AlwaysStoppedAnimation(1.0),
-                child: Center(
-                  child: Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color:
-                          contentBorderColor ?? Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(contentBorderRadius)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        contentBorderWidth ?? 1,
-                        0,
-                        contentBorderWidth ?? 1,
-                        contentBorderWidth ?? 1,
-                      ),
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(
-                                    contentBorderRadius / 1.02))),
-                        child: Container(
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                              color: contentBackgroundColor,
-                              borderRadius: BorderRadius.vertical(
-                                  bottom: Radius.circular(
-                                      contentBorderRadius / 1.02))),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: contentHorizontalPadding ?? 10,
-                              vertical: contentVerticalPadding ?? 10,
-                            ),
-                            child: Center(
-                              child: content,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ),
           ),

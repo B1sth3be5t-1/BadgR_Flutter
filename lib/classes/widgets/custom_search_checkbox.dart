@@ -3,8 +3,8 @@ import 'package:badgr/classes/firebase_runner.dart';
 import '../constants.dart';
 import 'custom_alert.dart';
 
-class CustomCheckbox extends StatefulWidget {
-  CustomCheckbox(
+class CustomSearchCheckbox extends StatefulWidget {
+  CustomSearchCheckbox(
       {required this.id, required this.checked, required this.completed});
 
   final int id;
@@ -23,7 +23,7 @@ class CustomCheckbox extends StatefulWidget {
   }
 }
 
-class _checkbox extends State<CustomCheckbox> {
+class _checkbox extends State<CustomSearchCheckbox> {
   _checkbox({required this.id, required this.checked, required this.completed});
 
   final int id;

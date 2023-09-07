@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -226,8 +228,7 @@ class FirebaseRunner {
 
         MeritBadge mb = AllMeritBadges.getBadgeByID(id);
         for (int i = 1; i <= mb.numReqs; i++) {
-          String str = 'req' + i.toString();
-          map[str] = false;
+          map[i.toString()] = false;
         }
         FirebaseFirestore.instance
             .collection('user_added_badges')
@@ -246,14 +247,31 @@ class FirebaseRunner {
     return 'Done';
   }
 
+  static Future<String> toggleCompletedReq(
+      int bid, Map<String, dynamic> map, BuildContext c) async {
+    try {
+      FirebaseFirestore.instance
+          .collection('user_added_badges')
+          .doc('${user.cred?.user!.uid}::$bid')
+          .update({'requirements': map});
+
+      for (MapEntry<String, dynamic> me in map.entries)
+        if (!me.value) return 'Done';
+
+      return setCompletedBadge(bid, c);
+    } catch (e) {
+      print(e);
+      return 'Error';
+    }
+  }
+
   static Future<String> removeCompletedBadge(int id) async {
     try {
       Map<String, dynamic> map = {};
 
       MeritBadge mb = AllMeritBadges.getBadgeByID(id);
       for (int i = 1; i <= mb.numReqs; i++) {
-        String str = 'req' + i.toString();
-        map[str] = false;
+        map[i.toString()] = false;
       }
 
       FirebaseFirestore.instance
@@ -272,14 +290,13 @@ class FirebaseRunner {
     return 'Done';
   }
 
-  static Future<String> setCompletedBadge(int id) async {
+  static Future<String> setCompletedBadge(int id, BuildContext c) async {
     try {
       Map<String, dynamic> map = {};
 
       MeritBadge mb = AllMeritBadges.getBadgeByID(id);
       for (int i = 1; i <= mb.numReqs; i++) {
-        String str = 'req' + i.toString();
-        map[str] = true;
+        map[i.toString()] = true;
       }
 
       FirebaseFirestore.instance
@@ -292,6 +309,15 @@ class FirebaseRunner {
         'isComplete': true,
         'requirements': true
       });
+
+      showDiag(
+              'Badge Complete',
+              'Congratulations! You\'ve \ncompleted a merit badge!',
+              c,
+              ['Yay!'],
+              AlertDiagTheme.backgroundColor,
+              AlertDiagTheme.textColor)
+          .then((value) => 'Done');
     } catch (e) {
       return 'Error';
     }

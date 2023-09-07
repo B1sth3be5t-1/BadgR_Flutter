@@ -29,7 +29,6 @@
 
 library accordion;
 
-import 'package:accordion/accordion_section.dart';
 import 'package:accordion/controllers.dart';
 import 'package:badgr/classes/widgets/custom_accordion_section.dart';
 import 'package:flutter/material.dart';
@@ -147,48 +146,44 @@ class CustomAccordion extends StatelessWidget with CommonParams {
           key: key,
           controller: listCtrl.controller,
           index: index,
-          child: CustomAccordionSection(
-            key: key,
-            index: index,
-            isOpen: child.isOpen,
-            scrollIntoViewOfItems: scrollIntoViewOfItems,
-            headerBackgroundColor:
-                child.headerBackgroundColor ?? headerBackgroundColor,
-            headerBorderColor: AccordionTheme.headerBackgroundColor,
-            headerBorderWidth: 0,
-            headerBorderRadius: child.headerBorderRadius ?? headerBorderRadius,
-            headerPadding: child.headerPadding ?? headerPadding,
-            header: child.header,
-            leftIcon: child.leftIcon ?? leftIcon,
-            rightIcon: child.rightIcon ??
-                rightIcon ??
-                const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.white60,
-                  size: 20,
-                ),
-            paddingBetweenClosedSections: child.paddingBetweenClosedSections ??
-                paddingBetweenClosedSections,
-            paddingBetweenOpenSections:
-                child.paddingBetweenOpenSections ?? paddingBetweenOpenSections,
-            content: child.content,
-            contentBackgroundColor:
-                child.contentBackgroundColor ?? contentBackgroundColor,
-            contentBorderColor: child.contentBorderColor ?? contentBorderColor,
-            contentBorderWidth: child.contentBorderWidth ?? contentBorderWidth,
-            contentBorderRadius:
-                child.contentBorderRadius ?? contentBorderRadius,
-            contentHorizontalPadding:
-                child.contentHorizontalPadding ?? contentHorizontalPadding,
-            contentVerticalPadding:
-                child.contentVerticalPadding ?? contentVerticalPadding,
-            sectionOpeningHapticFeedback: child.sectionOpeningHapticFeedback ??
-                sectionOpeningHapticFeedback,
-            sectionClosingHapticFeedback: child.sectionClosingHapticFeedback ??
-                sectionClosingHapticFeedback,
-            accordionId: accordionId,
-            onOpenSection: child.onOpenSection,
-            onCloseSection: child.onCloseSection,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: CustomAccordionSection(
+              key: key,
+              index: index,
+              isOpen: child.isOpen,
+              scrollIntoViewOfItems: scrollIntoViewOfItems,
+              headerBackgroundColor:
+                  child.headerBackgroundColor ?? headerBackgroundColor,
+              headerBorderColor: AccordionTheme.headerBackgroundColor,
+              headerBorderWidth: 0,
+              headerBorderRadius:
+                  child.headerBorderRadius ?? headerBorderRadius,
+              headerPadding: child.headerPadding ?? headerPadding,
+              header: child.header,
+              leftIcon: child.leftIcon ?? leftIcon,
+              rightIcon: child.rightIcon ??
+                  rightIcon ??
+                  const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white60,
+                    size: 20,
+                  ),
+              paddingBetweenClosedSections:
+                  child.paddingBetweenClosedSections ??
+                      paddingBetweenClosedSections,
+              paddingBetweenOpenSections: child.paddingBetweenOpenSections ??
+                  paddingBetweenOpenSections,
+              sectionOpeningHapticFeedback:
+                  child.sectionOpeningHapticFeedback ??
+                      sectionOpeningHapticFeedback,
+              sectionClosingHapticFeedback:
+                  child.sectionClosingHapticFeedback ??
+                      sectionClosingHapticFeedback,
+              accordionId: accordionId,
+              onOpenSection: child.onOpenSection,
+              onCloseSection: child.onCloseSection,
+            ),
           ),
         );
       },
