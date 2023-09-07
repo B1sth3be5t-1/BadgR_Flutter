@@ -53,17 +53,11 @@ class _ScoutCompleted extends State<ScoutCompleted> {
 
                     for (MapEntry<int, QueryDocumentSnapshot<Object?>> me
                         in docMap.entries) {
-                      Object? docData = me.value.data();
-                      String jsonStr = docData
-                          .toString()
-                          .replaceAll(RegExp('{'), '{"')
-                          .replaceAll(RegExp(': '), '": "')
-                          .replaceAll(RegExp(', '), '", "')
-                          .replaceAll(RegExp('}'), '"}');
+                      QueryDocumentSnapshot? docData = me.value;
 
-                      dynamic data = jsonDecode(jsonStr);
-                      int badgeID = int.parse(data['badgeID']);
-                      if (data['isComplete'] != 'true') continue;
+                      dynamic data = docData.get('badgeID');
+                      int badgeID = data;
+                      if (!docData.get('isComplete')) continue;
                       MeritBadge mb = AllMeritBadges.getBadgeByID(badgeID);
                       lis.add(
                         getBadgeSection(mb, context),

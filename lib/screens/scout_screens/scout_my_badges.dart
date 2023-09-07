@@ -1,10 +1,14 @@
+import 'dart:collection';
+
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:badgr/classes/widgets/custom_accordion.dart';
+import 'package:badgr/classes/widgets/custom_accordion_section.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'dart:convert';
 import 'package:accordion/accordion.dart';
 
 import '../../classes/themes.dart';
@@ -38,7 +42,7 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData || snapshot.hasError) {
-                      return Text('nodata');
+                      return Text('todo');
                     } else if (snapshot.data?.docs.length == 0) {
                       //todo no badges
                     }
@@ -51,21 +55,20 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
 
                     for (MapEntry<int, QueryDocumentSnapshot<Object?>> me
                         in docMap.entries) {
-                      Object? docData = me.value.data();
-                      String jsonStr = docData
-                          .toString()
-                          .replaceAll(RegExp('{'), '{"')
-                          .replaceAll(RegExp(': '), '": "')
-                          .replaceAll(RegExp(', '), '", "')
-                          .replaceAll(RegExp('}'), '"}');
+                      QueryDocumentSnapshot? docData = me.value;
 
-                      dynamic data = jsonDecode(jsonStr);
-                      int badgeID = int.parse(data['badgeID']);
-                      if (data['inProgress'] != 'true' ||
-                          data['isComplete'] == 'true') continue;
+                      dynamic data = docData.get('badgeID');
+                      int badgeID = data;
+
+                      if (docData.get('isComplete') ||
+                          !docData.get('inProgress')) continue;
                       MeritBadge mb = AllMeritBadges.getBadgeByID(badgeID);
                       lis.add(
-                        getBadgeSection(mb, context),
+                        getBadgeSection(
+                          mb,
+                          context,
+                          docData.get('requirements'),
+                        ),
                       );
                     }
 
@@ -94,13 +97,23 @@ class _ScoutMyBadges extends State<ScoutMyBadges> {
   }
 }
 
-AccordionSection getBadgeSection(MeritBadge mb, BuildContext context) {
+AccordionSection getBadgeSection(
+    MeritBadge mb, BuildContext context, LinkedHashMap<String, dynamic> map) {
   return AccordionSection(
     index: mb.id,
     header: Text(
       mb.name,
       style: Theme.of(context).primaryTextTheme.displaySmall,
     ),
-    content: Text('todo'),
+    content: CustomAccordion(
+      headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+      children: [
+        CustomAccordionSection(
+          headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+          header: Text('Todo'),
+          content: Text('todo'),
+        ),
+      ],
+    ),
   );
 }

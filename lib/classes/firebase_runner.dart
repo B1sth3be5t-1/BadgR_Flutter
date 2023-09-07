@@ -214,23 +214,32 @@ class FirebaseRunner {
     return 'Done';
   }
 
-  static Future<String> toggleAddedBadge(int id, bool checked, Scout s) async {
+  static Future<String> toggleAddedBadge(int id, bool checked) async {
     try {
       if (!checked)
         FirebaseFirestore.instance
             .collection('user_added_badges')
-            .doc('${s.cred?.user!.uid}::$id')
+            .doc('${user.cred?.user!.uid}::$id')
             .delete();
-      else
+      else {
+        Map<String, dynamic> map = {};
+
+        MeritBadge mb = AllMeritBadges.getBadgeByID(id);
+        for (int i = 1; i <= mb.numReqs; i++) {
+          String str = 'req' + i.toString();
+          map[str] = false;
+        }
         FirebaseFirestore.instance
             .collection('user_added_badges')
-            .doc('${s.cred?.user!.uid}::$id')
+            .doc('${user.cred?.user!.uid}::$id')
             .set({
           'inProgress': checked,
-          'uid': s.cred?.user!.uid,
+          'uid': user.cred?.user!.uid,
           'badgeID': id,
-          'isComplete': false
+          'isComplete': false,
+          'requirements': map,
         });
+      }
     } catch (e) {
       return 'Error';
     }
@@ -239,6 +248,14 @@ class FirebaseRunner {
 
   static Future<String> removeCompletedBadge(int id) async {
     try {
+      Map<String, dynamic> map = {};
+
+      MeritBadge mb = AllMeritBadges.getBadgeByID(id);
+      for (int i = 1; i <= mb.numReqs; i++) {
+        String str = 'req' + i.toString();
+        map[str] = false;
+      }
+
       FirebaseFirestore.instance
           .collection('user_added_badges')
           .doc('${user.cred?.user!.uid}::$id')
@@ -246,7 +263,34 @@ class FirebaseRunner {
         'inProgress': true,
         'uid': user.cred?.user!.uid,
         'badgeID': id,
-        'isComplete': false
+        'isComplete': false,
+        'requirements': map,
+      });
+    } catch (e) {
+      return 'Error';
+    }
+    return 'Done';
+  }
+
+  static Future<String> setCompletedBadge(int id) async {
+    try {
+      Map<String, dynamic> map = {};
+
+      MeritBadge mb = AllMeritBadges.getBadgeByID(id);
+      for (int i = 1; i <= mb.numReqs; i++) {
+        String str = 'req' + i.toString();
+        map[str] = true;
+      }
+
+      FirebaseFirestore.instance
+          .collection('user_added_badges')
+          .doc('${user.cred?.user!.uid}::$id')
+          .set({
+        'inProgress': true,
+        'uid': user.cred?.user!.uid,
+        'badgeID': id,
+        'isComplete': true,
+        'requirements': true
       });
     } catch (e) {
       return 'Error';

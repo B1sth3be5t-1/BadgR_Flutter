@@ -58,8 +58,7 @@ class _checkbox extends State<CustomCheckbox> {
               : (val) async {
                   String str = "";
                   try {
-                    str = await FirebaseRunner.toggleAddedBadge(
-                        id, val!, FirebaseRunner.getScout()!);
+                    str = await FirebaseRunner.toggleAddedBadge(id, val!);
                     if (str != "Done") throw Exception('Error!');
                   } catch (e) {
                     showDiag(
