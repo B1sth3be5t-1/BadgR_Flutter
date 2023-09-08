@@ -133,7 +133,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
       return Padding(
         padding: EdgeInsets.only(left: 5),
         child: Text(
-          'Enter a search word',
+          'No badges found!',
           style: _searchStyle,
         ),
       );

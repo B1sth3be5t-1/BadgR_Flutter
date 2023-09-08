@@ -33,11 +33,11 @@ class _CAHState extends State<CustomAccordionHeader> {
         ),
         center: percent < .45
             ? Text(
-                '${percent * 100}%',
+                '${(percent * 100).toInt()}%',
               )
             : percent < 1
                 ? Text(
-                    '${percent * 100}%',
+                    '${(percent * 100).toInt()}%',
                     style: TextStyle(color: Colors.white),
                   )
                 : Text(

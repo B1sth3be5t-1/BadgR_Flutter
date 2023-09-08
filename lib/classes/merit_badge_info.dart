@@ -1,8 +1,11 @@
-import 'package:badgr/classes/widgets/custom_input.dart';
+import 'dart:convert';
 
+import 'package:badgr/classes/widgets/custom_input.dart';
 import 'firebase_runner.dart';
+import 'dart:io';
 
 List<MeritBadge> badges = [
+  MeritBadge(1, 'American Business', false, 6, Map()),
   MeritBadge(2, 'American Cultures', false, 5, Map()),
   MeritBadge(3, 'American Heritage', false, 6, Map()),
   MeritBadge(4, 'American Labor', false, 9, Map()),
@@ -143,13 +146,12 @@ class MeritBadge {
   final int id;
   final int numReqs;
   final bool isEagleRequired;
-  final Map<int, bool> compReqs;
+  final Map<int, bool> reqs;
 
-  MeritBadge(
-      this.id, this.name, this.isEagleRequired, this.numReqs, this.compReqs);
+  MeritBadge(this.id, this.name, this.isEagleRequired, this.numReqs, this.reqs);
 
-  void setComp(int i, bool b) {
-    compReqs[i] = b;
+  void setReqs(int i, bool b) {
+    reqs[i] = b;
   }
 
   String getBadgeIconName() {
@@ -166,6 +168,9 @@ class AllMeritBadges {
   static Map<int, MeritBadge> allBadges = Map();
 
   static void setAllBadges() async {
+    //var input = await File('badgeReqs.json').readAsString();
+    //var map = jsonDecode(input);
+
     allBadges = await FirebaseRunner.setAllBadges();
     return;
   }

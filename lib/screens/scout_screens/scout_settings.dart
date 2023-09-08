@@ -38,7 +38,8 @@ class _ScoutSettingsState extends State<ScoutSettings> {
       child: TextButton(
         onPressed: () {
           switchTheme(context);
-          Navigator.pushNamed(context, ScoutScreen.screenID, arguments: true);
+          Navigator.popAndPushNamed(context, ScoutScreen.screenID,
+              arguments: true);
         },
         child: Text('Switch app appearance'),
       ),

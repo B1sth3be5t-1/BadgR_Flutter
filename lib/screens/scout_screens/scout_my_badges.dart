@@ -106,6 +106,7 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
 
                     Accordion acc = Accordion(
                       children: lis,
+                      openAndCloseAnimation: false,
                       headerBackgroundColor:
                           AccordionTheme.headerBackgroundColor,
                       headerBackgroundColorOpened:
