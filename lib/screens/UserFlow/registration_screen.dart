@@ -191,13 +191,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         } on FormatException {
                           if (res == 'emailInUse') {
                             showDiag(
-                                    'Registration Error',
-                                    'This email is already in use',
-                                    context,
-                                    ['Login', 'Ok'],
-                                    AlertDiagTheme.backgroundColor,
-                                    AlertDiagTheme.textColor)
-                                .then((value) {
+                                'Registration Error',
+                                'This email is already in use',
+                                context,
+                                ['Login', 'Ok']).then((value) {
                               if (value == null) return;
 
                               if (value == 'Login') {
@@ -210,18 +207,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 'Registration Error',
                                 'A network error has occurred',
                                 context,
-                                ['Ok'],
-                                AlertDiagTheme.backgroundColor,
-                                AlertDiagTheme.textColor);
+                                ['Ok']);
                           } else if (res == 'addInfoError') {
                             showDiag(
-                                    'Registration Error',
-                                    'An error has occurred with user info, but your account was added. \nChange your info in settings as soon as possible',
-                                    context,
-                                    ['Ok'],
-                                    AlertDiagTheme.backgroundColor,
-                                    AlertDiagTheme.textColor)
-                                .then((value) {
+                                'Registration Error',
+                                'An error has occurred with user info, but your account was added. \nChange your info in settings as soon as possible',
+                                context,
+                                ['Ok']).then((value) {
                               if (value == null) return;
 
                               if (value == 'Ok') {
@@ -233,9 +225,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 'Registration Error',
                                 'An unknown error has occurred',
                                 context,
-                                ['Ok'],
-                                AlertDiagTheme.backgroundColor,
-                                AlertDiagTheme.textColor);
+                                ['Ok']);
                           }
                         }
                         setState(() {

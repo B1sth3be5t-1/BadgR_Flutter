@@ -65,9 +65,7 @@ class _checkbox extends State<CustomSearchCheckbox> {
                         'Error',
                         'An unknown error has occurred. \nPlease try again',
                         context,
-                        ['Ok'],
-                        kColorXLightBlue,
-                        kColorDarkBlue);
+                        ['Ok']);
                     //todo fix
                     return;
                   }

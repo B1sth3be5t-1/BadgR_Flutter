@@ -121,13 +121,10 @@ AccordionSection getBadgeSection(MeritBadge mb, BuildContext context) {
     content: TextButton(
       onPressed: () {
         showDiag(
-          'Remove Badge',
-          'Are you sure you want to \nremove this badge from \nyour completed list?',
-          context,
-          ['No', 'Yes'],
-          AlertDiagTheme.backgroundColor,
-          AlertDiagTheme.textColor,
-        ).then((value) {
+            'Remove Badge',
+            'Are you sure you want to \nremove this badge from \nyour completed list?',
+            context,
+            ['No', 'Yes']).then((value) {
           if (value == null) return;
 
           if (value == 'Yes') FirebaseRunner.removeCompletedBadge(mb.id);

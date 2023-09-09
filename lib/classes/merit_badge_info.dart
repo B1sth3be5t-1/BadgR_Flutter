@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:badgr/classes/widgets/custom_input.dart';
+import 'package:flutter/services.dart';
 import 'firebase_runner.dart';
 import 'dart:io';
 
 List<MeritBadge> badges = [
-  MeritBadge(1, 'American Business', false, 6, Map()),
+  MeritBadge(1, 'American Business', false, 6, {1: 'stuff'}),
   MeritBadge(2, 'American Cultures', false, 5, Map()),
   MeritBadge(3, 'American Heritage', false, 6, Map()),
   MeritBadge(4, 'American Labor', false, 9, Map()),
@@ -146,12 +147,12 @@ class MeritBadge {
   final int id;
   final int numReqs;
   final bool isEagleRequired;
-  final Map<int, bool> reqs;
+  Map<int, String> reqs;
 
   MeritBadge(this.id, this.name, this.isEagleRequired, this.numReqs, this.reqs);
 
-  void setReqs(int i, bool b) {
-    reqs[i] = b;
+  void setReqs(Map<int, String> m) {
+    reqs = m;
   }
 
   String getBadgeIconName() {
@@ -162,17 +163,47 @@ class MeritBadge {
     }
     return s;
   }
+
+  String? getReq(int num) {
+    return this.reqs[num];
+  }
 }
 
 class AllMeritBadges {
   static Map<int, MeritBadge> allBadges = Map();
 
   static void setAllBadges() async {
-    //var input = await File('badgeReqs.json').readAsString();
-    //var map = jsonDecode(input);
-
     allBadges = await FirebaseRunner.setAllBadges();
-    return;
+
+    try {
+      //get json from assets
+      var input = await rootBundle.loadString('badgeReqs.json');
+      //create json map
+      var js = await json.decode(input);
+
+      //for each badge in list
+      for (MapEntry<int, MeritBadge> me in allBadges.entries) {
+        //get the sub-map for each badge
+        var data = js[me.key.toString()];
+
+        Map<int, String> mbMap = {};
+
+        for (int i = 1; i <= me.value.numReqs; i++) {
+          String reqNum = 'reqNum$i';
+
+          try {
+            mbMap[i] = data[reqNum];
+          } catch (e) {
+            break;
+          }
+        }
+
+        allBadges[me.key]!.setReqs(mbMap);
+      }
+    } catch (e) {
+      print(e.toString() + '-----');
+      setAllBadges();
+    }
   }
 
   static MeritBadge getBadgeByID(int id) {

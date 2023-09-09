@@ -102,13 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         } on FormatException {
                           if (res == 'wrongEmailPass') {
                             showDiag(
-                                    'Login Error',
-                                    'The username or password is incorrect',
-                                    context,
-                                    ['Register', 'Ok'],
-                                    AlertDiagTheme.backgroundColor,
-                                    AlertDiagTheme.textColor)
-                                .then((value) {
+                                'Login Error',
+                                'The username or password is incorrect',
+                                context,
+                                ['Register', 'Ok']).then((value) {
                               if (value == null) return;
 
                               if (value == 'Register') {
@@ -121,25 +118,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Login Error',
                                 'You have entered too many incorrect password attempts. \nPlease try again later',
                                 context,
-                                ['Ok'],
-                                AlertDiagTheme.backgroundColor,
-                                AlertDiagTheme.textColor);
+                                ['Ok']);
                           } else if (res == 'network') {
                             showDiag(
                                 'Login Error',
                                 'A network error has occurred',
                                 context,
-                                ['Ok'],
-                                AlertDiagTheme.backgroundColor,
-                                AlertDiagTheme.textColor);
+                                ['Ok']);
                           } else if (res != 'done') {
                             showDiag(
                                 'Login Error',
                                 'An unknown error has occurred',
                                 context,
-                                ['Ok'],
-                                AlertDiagTheme.backgroundColor,
-                                AlertDiagTheme.textColor);
+                                ['Ok']);
                           }
                         }
                         setState(() {
@@ -222,33 +213,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'Password Reset Error',
                                   'A network error has occurred',
                                   context,
-                                  ['Ok'],
-                                  AlertDiagTheme.backgroundColor,
-                                  AlertDiagTheme.textColor);
+                                  ['Ok']);
                             } else if (res == 'enterEmail') {
                               showDiag(
                                   'Password Reset Error',
                                   'Please enter an email address',
                                   context,
-                                  ['Ok'],
-                                  AlertDiagTheme.backgroundColor,
-                                  AlertDiagTheme.textColor);
+                                  ['Ok']);
                             } else if (res == 'user-not-found') {
-                              showDiag(
-                                  'Password Reset Error',
-                                  'Email does not exist',
-                                  context,
-                                  ['Ok'],
-                                  AlertDiagTheme.backgroundColor,
-                                  AlertDiagTheme.textColor);
+                              showDiag('Password Reset Error',
+                                  'Email does not exist', context, ['Ok']);
                             } else if (res != 'done') {
-                              showDiag(
-                                  'Password Reset Error',
-                                  'An unknown error occurred',
-                                  context,
-                                  ['Ok'],
-                                  AlertDiagTheme.backgroundColor,
-                                  AlertDiagTheme.textColor);
+                              showDiag('Password Reset Error',
+                                  'An unknown error occurred', context, ['Ok']);
                             }
                           }
                         }

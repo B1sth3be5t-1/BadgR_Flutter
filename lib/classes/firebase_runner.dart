@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:badgr/classes/themes.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
+import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -247,22 +248,45 @@ class FirebaseRunner {
     return 'Done';
   }
 
-  static Future<String> toggleCompletedReq(
-      int bid, Map<String, dynamic> map, BuildContext c) async {
+  static Future<String> toggleCompletedReqs(
+      List<int> lis, Map<int, Map<String, dynamic>> map, BuildContext c) async {
     try {
-      FirebaseFirestore.instance
-          .collection('user_added_badges')
-          .doc('${user.cred?.user!.uid}::$bid')
-          .update({'requirements': map});
+      bool anyComplete = false;
 
-      for (MapEntry<String, dynamic> me in map.entries)
-        if (!me.value) return 'Done';
+      List<String> strs = [];
+      for (int bid in lis) {
+        FirebaseFirestore.instance
+            .collection('user_added_badges')
+            .doc('${user.cred?.user!.uid}::$bid')
+            .update({'requirements': map[bid]});
 
-      return setCompletedBadge(bid, c);
+        bool compl = true;
+        for (MapEntry<String, dynamic> me in map[bid]!.entries) {
+          if (!me.value) {
+            compl = false;
+            break;
+          }
+        }
+        if (compl) {
+          strs.add(await setCompletedBadge(bid));
+          anyComplete = true;
+        }
+      }
+      if (anyComplete)
+        showDiag(
+            'Badge Complete',
+            'Congratulations! You\'ve \ncompleted a merit badge!',
+            c,
+            ['Yay!']).then((value) => 'Done');
+
+      if (strs.contains('Error')) return 'Error';
+
+      ScoutMyBadgesState.clearChanged();
     } catch (e) {
       print(e);
       return 'Error';
     }
+    return 'Done';
   }
 
   static Future<String> removeCompletedBadge(int id) async {
@@ -290,7 +314,7 @@ class FirebaseRunner {
     return 'Done';
   }
 
-  static Future<String> setCompletedBadge(int id, BuildContext c) async {
+  static Future<String> setCompletedBadge(int id) async {
     try {
       Map<String, dynamic> map = {};
 
@@ -309,15 +333,6 @@ class FirebaseRunner {
         'isComplete': true,
         'requirements': true
       });
-
-      showDiag(
-              'Badge Complete',
-              'Congratulations! You\'ve \ncompleted a merit badge!',
-              c,
-              ['Yay!'],
-              AlertDiagTheme.backgroundColor,
-              AlertDiagTheme.textColor)
-          .then((value) => 'Done');
     } catch (e) {
       return 'Error';
     }

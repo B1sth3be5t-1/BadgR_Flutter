@@ -14,6 +14,7 @@ import 'package:accordion/accordion.dart';
 
 import '../../classes/constants.dart';
 import '../../classes/themes.dart';
+import '../../classes/widgets/custom_alert.dart';
 
 class ScoutMyBadges extends StatefulWidget {
   const ScoutMyBadges({super.key});
@@ -29,7 +30,8 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
   bool showSpinner = false;
 
   static Map<int, Map<String, dynamic>> reqMap = {};
-  static int opened = 0;
+  static List<int> changed = [];
+  static bool isTodo = false;
 
   final _headerStyle = TextStyle(
       color: isLight() ? kColorDarkBlue : kColorDarkBlue,
@@ -38,6 +40,7 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
 
   @override
   Widget build(BuildContext context) {
+    isTodo = false;
     return Scaffold(
       body: SizedBox.expand(
         child: ModalProgressHUD(
@@ -77,6 +80,7 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
 
                       if (docData.get('isComplete') ||
                           !docData.get('inProgress')) continue;
+
                       MeritBadge mb = AllMeritBadges.getBadgeByID(badgeID);
                       lis.add(
                         getBadgeSection(
@@ -124,20 +128,56 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        tooltip: 'Submit',
+        onPressed: () async {
+          if (changed.isEmpty) {
+            showDiag(
+                'Error',
+                'Make some requirement updates before submitting!',
+                context,
+                ['Ok']);
+            return;
+          }
+          String str = "";
+          try {
+            str = await FirebaseRunner.toggleCompletedReqs(
+                changed, reqMap, context);
+            if (str != "Done") throw Exception('Error!');
+          } catch (e) {
+            showDiag(
+                'Error',
+                'An unknown error has occurred. \nPlease try again',
+                context,
+                ['Ok']);
+            //todo fix
+            return;
+          }
+        },
+      ),
     );
   }
 
-  static void updateMap(
+  static void updateReqMap(
       {required int bid, required int id, required bool compl}) {
     reqMap[bid]?[id.toString()] = compl;
   }
 
-  static Map<String, dynamic> getMap({required int bid}) {
+  static Map<String, dynamic> getReqMap({required int bid}) {
     return reqMap[bid]!;
   }
 
-  static void updateOpened(int i) {
-    opened = i;
+  static void addChangedInt(int bid) {
+    changed.add(bid);
+  }
+
+  static void clearChanged() {
+    changed = [];
+  }
+
+  static bool getChangedBool() {
+    return changed.isNotEmpty;
   }
 }
 
@@ -151,20 +191,30 @@ AccordionSection getBadgeSection(
   Map<int, bool> m = {};
 
   int count = 0;
-
   sorted.forEach((key, value) {
     m[int.parse(key)] = value;
     if (value) count++;
   });
 
   for (MapEntry<int, bool> me in m.entries) {
+    int reqNum = me.key;
+
+    String req = AllMeritBadges.allBadges[mb.id]!.reqs[reqNum] ?? 'todo';
+
+    if (req == 'todo') ScoutMyBadgesState.isTodo = true;
+
     lis.add(
       CustomAccordionSection(
         header: Row(
           children: [
             CustomReqCheckbox(
-                bid: mb.id, id: me.key, completed: me.value, c: context),
-            Text(me.key.toString() + ': ' + me.value.toString()),
+                bid: mb.id, id: reqNum, completed: me.value, c: context),
+            Expanded(
+              child: Text(
+                reqNum.toString() + ': ' + req,
+                softWrap: true,
+              ),
+            ),
           ],
         ),
       ),
@@ -175,9 +225,6 @@ AccordionSection getBadgeSection(
   percent = double.parse(percent.toStringAsFixed(2));
 
   return AccordionSection(
-    onOpenSection: () => ScoutMyBadgesState.updateOpened(mb.id),
-    onCloseSection: () => ScoutMyBadgesState.updateOpened(0),
-    isOpen: mb.id == ScoutMyBadgesState.opened,
     index: mb.id,
     header: CustomAccordionHeader(
       title: mb.name,

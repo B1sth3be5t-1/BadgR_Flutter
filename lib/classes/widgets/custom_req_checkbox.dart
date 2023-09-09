@@ -41,18 +41,8 @@ class _checkReqBox extends State<CustomReqCheckbox> {
     return Checkbox(
       value: completed,
       onChanged: (val) async {
-        ScoutMyBadgesState.updateMap(bid: bid, id: id, compl: val!);
-        String str = "";
-        try {
-          str = await FirebaseRunner.toggleCompletedReq(
-              bid, ScoutMyBadgesState.getMap(bid: bid), c);
-          if (str != "Done") throw Exception('Error!');
-        } catch (e) {
-          showDiag('Error', 'An unknown error has occurred. \nPlease try again',
-              context, ['Ok'], kColorXLightBlue, kColorDarkBlue);
-          //todo fix
-          return;
-        }
+        ScoutMyBadgesState.updateReqMap(bid: bid, id: id, compl: val!);
+        ScoutMyBadgesState.addChangedInt(bid);
         setState(() {
           completed = val;
         });

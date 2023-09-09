@@ -1,5 +1,6 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/screens/scout_screens/scout_completed.dart';
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
 import 'package:badgr/screens/scout_screens/scout_settings.dart';
@@ -28,6 +29,7 @@ class _scoutMainState extends State<ScoutScreen> {
 
   Scout? user = FirebaseRunner.getScout();
   bool showSpinner = false;
+  bool firstNotif = true;
   late int currentPageIndex;
   final name = FirebaseRunner.getScout()!.name;
   final bool args;
@@ -42,7 +44,7 @@ class _scoutMainState extends State<ScoutScreen> {
     super.initState();
     AllMeritBadges.setAllBadges();
     currentPageIndex = args ? 4 : 0;
-    getChildren();
+    getChildren(myBadges: false);
   }
 
   @override
@@ -74,9 +76,24 @@ class _scoutMainState extends State<ScoutScreen> {
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
+          if (firstNotif &&
+              currentPageIndex == 2 &&
+              ScoutMyBadgesState.getChangedBool()) {
+            showDiag(
+                'Reminder',
+                'Make sure to click submit on \nthe Saved Badges page \nbefore you exit the app to \nsave your requirement changes!',
+                context,
+                ['Ok']);
+            firstNotif = false;
+          }
           setState(() {
             currentPageIndex = index;
-            getChildren();
+            if (index == 2 && ScoutMyBadgesState.isTodo) {
+              getChildren(myBadges: true);
+              return;
+            }
+            currentPageIndex = index;
+            getChildren(myBadges: false);
           });
         },
         selectedIndex: currentPageIndex,
@@ -109,7 +126,7 @@ class _scoutMainState extends State<ScoutScreen> {
     );
   }
 
-  void getChildren() {
+  void getChildren({required bool myBadges}) {
     lis.clear();
 
     lis.add(
@@ -121,7 +138,10 @@ class _scoutMainState extends State<ScoutScreen> {
     );
 
     lis.add(ScoutSearch());
-    lis.add(smb);
+    if (myBadges)
+      lis.add(ScoutMyBadges());
+    else
+      lis.add(smb);
     lis.add(sc);
     lis.add(ss);
     setState(() {});

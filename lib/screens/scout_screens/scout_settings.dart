@@ -190,13 +190,10 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                         if (!m.isEmpty) {
                           bool cont = true;
                           await showDiag(
-                                  'Confirm Submit',
-                                  'Are you sure you want to submit information?',
-                                  context,
-                                  ['Cancel', 'Ok'],
-                                  AlertDiagTheme.backgroundColor,
-                                  AlertDiagTheme.textColor)
-                              .then((value) {
+                              'Confirm Submit',
+                              'Are you sure you want to submit information?',
+                              context,
+                              ['Cancel', 'Ok']).then((value) {
                             if (value == null) return;
                             if (value == 'Cancel') cont = false;
                           });
@@ -208,29 +205,20 @@ class _ScoutSettingsState extends State<ScoutSettings> {
                                     'Update Success',
                                     'Your updates have been successful',
                                     context,
-                                    ['Ok'],
-                                    AlertDiagTheme.backgroundColor,
-                                    AlertDiagTheme.textColor)
+                                    ['Ok'])
                                 .then((value) => FirebaseRunner.sendUser(
                                     context, FirebaseRunner.getScout()!.email,
                                     b: true));
                           } on Exception {
-                            showDiag(
-                                'Update Failure',
-                                'Your updates have failed',
-                                context,
-                                ['Ok'],
-                                AlertDiagTheme.backgroundColor,
-                                AlertDiagTheme.textColor);
+                            showDiag('Update Failure',
+                                'Your updates have failed', context, ['Ok']);
                           }
                         } else {
                           showDiag(
                               'Update Failure',
                               'Please enter at least one value',
                               context,
-                              ['Ok'],
-                              AlertDiagTheme.backgroundColor,
-                              AlertDiagTheme.textColor);
+                              ['Ok']);
                         }
                         _controller1.clear();
                         _controller2.clear();
