@@ -1,8 +1,5 @@
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
 import 'package:flutter/material.dart';
-import 'package:badgr/classes/constants.dart';
-import 'package:badgr/classes/widgets/custom_alert.dart';
-import 'package:badgr/classes/firebase_runner.dart';
 
 class CustomReqCheckbox extends StatefulWidget {
   CustomReqCheckbox(

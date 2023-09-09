@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:badgr/classes/themes.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';

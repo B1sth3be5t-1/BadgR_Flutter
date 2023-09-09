@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:flutter/services.dart';
 import 'firebase_runner.dart';
-import 'dart:io';
 
 List<MeritBadge> badges = [
   MeritBadge(1, 'American Business', false, 6, {1: 'stuff'}),

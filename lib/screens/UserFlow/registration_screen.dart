@@ -1,4 +1,3 @@
-import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/screens/UserFlow/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/Widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
-
-import '../../classes/themes.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String screenID = 'RegisterScreen';

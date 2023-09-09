@@ -52,7 +52,6 @@ class _ScoutSettingsState extends State<ScoutSettings> {
   }
 
   Form setForm() {
-    bool l = isLight();
     return Form(
       key: _formKey,
       child: Accordion(
