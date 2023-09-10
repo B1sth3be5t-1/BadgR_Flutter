@@ -1,6 +1,7 @@
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/screens/scout_screens/scout_completed.dart';
+import 'package:badgr/screens/scout_screens/scout_home.dart';
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
 import 'package:badgr/screens/scout_screens/scout_settings.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class _scoutMainState extends State<ScoutScreen> {
   ScoutMyBadges smb = const ScoutMyBadges();
   ScoutCompleted sc = const ScoutCompleted();
   ScoutSettings ss = const ScoutSettings();
+  ScoutHome sh = const ScoutHome();
 
   @override
   void initState() {
@@ -128,13 +130,7 @@ class _scoutMainState extends State<ScoutScreen> {
   void getChildren({required bool myBadges}) {
     lis.clear();
 
-    lis.add(
-      Container(
-        color: Colors.blueGrey,
-        alignment: Alignment.center,
-        child: const Text('Page 1'),
-      ),
-    );
+    lis.add(sh);
 
     lis.add(ScoutSearch());
     if (myBadges)

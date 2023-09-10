@@ -19,8 +19,6 @@ import '../../classes/widgets/custom_alert.dart';
 class ScoutMyBadges extends StatefulWidget {
   const ScoutMyBadges({super.key});
 
-  static String screenID = 'scoutMainScreen';
-
   @override
   // ignore: library_private_types_in_public_api
   ScoutMyBadgesState createState() => ScoutMyBadgesState();
