@@ -149,7 +149,6 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
                 'An unknown error has occurred. \nPlease try again',
                 context,
                 ['Ok']);
-            //todo fix
             return;
           }
         },

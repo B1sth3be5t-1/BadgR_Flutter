@@ -22,62 +22,11 @@ Color getBackgroundColor() {
 
 final kThemeLight = ThemeData(
   useMaterial3: true,
-  primaryTextTheme: TextTheme(
-    displaySmall: TextStyle(
-      color: kColorDarkBlue,
-      fontSize: 15,
-      fontWeight: FontWeight.bold,
-    ),
-    bodyLarge: TextStyle(color: Colors.white),
-    labelLarge: TextStyle(color: Colors.white),
-    displayLarge: TextStyle(
-      fontSize: 45.0,
-      fontWeight: FontWeight.w900,
-      color: kColorDarkBlue,
-    ),
-    displayMedium: TextStyle(
-      fontSize: 30.0,
-      fontWeight: FontWeight.bold,
-      color: kColorDarkBlue,
-    ),
-    labelMedium: TextStyle(color: Colors.black),
-    labelSmall: TextStyle(color: Colors.black),
-  ),
-  listTileTheme: ListTileThemeData(
-      tileColor: kColorLightPink,
-      selectedTileColor: kColorBlue,
-      selectedColor: kColorXLightBlue),
-  inputDecorationTheme: InputDecorationTheme(
-    labelStyle: TextStyle(color: Colors.black),
-    hintStyle: const TextStyle(
-      color: Colors.grey,
-    ),
-    errorStyle: const TextStyle(
-      color: kColorDarkPink,
-    ),
-    contentPadding:
-        const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-    border: kBorder,
-    enabledBorder: kBorderEnabled,
-    focusedBorder: kBorderFocused,
-  ),
-  scaffoldBackgroundColor: kColorXLightBlue,
-  primaryColor: kColorBlue,
-  primaryColorLight: kColorLightBlue,
-  primaryColorDark: kColorDarkBlue,
-  textButtonTheme: TextButtonThemeData(
-    style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.resolveWith(_getColor),
-      backgroundColor:
-          MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
-    ),
-  ),
   appBarTheme: AppBarTheme(
     backgroundColor: kColorXLightPink,
   ),
   buttonTheme: ButtonThemeData(
       buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
-  progressIndicatorTheme: ProgressIndicatorThemeData(color: kColorDarkBlue),
   checkboxTheme: CheckboxThemeData(
     fillColor: MaterialStateProperty.resolveWith((states) => kColorBlue),
     checkColor: MaterialStateProperty.resolveWith((states) => Colors.white),
@@ -94,9 +43,61 @@ final kThemeLight = ThemeData(
       iconColor: MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
     ),
   ),
+  inputDecorationTheme: InputDecorationTheme(
+    labelStyle: TextStyle(color: Colors.black),
+    hintStyle: const TextStyle(
+      color: Colors.grey,
+    ),
+    errorStyle: const TextStyle(
+      color: kColorDarkPink,
+    ),
+    contentPadding:
+        const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+    border: kBorder,
+    enabledBorder: kBorderEnabled,
+    focusedBorder: kBorderFocused,
+  ),
+  listTileTheme: ListTileThemeData(
+      tileColor: kColorLightPink,
+      selectedTileColor: kColorBlue,
+      selectedColor: kColorXLightBlue),
   navigationBarTheme: NavigationBarThemeData(
     indicatorColor: kColorBlue,
     backgroundColor: kColorLightPink,
+  ),
+  scaffoldBackgroundColor: kColorXLightBlue,
+  primaryColor: kColorBlue,
+  primaryColorLight: kColorLightBlue,
+  primaryColorDark: kColorDarkBlue,
+  primaryTextTheme: TextTheme(
+    bodyLarge: TextStyle(color: Colors.white),
+    displayLarge: TextStyle(
+      fontSize: 45.0,
+      fontWeight: FontWeight.w900,
+      color: kColorDarkBlue,
+    ),
+    displayMedium: TextStyle(
+      fontSize: 30.0,
+      fontWeight: FontWeight.bold,
+      color: kColorDarkBlue,
+    ),
+    displaySmall: TextStyle(
+      color: kColorDarkBlue,
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+    ),
+    headlineMedium: TextStyle(color: kColorDarkBlue, fontSize: 18),
+    labelLarge: TextStyle(color: Colors.white),
+    labelMedium: TextStyle(color: Colors.black),
+    labelSmall: TextStyle(color: Colors.black),
+  ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(color: kColorDarkBlue),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.resolveWith(_getColor),
+      backgroundColor:
+          MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
+    ),
   ),
 );
 
@@ -176,6 +177,11 @@ class AccordionTheme {
   static Color contentBackgroundColor = getBackgroundColor();
   static Color contentBorderColor =
       isLight() ? kColorDarkBlue : kColorLightPink;
+}
+
+class linProgTheme {
+  static Color backgroundColor = !isLight() ? kColorDarkBlue : kColorPink;
+  static Color progressColor = !isLight() ? kColorLightPink : kColorDarkBlue;
 }
 
 Color _getColor(Set<MaterialState> states) {

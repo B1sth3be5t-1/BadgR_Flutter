@@ -64,35 +64,34 @@ class ScoutHomeState extends State<ScoutHome> {
 
                 double percent = complReqs * 1.0 / totalReqs;
 
-                Widget r3 = Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                          'Your percentage completion of saved badges is: '),
-                      flex: 1,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: LinearPercentIndicator(
-                        center: percent < .45
-                            ? Text(
-                                '${(percent * 100).toInt()}%',
-                              )
-                            : Text(
-                                '${(percent * 100).toInt()}%',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                        //todo COLORS
-                        progressColor: kColorDarkBlue,
-                        backgroundColor: kColorLightPink,
-                        percent: percent,
-                        lineHeight: 20,
-                        barRadius: Radius.circular(7.5),
-                        animation: true,
+                  Row r3 = Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                            'Your percentage completion of saved badges is: '),
+                        flex: 1,
                       ),
-                    )
-                  ],
-                );
+                      Expanded(
+                        flex: 1,
+                        child: LinearPercentIndicator(
+                          center: percent < .45
+                              ? Text(
+                                  '${(percent * 100).toInt()}%',
+                                )
+                              : Text(
+                                  '${(percent * 100).toInt()}%',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                          progressColor: linProgTheme.progressColor,
+                          backgroundColor: linProgTheme.backgroundColor,
+                          percent: percent,
+                          lineHeight: 20,
+                          barRadius: Radius.circular(7.5),
+                          animation: true,
+                        ),
+                      )
+                    ],
+                  );
 
                 return Container(
                   height: 700,
