@@ -39,12 +39,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           children: [
             CustomHeader('Settings'),
             Accordion(
-              contentBackgroundColor: getBackgroundColor(),
+              contentBackgroundColor: AccordionTheme.contentBackgroundColor,
               maxOpenSections: 1,
               headerBackgroundColorOpened:
-                  isLight() ? kColorBlue : kColorLightPink,
-              headerBackgroundColor: isLight() ? kColorLightPink : kColorPink,
-              contentBorderColor: isLight() ? kColorDarkBlue : kColorLightPink,
+                  AccordionTheme.headerBackgroundColorOpened,
+              headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+              contentBorderColor: AccordionTheme.contentBorderColor,
               scaleWhenAnimating: true,
               openAndCloseAnimation: true,
               headerPadding:
@@ -62,12 +62,14 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   List<AccordionSection> getList() {
     List<AccordionSection> lis = [];
     for (var entry in map.entries) {
-      lis.add(AccordionSection(
-          header: Text(
-            entry.key,
-            style: headerStyle,
-          ),
-          content: entry.value));
+      lis.add(
+        AccordionSection(
+            header: Text(
+              entry.key,
+              style: headerStyle,
+            ),
+            content: entry.value),
+      );
     }
     return lis;
   }

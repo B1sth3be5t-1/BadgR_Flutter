@@ -66,7 +66,6 @@ class _checkbox extends State<CustomSearchCheckbox> {
                         'An unknown error has occurred. \nPlease try again',
                         context,
                         ['Ok']);
-                    //todo fix
                     return;
                   }
                   setState(() {

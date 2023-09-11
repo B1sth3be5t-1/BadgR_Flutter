@@ -1,4 +1,5 @@
 import 'package:badgr/classes/constants.dart';
+import 'package:badgr/classes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -49,9 +50,8 @@ class _CAHState extends State<CustomAccordionHeader> {
         animation: true,
         animationDuration: 600,
         percent: percent,
-        //todo COLORS
-        backgroundColor: kColorPink,
-        progressColor: kColorDarkBlue,
+        backgroundColor: linProgTheme.backgroundColor,
+        progressColor: linProgTheme.progressColor,
       ),
     );
   }

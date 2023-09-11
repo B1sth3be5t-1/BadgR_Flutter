@@ -151,9 +151,12 @@ class _ScoutSearchState extends State<ScoutSearch> {
       if (!bools[mb.id].isNull) isChecked = true;
       if (!completes[mb.id].isNull) isComplete = true;
       AccordionSection AS = AccordionSection(
-          header: Text(
-            mb.name,
-            style: _headerStyle,
+          header: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              mb.name,
+              style: _headerStyle,
+            ),
           ),
           content: Row(
             children: [

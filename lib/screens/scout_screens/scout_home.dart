@@ -1,5 +1,6 @@
 import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:badgr/classes/themes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -83,9 +84,8 @@ class ScoutHomeState extends State<ScoutHome> {
                                   '${(percent * 100).toInt()}%',
                                   style: TextStyle(color: Colors.white),
                                 ),
-                          //todo COLORS
-                          progressColor: kColorDarkBlue,
-                          backgroundColor: kColorLightPink,
+                          progressColor: linProgTheme.progressColor,
+                          backgroundColor: linProgTheme.backgroundColor,
                           percent: percent,
                           lineHeight: 20,
                           barRadius: Radius.circular(7.5),
