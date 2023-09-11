@@ -52,12 +52,9 @@ class _ScoutSettingsState extends State<ScoutSettings> {
         children: [
           AccordionSection(
             isOpen: true,
-            header: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Edit first name',
-                style: _headerStyle,
-              ),
+            header: Text(
+              'Edit first name',
+              style: _headerStyle,
             ),
             onCloseSection: () {
               _controller1.clear();
@@ -80,12 +77,9 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             ),
           ),
           AccordionSection(
-            header: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Edit last name',
-                style: _headerStyle,
-              ),
+            header: Text(
+              'Edit last name',
+              style: _headerStyle,
             ),
             onCloseSection: () {
               _controller2.clear();
@@ -108,12 +102,9 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             ),
           ),
           AccordionSection(
-            header: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Update age',
-                style: _headerStyle,
-              ),
+            header: Text(
+              'Update age',
+              style: _headerStyle,
             ),
             onCloseSection: () {
               _controller3.clear();
@@ -137,12 +128,9 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             ),
           ),
           AccordionSection(
-            header: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Change troop',
-                style: _headerStyle,
-              ),
+            header: Text(
+              'Change troop',
+              style: _headerStyle,
             ),
             onCloseSection: () {
               _controller4.clear();
@@ -166,12 +154,9 @@ class _ScoutSettingsState extends State<ScoutSettings> {
           ),
           AccordionSection(
             isOpen: true,
-            header: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Buttons',
-                style: _headerStyle,
-              ),
+            header: Text(
+              'Buttons',
+              style: _headerStyle,
             ),
             content: Flex(
               direction: Axis.horizontal,
