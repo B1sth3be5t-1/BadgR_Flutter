@@ -180,8 +180,8 @@ class AccordionTheme {
 }
 
 class linProgTheme {
-  static Color backgroundColor = !isLight() ? kColorDarkBlue : kColorPink;
-  static Color progressColor = !isLight() ? kColorLightPink : kColorDarkBlue;
+  static Color backgroundColor = !isLight() ? kColorLightBlue : kColorPink;
+  static Color progressColor = !isLight() ? kColorDarkPink : kColorDarkBlue;
 }
 
 Color _getColor(Set<MaterialState> states) {

@@ -22,6 +22,8 @@ class BadgR extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (savedThemeMode == AdaptiveThemeMode.dark) setLight(false);
+
     return AdaptiveTheme(
       light: kThemeLight,
       dark: kThemeDark,
