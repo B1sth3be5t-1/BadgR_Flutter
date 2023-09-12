@@ -98,28 +98,52 @@ class _scoutMainState extends State<ScoutScreen> {
           });
         },
         selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
+        destinations: <Widget>[
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home_rounded),
+            icon: Icon(
+              Icons.home_outlined,
+              color: NavigationIconTheme.iconColor,
+            ),
+            selectedIcon: Icon(
+              Icons.home_rounded,
+              color: NavigationIconTheme.iconColor,
+            ),
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: NavigationIconTheme.iconColor,
+            ),
             label: 'Search Badges',
           ),
           NavigationDestination(
-            icon: Icon(Icons.data_usage),
+            icon: Icon(
+              Icons.data_usage,
+              color: NavigationIconTheme.iconColor,
+            ),
             label: 'Saved Badges',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.check_box),
-            icon: Icon(Icons.check_box_outlined),
+            selectedIcon: Icon(
+              Icons.check_box,
+              color: NavigationIconTheme.iconColor,
+            ),
+            icon: Icon(
+              Icons.check_box_outlined,
+              color: NavigationIconTheme.iconColor,
+            ),
             label: 'Completed',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.settings),
-            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(
+              Icons.settings,
+              color: NavigationIconTheme.iconColor,
+            ),
+            icon: Icon(
+              Icons.settings_outlined,
+              color: NavigationIconTheme.iconColor,
+            ),
             label: 'Settings',
           ),
         ],

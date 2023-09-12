@@ -192,8 +192,10 @@ class _ScoutSearchState extends State<ScoutSearch> {
 
     Widget acc = Accordion(
       maxOpenSections: 20,
-      headerBackgroundColor: kColorLightPink,
-      headerBackgroundColorOpened: kColorLightBlue,
+      headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+      headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened,
+      contentBackgroundColor: AccordionTheme.contentBorderColor,
+      contentBorderColor: AccordionTheme.contentBorderColor,
       children: lis,
     );
     return acc;

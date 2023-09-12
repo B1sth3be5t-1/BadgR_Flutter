@@ -50,8 +50,8 @@ class _CAHState extends State<CustomAccordionHeader> {
         animation: true,
         animationDuration: 600,
         percent: percent,
-        backgroundColor: linProgTheme.backgroundColor,
-        progressColor: linProgTheme.progressColor,
+        backgroundColor: LinProgTheme.backgroundColor,
+        progressColor: LinProgTheme.progressColor,
       ),
     );
   }

@@ -50,6 +50,8 @@ final kThemeLight = ThemeData(
     ),
     errorStyle: const TextStyle(
       color: kColorDarkPink,
+      fontSize: 12,
+      fontWeight: FontWeight.bold,
     ),
     contentPadding:
         const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -64,6 +66,8 @@ final kThemeLight = ThemeData(
   navigationBarTheme: NavigationBarThemeData(
     indicatorColor: kColorBlue,
     backgroundColor: kColorLightPink,
+    labelTextStyle: MaterialStateProperty.resolveWith(
+        (states) => TextStyle(color: Colors.black)),
   ),
   scaffoldBackgroundColor: kColorXLightBlue,
   primaryColor: kColorBlue,
@@ -105,29 +109,37 @@ final kThemeLight = ThemeData(
 
 final kThemeDark = ThemeData(
   useMaterial3: true,
-  primaryTextTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.white),
-    bodySmall: TextStyle(color: Colors.white),
-    labelLarge: TextStyle(color: Colors.white),
-    displayLarge: TextStyle(
-      fontSize: 45.0,
-      fontWeight: FontWeight.w900,
-      color: kColorBlue,
-    ),
-    labelMedium: TextStyle(color: Colors.white),
-    labelSmall: TextStyle(color: Colors.white),
+  appBarTheme: AppBarTheme(
+    backgroundColor: kColorPink,
   ),
-  listTileTheme: ListTileThemeData(
-      tileColor: kColorPink,
-      selectedTileColor: kColorLightPink,
-      selectedColor: kColorXDarkBlue),
+  buttonTheme: ButtonThemeData(
+      buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
+  checkboxTheme: CheckboxThemeData(
+    fillColor: MaterialStateProperty.resolveWith((states) => kColorBlue),
+    checkColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+    overlayColor:
+        MaterialStateProperty.resolveWith((states) => kColorLightBlue),
+    splashRadius: 17,
+    side: BorderSide(width: 2),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    hoverColor: kColorLightBlue,
+    backgroundColor: kColorBlue,
+  ),
+  iconButtonTheme: IconButtonThemeData(
+    style: ButtonStyle(
+      iconColor: MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
+    ),
+  ),
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(color: Colors.white70),
     hintStyle: const TextStyle(
-      color: Colors.white54,
+      color: Colors.white60,
     ),
     errorStyle: const TextStyle(
       color: kColorDarkPink,
+      fontSize: 12,
+      fontWeight: FontWeight.bold,
     ),
     contentPadding:
         const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -135,33 +147,49 @@ final kThemeDark = ThemeData(
     enabledBorder: kBorderEnabled,
     focusedBorder: kBorderFocused,
   ),
+  listTileTheme: ListTileThemeData(
+      tileColor: kColorPink,
+      selectedTileColor: kColorLightPink,
+      selectedColor: kColorXDarkBlue),
+  navigationBarTheme: NavigationBarThemeData(
+    indicatorColor: kColorBlue,
+    backgroundColor: kColorDarkBlue,
+    labelTextStyle: MaterialStateProperty.resolveWith(
+        (states) => TextStyle(color: Colors.white)),
+  ),
   scaffoldBackgroundColor: kColorXDarkBlue,
   primaryColor: kColorBlue,
   primaryColorLight: kColorLightBlue,
   primaryColorDark: kColorDarkBlue,
+  primaryTextTheme: TextTheme(
+    bodyLarge: TextStyle(color: Colors.white),
+    displayLarge: TextStyle(
+      fontSize: 45.0,
+      fontWeight: FontWeight.w900,
+      color: kColorDarkBlue,
+    ),
+    displayMedium: TextStyle(
+      fontSize: 30.0,
+      fontWeight: FontWeight.bold,
+      color: kColorLightPink,
+    ),
+    displaySmall: TextStyle(
+      color: Colors.black,
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+    ),
+    headlineMedium: TextStyle(color: kColorLightPink, fontSize: 18),
+    labelLarge: TextStyle(color: Colors.white),
+    labelMedium: TextStyle(color: Colors.white),
+    labelSmall: TextStyle(color: Colors.white),
+  ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(color: kColorDarkBlue),
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       foregroundColor: MaterialStateProperty.resolveWith(_getColor),
       backgroundColor:
           MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
     ),
-  ),
-  appBarTheme: AppBarTheme(
-    backgroundColor: kColorXLightPink,
-  ),
-  buttonTheme: ButtonThemeData(
-      buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
-  progressIndicatorTheme: ProgressIndicatorThemeData(color: kColorDarkBlue),
-  checkboxTheme: CheckboxThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) => kColorBlue),
-    checkColor: MaterialStateProperty.resolveWith((states) => Colors.white),
-    overlayColor:
-        MaterialStateProperty.resolveWith((states) => kColorLightBlue),
-    splashRadius: 17,
-  ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    hoverColor: kColorLightBlue,
-    backgroundColor: kColorBlue,
   ),
 );
 
@@ -179,9 +207,14 @@ class AccordionTheme {
       isLight() ? kColorDarkBlue : kColorLightPink;
 }
 
-class linProgTheme {
+class LinProgTheme {
   static Color backgroundColor = !isLight() ? kColorLightBlue : kColorPink;
   static Color progressColor = !isLight() ? kColorDarkPink : kColorDarkBlue;
+}
+
+class NavigationIconTheme {
+  static Color iconColor = isLight() ? Colors.black : Colors.white;
+  static Color textColor = isLight() ? Colors.black : Colors.white;
 }
 
 Color _getColor(Set<MaterialState> states) {
