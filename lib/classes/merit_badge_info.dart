@@ -33,7 +33,7 @@ List<MeritBadge> badges = [
   MeritBadge(29, 'Climbing', false, 12, Map()),
   MeritBadge(30, 'Coin Collecting', false, 10, Map()),
   MeritBadge(31, 'Collections', false, 7, Map()),
-  MeritBadge(32, 'Communication', true, 9, Map()),
+  MeritBadge(32, 'Communications', true, 9, Map()),
   MeritBadge(33, 'Composite Materials', false, 6, Map()),
   MeritBadge(35, 'Cooking', true, 7, Map()),
   MeritBadge(36, 'Crime Prevention', false, 9, Map()),
@@ -78,7 +78,6 @@ List<MeritBadge> badges = [
   MeritBadge(78, 'Leatherwork', false, 5, Map()),
   MeritBadge(79, 'Lifesaving', true, 17, Map()),
   MeritBadge(80, 'Mammal Study', false, 5, Map()),
-  MeritBadge(81, 'Medicine', false, 10, Map()),
   MeritBadge(82, 'Metalwork', false, 3, Map()),
   MeritBadge(84, 'Model Design and Building', false, 6, Map()),
   MeritBadge(85, 'Motorboating', false, 3, Map()),
@@ -211,10 +210,6 @@ class AllMeritBadges {
 }
 
 /*
-medicine
-geneology
-entrepreneurship
-communication
-composite materials
-
+Health Care Professions reqs
+Cit Society reqs
  */
