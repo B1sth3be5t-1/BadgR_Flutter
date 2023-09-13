@@ -202,6 +202,7 @@ AccordionSection getBadgeSection(
 
     lis.add(
       CustomAccordionSection(
+        headerBackgroundColor: AccordionTheme.customAccBackColor,
         header: Row(
           children: [
             CustomReqCheckbox(

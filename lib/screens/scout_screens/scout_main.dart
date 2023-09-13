@@ -53,7 +53,7 @@ class _scoutMainState extends State<ScoutScreen> {
     AdaptiveTheme.of(context).mode.isLight ? setLight(true) : setLight(false);
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
+        title: Padding(
           padding: EdgeInsets.all(10),
           child: Text(
             'Welcome $name!',
@@ -63,7 +63,30 @@ class _scoutMainState extends State<ScoutScreen> {
                 ?.copyWith(fontSize: 30),
           ),
         ),
-        leadingWidth: 400,
+        leading: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: IconButton(
+            onPressed: () async {
+              String logout = '';
+              try {
+                logout = FirebaseRunner.logoutUser();
+                if (logout != 'Done')
+                  throw Exception('Error!');
+                else {
+                  Navigator.pop(context);
+                }
+              } catch (e) {
+                showDiag(
+                    'Error',
+                    'An error occurred while logging out. \nPlease try again',
+                    context,
+                    ['Ok']);
+              }
+            },
+            icon: Icon(Icons.arrow_back),
+            tooltip: 'Logout',
+          ),
+        ),
       ),
       body: SizedBox.expand(
         child: FadeIndexedStack(

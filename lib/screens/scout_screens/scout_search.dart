@@ -151,12 +151,9 @@ class _ScoutSearchState extends State<ScoutSearch> {
       if (!bools[mb.id].isNull) isChecked = true;
       if (!completes[mb.id].isNull) isComplete = true;
       AccordionSection AS = AccordionSection(
-          header: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              mb.name,
-              style: _headerStyle,
-            ),
+          header: Text(
+            mb.name,
+            style: _headerStyle,
           ),
           content: Row(
             children: [
@@ -194,7 +191,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
       maxOpenSections: 20,
       headerBackgroundColor: AccordionTheme.headerBackgroundColor,
       headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened,
-      contentBackgroundColor: AccordionTheme.contentBorderColor,
+      contentBackgroundColor: AccordionTheme.contentBackgroundColor,
       contentBorderColor: AccordionTheme.contentBorderColor,
       children: lis,
     );

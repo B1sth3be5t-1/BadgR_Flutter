@@ -123,8 +123,13 @@ class FirebaseRunner {
     return 'done';
   }
 
-  static void logoutUser() {
-    auth.signOut();
+  static String logoutUser() {
+    try {
+      auth.signOut();
+      return 'Done';
+    } catch (e) {
+      return 'Error';
+    }
   }
 
   static Scout? getScout() {

@@ -33,6 +33,7 @@ final kThemeLight = ThemeData(
     overlayColor:
         MaterialStateProperty.resolveWith((states) => kColorLightBlue),
     splashRadius: 17,
+    side: BorderSide(width: 1.5, color: Colors.black),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     hoverColor: kColorLightBlue,
@@ -110,7 +111,7 @@ final kThemeLight = ThemeData(
 final kThemeDark = ThemeData(
   useMaterial3: true,
   appBarTheme: AppBarTheme(
-    backgroundColor: kColorPink,
+    backgroundColor: kColorLightPink,
   ),
   buttonTheme: ButtonThemeData(
       buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
@@ -120,7 +121,7 @@ final kThemeDark = ThemeData(
     overlayColor:
         MaterialStateProperty.resolveWith((states) => kColorLightBlue),
     splashRadius: 17,
-    side: BorderSide(width: 2),
+    side: BorderSide(width: 1.5, color: Colors.white),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     hoverColor: kColorLightBlue,
@@ -166,7 +167,7 @@ final kThemeDark = ThemeData(
     displayLarge: TextStyle(
       fontSize: 45.0,
       fontWeight: FontWeight.w900,
-      color: kColorDarkBlue,
+      color: kColorKindaDarkBlue,
     ),
     displayMedium: TextStyle(
       fontSize: 30.0,
@@ -174,7 +175,7 @@ final kThemeDark = ThemeData(
       color: kColorLightPink,
     ),
     displaySmall: TextStyle(
-      color: Colors.black,
+      color: Colors.white,
       fontSize: 15,
       fontWeight: FontWeight.bold,
     ),
@@ -199,17 +200,25 @@ class AlertDiagTheme {
 }
 
 class AccordionTheme {
-  static Color headerBackgroundColor = isLight() ? kColorLightPink : kColorPink;
+  static Color headerBackgroundColor =
+      isLight() ? kColorLightPink : kColorKindaDarkPink;
   static Color headerBackgroundColorOpened =
-      isLight() ? kColorBlue : kColorLightPink;
+      isLight() ? kColorBlue : kColorDarkPink;
   static Color contentBackgroundColor = getBackgroundColor();
   static Color contentBorderColor =
       isLight() ? kColorDarkBlue : kColorLightPink;
+  static Color customAccBackColor = isLight() ? kColorLightPink : kColorPink;
 }
 
 class LinProgTheme {
   static Color backgroundColor = !isLight() ? kColorLightBlue : kColorPink;
-  static Color progressColor = !isLight() ? kColorDarkPink : kColorDarkBlue;
+  static Color progressColor = !isLight() ? kColorPink : kColorDarkBlue;
+
+  static Color textColor(double p) {
+    if (!isLight()) return Colors.black;
+    if (p < .45) return Colors.black;
+    return Colors.white;
+  }
 }
 
 class NavigationIconTheme {

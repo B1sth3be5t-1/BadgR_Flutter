@@ -1,5 +1,4 @@
 import 'package:accordion/controllers.dart';
-import 'package:badgr/classes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
@@ -9,7 +8,7 @@ class SettingsWidget extends StatefulWidget {
   const SettingsWidget({required this.map, required this.headerStyle});
 
   final Map<String, Widget> map;
-  final TextStyle headerStyle;
+  final TextStyle? headerStyle;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -22,7 +21,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
   final Map<String, Widget> map;
   late final List<AccordionSection> list;
-  final TextStyle headerStyle;
+  final TextStyle? headerStyle;
 
   @override
   void initState() {

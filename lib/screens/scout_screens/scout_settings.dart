@@ -1,7 +1,5 @@
 import 'package:accordion/accordion.dart';
-import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
-import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/settings.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
@@ -20,10 +18,6 @@ class ScoutSettings extends StatefulWidget {
 
 class _ScoutSettingsState extends State<ScoutSettings> {
   static Map<String, Widget> map = Map();
-  final _headerStyle = TextStyle(
-      color: isLight() ? kColorDarkBlue : kColorDarkBlue,
-      fontSize: 15,
-      fontWeight: FontWeight.bold);
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller1 = new TextEditingController();
   final TextEditingController _controller2 = new TextEditingController();
@@ -32,15 +26,17 @@ class _ScoutSettingsState extends State<ScoutSettings> {
 
   @override
   Widget build(BuildContext context) {
-    map['Account'] = setForm();
+    final _style = Theme.of(context).primaryTextTheme.displaySmall;
+
+    map['Account'] = setForm(_style);
 
     return SettingsWidget(
       map: map,
-      headerStyle: _headerStyle,
+      headerStyle: _style,
     );
   }
 
-  Form setForm() {
+  Form setForm(TextStyle? _headerStyle) {
     return Form(
       key: _formKey,
       child: Accordion(
@@ -54,7 +50,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             isOpen: true,
             header: Text(
               'Edit first name',
-              style: _headerStyle,
+              style: Theme.of(context).primaryTextTheme.displaySmall,
             ),
             onCloseSection: () {
               _controller1.clear();

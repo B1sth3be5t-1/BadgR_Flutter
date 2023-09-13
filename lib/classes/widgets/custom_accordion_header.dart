@@ -1,4 +1,3 @@
-import 'package:badgr/classes/constants.dart';
 import 'package:badgr/classes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -29,21 +28,28 @@ class _CAHState extends State<CustomAccordionHeader> {
           padding: const EdgeInsets.only(right: 8.0),
           child: Text(
             title,
-            style: TextStyle(fontSize: 14),
+            style: Theme.of(context).primaryTextTheme.displaySmall,
           ),
         ),
         center: percent < .45
             ? Text(
                 '${(percent * 100).toInt()}%',
+                style: TextStyle(
+                  color: LinProgTheme.textColor(percent),
+                ),
               )
             : percent < 1
                 ? Text(
                     '${(percent * 100).toInt()}%',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: LinProgTheme.textColor(percent),
+                    ),
                   )
                 : Text(
                     'Complete!',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: LinProgTheme.textColor(percent),
+                    ),
                   ),
         width: 196,
         lineHeight: 20.0,
