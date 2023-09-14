@@ -13,7 +13,7 @@ import 'merit_badge_info.dart';
 class FirebaseRunner {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  static late UserCredential? userCred;
+  static late UserCredential userCred;
   static Person user = Person.create();
   static Scout? scout = Scout.create();
   static Scoutmaster? scoutmaster = Scoutmaster.create();
@@ -39,8 +39,6 @@ class FirebaseRunner {
       }
     }
 
-    if (userCred == null) return 'null';
-
     sendUser(c, email);
 
     return 'done';
@@ -62,15 +60,21 @@ class FirebaseRunner {
         return 'error';
       }
     }
-    if (userCred == null) return 'null';
 
     CollectionReference user_info =
         FirebaseFirestore.instance.collection('user_info');
     String res = 'done';
 
     user_info
-        .doc('${userCred?.user!.uid}')
-        .set({'age': a, 'email': email, 'fname': fn, 'lname': ln, 'troop': t})
+        .doc('${userCred.user!.uid}')
+        .set({
+          'age': a,
+          'email': email,
+          'fname': fn,
+          'lname': ln,
+          'troop': t,
+          'uid': userCred.user!.uid
+        })
         .then((value) => res = 'done')
         .catchError((error) {
           return 'addInfoError';
@@ -81,7 +85,7 @@ class FirebaseRunner {
   }
 
   static void sendUser(BuildContext c, String email, {bool b = false}) async {
-    var user_info = firestore.collection('user_info').doc(userCred?.user?.uid);
+    var user_info = firestore.collection('user_info').doc(userCred.user?.uid);
 
     var info = await user_info.get();
     var data = info.data();
@@ -96,7 +100,18 @@ class FirebaseRunner {
         troop: data['troop'],
         cred: userCred);
     if (user.age >= 18) {
-      //todo get SM troop members
+      var scoutsInfo = await firestore
+          .collection('user_info')
+          .where('troop', isEqualTo: user.troop)
+          .get();
+      var scoutsDocs = scoutsInfo.docs;
+
+      List<String> uids = [];
+
+      for (var doc in scoutsDocs)
+        if (doc.data()['uid'] != userCred.user!.uid)
+          uids.add(doc.data()['uid']);
+
       scoutmaster = Scoutmaster(
           fName: user.fName,
           lName: user.lName,
@@ -104,7 +119,7 @@ class FirebaseRunner {
           e: user.e,
           troop: user.troop,
           cred: user.cred,
-          scoutsUID: null);
+          scoutsUID: uids);
 
       Navigator.pushNamed(c, ScoutmasterScreen.screenID);
     } else {
@@ -156,7 +171,14 @@ class FirebaseRunner {
   static Stream<QuerySnapshot> badgesByUserStream() {
     return FirebaseFirestore.instance
         .collection('user_added_badges')
-        .where('uid', isEqualTo: userCred?.user!.uid)
+        .where('uid', isEqualTo: userCred.user!.uid)
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot> scoutChangesStream() {
+    return FirebaseFirestore.instance
+        .collection('user_added_badges')
+        .where('uid', whereIn: scoutmaster?.scoutsUID)
         .snapshots();
   }
 
@@ -214,22 +236,22 @@ class FirebaseRunner {
         if (entry.key == 'fname')
           FirebaseFirestore.instance
               .collection('user_info')
-              .doc('${userCred?.user!.uid}')
+              .doc('${userCred.user!.uid}')
               .update({'fname': entry.value});
         if (entry.key == 'lname')
           FirebaseFirestore.instance
               .collection('user_info')
-              .doc('${userCred?.user!.uid}')
+              .doc('${userCred.user!.uid}')
               .update({'lname': entry.value});
         if (entry.key == 'age')
           FirebaseFirestore.instance
               .collection('user_info')
-              .doc('${userCred?.user!.uid}')
+              .doc('${userCred.user!.uid}')
               .update({'age': int.parse(entry.value)});
         if (entry.key == 'troop')
           FirebaseFirestore.instance
               .collection('user_info')
-              .doc('${userCred?.user!.uid}')
+              .doc('${userCred.user!.uid}')
               .update({'troop': int.parse(entry.value)});
       }
     } catch (e) {
