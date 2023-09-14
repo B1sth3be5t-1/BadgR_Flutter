@@ -25,5 +25,6 @@ const kColorXDarkPink = Color.fromRGBO(106, 39, 39, 1);
 const kColorKindaDarkPink = Color.fromRGBO(154, 53, 53, 1.0);
 const kColorDarkPink = Color.fromRGBO(212, 79, 78, 1);
 const kColorPink = Color.fromRGBO(255, 156, 145, 1);
+const kColorKindaLightPink = Color.fromRGBO(232, 175, 167, 1.0);
 const kColorLightPink = Color.fromRGBO(255, 217, 213, 1);
 const kColorXLightPink = Color.fromRGBO(255, 236, 234, 1);

@@ -76,6 +76,8 @@ final kThemeLight = ThemeData(
   primaryColorDark: kColorDarkBlue,
   primaryTextTheme: TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
+    bodyMedium: TextStyle(fontSize: 20, color: Colors.white),
+    bodySmall: TextStyle(color: Colors.white),
     displayLarge: TextStyle(
       fontSize: 45.0,
       fontWeight: FontWeight.w900,
@@ -164,6 +166,8 @@ final kThemeDark = ThemeData(
   primaryColorDark: kColorDarkBlue,
   primaryTextTheme: TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
+    bodyMedium: TextStyle(fontSize: 20, color: Colors.white),
+    bodySmall: TextStyle(color: Colors.white),
     displayLarge: TextStyle(
       fontSize: 45.0,
       fontWeight: FontWeight.w900,
@@ -175,7 +179,7 @@ final kThemeDark = ThemeData(
       color: kColorLightPink,
     ),
     displaySmall: TextStyle(
-      color: Colors.white,
+      color: Colors.black,
       fontSize: 15,
       fontWeight: FontWeight.bold,
     ),
@@ -200,19 +204,19 @@ class AlertDiagTheme {
 }
 
 class AccordionTheme {
-  static Color headerBackgroundColor =
-      isLight() ? kColorLightPink : kColorKindaDarkPink;
+  static Color headerBackgroundColor = kColorLightPink;
   static Color headerBackgroundColorOpened =
-      isLight() ? kColorBlue : kColorDarkPink;
+      isLight() ? kColorBlue : kColorBlue;
   static Color contentBackgroundColor = getBackgroundColor();
   static Color contentBorderColor =
       isLight() ? kColorDarkBlue : kColorLightPink;
-  static Color customAccBackColor = isLight() ? kColorLightPink : kColorPink;
+  static Color customAccBackColor =
+      isLight() ? kColorLightPink : kColorKindaLightPink;
 }
 
 class LinProgTheme {
-  static Color backgroundColor = !isLight() ? kColorLightBlue : kColorPink;
-  static Color progressColor = !isLight() ? kColorPink : kColorDarkBlue;
+  static Color backgroundColor = isLight() ? kColorPink : kColorXLightBlue;
+  static Color progressColor = isLight() ? kColorDarkBlue : kColorBlue;
 
   static Color textColor(double p) {
     if (!isLight()) return Colors.black;

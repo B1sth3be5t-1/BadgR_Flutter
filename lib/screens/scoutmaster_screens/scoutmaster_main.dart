@@ -1,49 +1,52 @@
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
-import 'package:badgr/screens/scout_screens/scout_completed.dart';
-import 'package:badgr/screens/scout_screens/scout_home.dart';
-import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
-import 'package:badgr/screens/scout_screens/scout_settings.dart';
+import 'package:badgr/screens/scoutmaster_screens/scoutmaster_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
-import 'package:badgr/screens/scout_screens/scout_search.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/classes/themes.dart';
 
 import '../../classes/person.dart';
 
-class ScoutScreen extends StatefulWidget {
-  ScoutScreen();
-
-  static String screenID = 'scoutMainScreen';
+class ScoutmasterScreen extends StatefulWidget {
+  static String screenID = 'scoutmasterMainScreen';
 
   @override
   // ignore: library_private_types_in_public_api
-  _scoutMainState createState() => _scoutMainState();
+  _scoutmasterMainState createState() => _scoutmasterMainState();
 }
 
-class _scoutMainState extends State<ScoutScreen> {
-  _scoutMainState();
-
-  Scout? user = FirebaseRunner.getScout();
-  bool showSpinner = false;
-  bool firstNotif = true;
+class _scoutmasterMainState extends State<ScoutmasterScreen> {
+  Scoutmaster? user = FirebaseRunner.getScoutmaster();
   late int currentPageIndex;
-  final name = FirebaseRunner.getScout()!.name;
+  final name = FirebaseRunner.getScoutmaster()!.name;
   List<Widget> lis = [];
-
-  ScoutMyBadges smb = const ScoutMyBadges();
-  ScoutCompleted sc = const ScoutCompleted();
-  ScoutSettings ss = const ScoutSettings();
-  ScoutHome sh = const ScoutHome();
 
   @override
   void initState() {
     super.initState();
     AllMeritBadges.setAllBadges();
     currentPageIndex = 0;
-    getChildren(myBadges: false);
+    lis.add(
+      ColoredBox(
+        color: Colors.red,
+        child: Text('Page1'),
+      ),
+    );
+    lis.add(
+      ColoredBox(
+        color: Colors.blue,
+        child: Text('Page2'),
+      ),
+    );
+    lis.add(
+      ColoredBox(
+        color: Colors.lightGreen,
+        child: Text('Page3'),
+      ),
+    );
+    lis.add(const ScoutmasterSettings());
   }
 
   @override
@@ -98,24 +101,8 @@ class _scoutMainState extends State<ScoutScreen> {
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
-          if (firstNotif &&
-              currentPageIndex == 2 &&
-              ScoutMyBadgesState.getChangedBool()) {
-            showDiag(
-                'Reminder',
-                'Make sure to click submit on \nthe Saved Badges page \nbefore you exit the app to \nsave your requirement changes!',
-                context,
-                ['Ok']);
-            firstNotif = false;
-          }
           setState(() {
             currentPageIndex = index;
-            if (index == 2 && ScoutMyBadgesState.isTodo) {
-              getChildren(myBadges: true);
-              return;
-            }
-            currentPageIndex = index;
-            getChildren(myBadges: false);
           });
         },
         selectedIndex: currentPageIndex,
@@ -133,19 +120,23 @@ class _scoutMainState extends State<ScoutScreen> {
           ),
           NavigationDestination(
             icon: Icon(
-              Icons.search,
+              Icons.notifications_active_outlined,
               color: NavigationIconTheme.iconColor,
             ),
-            label: 'Search Badges',
+            selectedIcon: Icon(
+              Icons.notifications_active,
+              color: NavigationIconTheme.iconColor,
+            ),
+            label: 'Notifications',
           ),
           NavigationDestination(
             icon: Icon(
               Icons.data_usage,
               color: NavigationIconTheme.iconColor,
             ),
-            label: 'Saved Badges',
+            label: 'Troop Progress',
           ),
-          NavigationDestination(
+          /*NavigationDestination(
             selectedIcon: Icon(
               Icons.check_box,
               color: NavigationIconTheme.iconColor,
@@ -155,7 +146,7 @@ class _scoutMainState extends State<ScoutScreen> {
               color: NavigationIconTheme.iconColor,
             ),
             label: 'Completed',
-          ),
+          ), */
           NavigationDestination(
             selectedIcon: Icon(
               Icons.settings,
@@ -170,20 +161,5 @@ class _scoutMainState extends State<ScoutScreen> {
         ],
       ),
     );
-  }
-
-  void getChildren({required bool myBadges}) {
-    lis.clear();
-
-    lis.add(sh);
-
-    lis.add(ScoutSearch());
-    if (myBadges)
-      lis.add(ScoutMyBadges());
-    else
-      lis.add(smb);
-    lis.add(sc);
-    lis.add(ss);
-    setState(() {});
   }
 }

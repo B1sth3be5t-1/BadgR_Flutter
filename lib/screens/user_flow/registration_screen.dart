@@ -1,7 +1,7 @@
 import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/screens/UserFlow/welcome_screen.dart';
+import 'package:badgr/screens/user_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:badgr/screens/UserFlow/login_screen.dart';
+import 'package:badgr/screens/user_flow/login_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/Widgets/custom_input.dart';

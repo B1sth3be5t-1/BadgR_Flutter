@@ -1,5 +1,5 @@
-import 'package:badgr/screens/UserFlow/login_screen.dart';
-import 'package:badgr/screens/UserFlow/registration_screen.dart';
+import 'package:badgr/screens/user_flow/login_screen.dart';
+import 'package:badgr/screens/user_flow/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/classes/themes.dart';

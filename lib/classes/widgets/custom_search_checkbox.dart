@@ -45,7 +45,7 @@ class _checkbox extends State<CustomSearchCheckbox> {
         Text(
           str,
           textAlign: TextAlign.right,
-          style: TextStyle(),
+          style: Theme.of(context).primaryTextTheme.bodySmall,
         ),
         SizedBox(
           width: 10,

@@ -1,9 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
+import 'package:badgr/screens/scoutmaster_screens/scoutmaster_main.dart';
 import 'package:flutter/material.dart';
-import 'package:badgr/screens/UserFlow/welcome_screen.dart';
-import 'package:badgr/screens/UserFlow/login_screen.dart';
-import 'package:badgr/screens/UserFlow/registration_screen.dart';
+import 'package:badgr/screens/user_flow/welcome_screen.dart';
+import 'package:badgr/screens/user_flow/login_screen.dart';
+import 'package:badgr/screens/user_flow/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'classes/firebase_options.dart';
 import 'classes/themes.dart';
@@ -42,19 +43,8 @@ class BadgR extends StatelessWidget {
         }, */
         onGenerateRoute: (settings) {
           // If you push the PassArguments route
-          final args = settings.arguments;
           if (settings.name == ScoutScreen.screenID) {
-            bool arg = false;
-            if (args != null) arg = args as bool;
-
-            // Then, extract the required data from
-            // the arguments and pass the data to the
-            // correct screen.
-            return MaterialPageRoute(
-              builder: (context) => ScoutScreen(
-                isSettings: arg,
-              ),
-            );
+            return MaterialPageRoute(builder: (context) => ScoutScreen());
           } else if (settings.name == RegistrationScreen.screenID)
             return MaterialPageRoute(
                 builder: (context) => RegistrationScreen());
@@ -62,7 +52,10 @@ class BadgR extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => WelcomeScreen());
           else if (settings.name == LoginScreen.screenID)
             return MaterialPageRoute(builder: (context) => LoginScreen());
-          assert(false, 'Need to implement ${settings.name}');
+          else if (settings.name == ScoutmasterScreen.screenID)
+            return MaterialPageRoute(builder: (context) => ScoutmasterScreen());
+          else if (settings.name == LoginScreen.screenID)
+            assert(false, 'Need to implement ${settings.name}');
           return MaterialPageRoute(builder: (context) => WelcomeScreen());
         },
       ),

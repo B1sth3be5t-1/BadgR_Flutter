@@ -170,7 +170,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 child: Text(
                   mb.name,
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 20),
+                  style: Theme.of(context).primaryTextTheme.bodyMedium,
                 ),
               ),
               SizedBox(

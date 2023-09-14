@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
+import 'package:badgr/screens/scoutmaster_screens/scoutmaster_main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,6 +16,7 @@ class FirebaseRunner {
   static late UserCredential? userCred;
   static Person user = Person.create();
   static Scout? scout = Scout.create();
+  static Scoutmaster? scoutmaster = Scoutmaster.create();
 
   static Future<String> loginUserWithEandP(
       String email, String pass, BuildContext c) async {
@@ -94,17 +96,28 @@ class FirebaseRunner {
         troop: data['troop'],
         cred: userCred);
     if (user.age >= 18) {
-      //todo send to SM screen
-    }
-    scout = Scout(
-        fName: user.fName,
-        lName: user.lName,
-        a: user.a,
-        e: user.e,
-        troop: user.troop,
-        cred: user.cred);
+      //todo get SM troop members
+      scoutmaster = Scoutmaster(
+          fName: user.fName,
+          lName: user.lName,
+          a: user.a,
+          e: user.e,
+          troop: user.troop,
+          cred: user.cred,
+          scoutsUID: null);
 
-    Navigator.pushNamed(c, ScoutScreen.screenID, arguments: b);
+      Navigator.pushNamed(c, ScoutmasterScreen.screenID);
+    } else {
+      scout = Scout(
+          fName: user.fName,
+          lName: user.lName,
+          a: user.a,
+          e: user.e,
+          troop: user.troop,
+          cred: user.cred);
+
+      Navigator.pushNamed(c, ScoutScreen.screenID, arguments: b);
+    }
   }
 
   static Future<String> resetPass(String em) async {
@@ -134,6 +147,10 @@ class FirebaseRunner {
 
   static Scout? getScout() {
     return scout;
+  }
+
+  static Scoutmaster? getScoutmaster() {
+    return scoutmaster;
   }
 
   static Stream<QuerySnapshot> badgesByUserStream() {

@@ -67,3 +67,29 @@ class Scout extends Person {
     return def;
   }
 }
+
+class Scoutmaster extends Person {
+  Scoutmaster(
+      {required super.fName,
+      required super.lName,
+      required super.troop,
+      required super.cred,
+      required super.e,
+      required super.a,
+      required this.scoutsUID});
+
+  List<String>? scoutsUID;
+
+  static final Scoutmaster def = Scoutmaster(
+      fName: 'Test',
+      lName: 'Person',
+      e: 'test1@gmail.com',
+      a: 19,
+      troop: 39,
+      cred: null,
+      scoutsUID: null);
+
+  factory Scoutmaster.create() {
+    return def;
+  }
+}
