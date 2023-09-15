@@ -98,7 +98,8 @@ class FirebaseRunner {
         e: email,
         a: data['age'],
         troop: data['troop'],
-        cred: userCred);
+        cred: userCred,
+        uid: userCred.user!.uid);
     if (user.age >= 18) {
       var scoutsInfo = await firestore
           .collection('user_info')
@@ -106,11 +107,21 @@ class FirebaseRunner {
           .get();
       var scoutsDocs = scoutsInfo.docs;
 
-      List<String> uids = [];
+      List<Scout> scouts = [];
 
       for (var doc in scoutsDocs)
-        if (doc.data()['uid'] != userCred.user!.uid)
-          uids.add(doc.data()['uid']);
+        if (doc.data()['uid'] != userCred.user!.uid) {
+          var data = doc.data();
+          Scout s = Scout(
+              fName: data['fname'],
+              lName: data['lname'],
+              a: data['age'],
+              e: data['email'],
+              troop: user.troop,
+              cred: null,
+              uid: data['uid']);
+          scouts.add(s);
+        }
 
       scoutmaster = Scoutmaster(
           fName: user.fName,
@@ -119,7 +130,8 @@ class FirebaseRunner {
           e: user.e,
           troop: user.troop,
           cred: user.cred,
-          scoutsUID: uids);
+          scouts: scouts,
+          uid: userCred.user!.uid);
 
       Navigator.pushNamed(c, ScoutmasterScreen.screenID);
     } else {
@@ -129,7 +141,8 @@ class FirebaseRunner {
           a: user.a,
           e: user.e,
           troop: user.troop,
-          cred: user.cred);
+          cred: user.cred,
+          uid: userCred.user!.uid);
 
       Navigator.pushNamed(c, ScoutScreen.screenID, arguments: b);
     }
@@ -176,9 +189,15 @@ class FirebaseRunner {
   }
 
   static Stream<QuerySnapshot> scoutChangesStream() {
+    List<String> lis = [];
+
+    List<Scout> scouts = scoutmaster!.scouts!;
+
+    for (Scout s in scouts) lis.add(s.uid!);
+
     return FirebaseFirestore.instance
         .collection('user_added_badges')
-        .where('uid', whereIn: scoutmaster?.scoutsUID)
+        .where('uid', whereIn: lis)
         .snapshots();
   }
 

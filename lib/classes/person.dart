@@ -7,6 +7,7 @@ class Person {
   int a;
   int troop;
   UserCredential? cred;
+  String? uid;
 
   static final Person def = Person(
       fName: 'Test',
@@ -14,7 +15,8 @@ class Person {
       e: 'test1@gmail.com',
       a: 19,
       troop: 39,
-      cred: null);
+      cred: null,
+      uid: null);
 
   String get name {
     return fName + ' ' + lName;
@@ -32,14 +34,14 @@ class Person {
     return e;
   }
 
-  Person({
-    required this.fName,
-    required this.lName,
-    required this.e,
-    required this.a,
-    required this.troop,
-    required this.cred,
-  });
+  Person(
+      {required this.fName,
+      required this.lName,
+      required this.e,
+      required this.a,
+      required this.troop,
+      required this.cred,
+      required this.uid});
 
   factory Person.create() {
     return def;
@@ -53,7 +55,8 @@ class Scout extends Person {
       required super.troop,
       required super.cred,
       required super.e,
-      required super.a});
+      required super.a,
+      required super.uid});
 
   static final Scout def = Scout(
       fName: 'Test',
@@ -61,7 +64,8 @@ class Scout extends Person {
       e: 'test1@gmail.com',
       a: 19,
       troop: 39,
-      cred: null);
+      cred: null,
+      uid: null);
 
   factory Scout.create() {
     return def;
@@ -76,18 +80,20 @@ class Scoutmaster extends Person {
       required super.cred,
       required super.e,
       required super.a,
-      required this.scoutsUID});
+      required this.scouts,
+      required super.uid});
 
-  List<String>? scoutsUID;
+  List<Scout>? scouts;
 
   static final Scoutmaster def = Scoutmaster(
       fName: 'Test',
       lName: 'Person',
-      e: 'test1@gmail.com',
+      e: 'test2@gmail.com',
       a: 19,
       troop: 39,
       cred: null,
-      scoutsUID: null);
+      scouts: null,
+      uid: null);
 
   factory Scoutmaster.create() {
     return def;
