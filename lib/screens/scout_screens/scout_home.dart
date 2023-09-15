@@ -73,6 +73,7 @@ class ScoutHomeState extends State<ScoutHome> {
                         Expanded(
                           flex: 2,
                           child: Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 "• ",
@@ -80,11 +81,16 @@ class ScoutHomeState extends State<ScoutHome> {
                                     .primaryTextTheme
                                     .headlineMedium,
                               ),
-                              Text(
-                                'Your percentage completion of saved badges is: ',
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headlineMedium,
+                              Expanded(
+                                child: Text(
+                                  'Your percentage completion of saved badges is: ',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headlineMedium,
+                                  softWrap: true,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 2,
+                                ),
                               ),
                             ],
                           ),
