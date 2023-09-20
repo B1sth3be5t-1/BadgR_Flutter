@@ -26,6 +26,7 @@ class FirebaseRunner {
     } on FirebaseAuthException catch (e) {
       print('Login Error ----------------------------');
       print(e.message);
+      print(e.stackTrace);
       if (e.message!.contains('wrong-password') ||
           e.message!.contains('user-not-found') ||
           e.message!.contains('password is invalid')) {
@@ -191,9 +192,9 @@ class FirebaseRunner {
   static Stream<QuerySnapshot> scoutChangesStream() {
     List<String> lis = [];
 
-    List<Scout> scouts = scoutmaster!.scouts!;
+    List<Scout> scouts = scoutmaster!.scouts;
 
-    for (Scout s in scouts) lis.add(s.uid!);
+    for (Scout s in scouts) lis.add(s.uid);
 
     return FirebaseFirestore.instance
         .collection('user_added_badges')

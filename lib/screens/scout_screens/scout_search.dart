@@ -148,8 +148,8 @@ class _ScoutSearchState extends State<ScoutSearch> {
     for (MeritBadge mb in mbs) {
       bool isChecked = false;
       bool isComplete = false;
-      if (!bools[mb.id].isNull) isChecked = true;
-      if (!completes[mb.id].isNull) isComplete = true;
+      if (bools[mb.id] != null) isChecked = true;
+      if (completes[mb.id] != null) isComplete = true;
       AccordionSection AS = AccordionSection(
           header: Text(
             mb.name,

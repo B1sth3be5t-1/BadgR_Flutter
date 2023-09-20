@@ -93,6 +93,11 @@ final kThemeLight = ThemeData(
       fontSize: 15,
       fontWeight: FontWeight.bold,
     ),
+    headlineLarge: TextStyle(
+      color: kColorDarkBlue,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
     headlineMedium: TextStyle(color: kColorDarkBlue, fontSize: 18),
     labelLarge: TextStyle(color: Colors.white),
     labelMedium: TextStyle(color: Colors.black),
@@ -131,7 +136,9 @@ final kThemeDark = ThemeData(
   ),
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
-      iconColor: MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
+      iconColor: MaterialStateProperty.resolveWith(
+        (states) => kColorDarkBlue,
+      ),
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
@@ -183,6 +190,8 @@ final kThemeDark = ThemeData(
       fontSize: 15,
       fontWeight: FontWeight.bold,
     ),
+    headlineLarge: TextStyle(
+        color: kColorDarkBlue, fontSize: 20, fontWeight: FontWeight.bold),
     headlineMedium: TextStyle(color: kColorLightPink, fontSize: 18),
     labelLarge: TextStyle(color: Colors.white),
     labelMedium: TextStyle(color: Colors.white),

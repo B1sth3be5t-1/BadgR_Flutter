@@ -7,7 +7,7 @@ class Person {
   int a;
   int troop;
   UserCredential? cred;
-  String? uid;
+  String uid;
 
   static final Person def = Person(
       fName: 'Test',
@@ -16,7 +16,7 @@ class Person {
       a: 19,
       troop: 39,
       cred: null,
-      uid: null);
+      uid: 'test');
 
   String get name {
     return fName + ' ' + lName;
@@ -65,7 +65,7 @@ class Scout extends Person {
       a: 19,
       troop: 39,
       cred: null,
-      uid: null);
+      uid: 'test');
 
   factory Scout.create() {
     return def;
@@ -83,7 +83,7 @@ class Scoutmaster extends Person {
       required this.scouts,
       required super.uid});
 
-  List<Scout>? scouts;
+  List<Scout> scouts;
 
   static final Scoutmaster def = Scoutmaster(
       fName: 'Test',
@@ -92,8 +92,8 @@ class Scoutmaster extends Person {
       a: 19,
       troop: 39,
       cred: null,
-      scouts: null,
-      uid: null);
+      scouts: [],
+      uid: 'test');
 
   factory Scoutmaster.create() {
     return def;

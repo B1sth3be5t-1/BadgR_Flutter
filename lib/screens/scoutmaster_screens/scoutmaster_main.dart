@@ -22,6 +22,7 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
   Scoutmaster? user = FirebaseRunner.getScoutmaster();
   late int currentPageIndex;
   final name = FirebaseRunner.getScoutmaster()!.name;
+  final Scoutmaster sm = FirebaseRunner.getScoutmaster()!;
   List<Widget> lis = [];
 
   @override
@@ -41,7 +42,7 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
         child: Text('Page2'),
       ),
     );
-    lis.add(const ScoutmasterMyTroop());
+    lis.add(ScoutmasterMyTroop(sm: sm));
     lis.add(const ScoutmasterSettings());
   }
 

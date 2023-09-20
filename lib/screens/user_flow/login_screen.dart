@@ -159,6 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Icons.arrow_back,
                     ),
                   ),
+                  SizedBox(
+                    width: 5,
+                  ),
                   TextButton(
                     onPressed: () {
                       email = '';
