@@ -30,7 +30,15 @@ class ScoutHomeState extends State<ScoutHome> {
                 stream: FirebaseRunner.badgesByUserStream(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData || snapshot.hasError) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: ModalProgressHUD(
+                        inAsyncCall: true,
+                        child: Text('test'),
+                      ),
+                    );
+                  } else if (!snapshot.hasData || snapshot.hasError) {
                     return Text('');
                   } else if (snapshot.data?.docs.length == 0) {
                     return Text('You have no badges added!');
