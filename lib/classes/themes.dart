@@ -44,6 +44,9 @@ final kThemeLight = ThemeData(
       iconColor: MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
     ),
   ),
+  iconTheme: IconThemeData(
+    color: kColorDarkBlue,
+  ),
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(color: Colors.black),
     hintStyle: const TextStyle(
@@ -140,6 +143,9 @@ final kThemeDark = ThemeData(
         (states) => kColorDarkBlue,
       ),
     ),
+  ),
+  iconTheme: IconThemeData(
+    color: kColorLightBlue,
   ),
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(color: Colors.white70),

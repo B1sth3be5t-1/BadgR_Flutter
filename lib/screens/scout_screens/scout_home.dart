@@ -31,17 +31,23 @@ class ScoutHomeState extends State<ScoutHome> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height,
-                      child: ModalProgressHUD(
-                        inAsyncCall: true,
-                        child: Text('test'),
+                    return Center(
+                      child: Container(
+                        height: 100,
+                        child: ModalProgressHUD(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          inAsyncCall: true,
+                          child: Text(''),
+                        ),
                       ),
                     );
                   } else if (!snapshot.hasData || snapshot.hasError) {
                     return Text('');
                   } else if (snapshot.data?.docs.length == 0) {
-                    return Text('You have no badges added!');
+                    return Text(
+                      'You have no badges added!',
+                      style: Theme.of(context).primaryTextTheme.displayMedium,
+                    );
                   }
                   Map<int, QueryDocumentSnapshot<Object?>> docMap =
                       snapshot.data!.docs.toList().asMap();

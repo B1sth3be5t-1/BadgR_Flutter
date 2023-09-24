@@ -41,88 +41,95 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
     isTodo = false;
     return Scaffold(
       body: SizedBox.expand(
-        child: ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListView(
-              children: [
-                CustomHeader('My Badges'),
-                StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseRunner.badgesByUserStream(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData || snapshot.hasError) {
-                      return Text('todo');
-                    } else if (snapshot.data?.docs.length == 0) {
-                      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView(
+            children: [
+              CustomHeader('My Badges'),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseRunner.badgesByUserStream(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Container(
+                        height: 100,
+                        child: ModalProgressHUD(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          inAsyncCall: true,
+                          child: Text(''),
+                        ),
+                      ),
+                    );
+                  } else if (!snapshot.hasData || snapshot.hasError) {
+                    return Text('todo');
+                  } else if (snapshot.data?.docs.length == 0) {
+                    return Center(
+                      child: Text(
+                        'Go add some badges!',
+                        style: _headerStyle,
+                      ),
+                    );
+                  }
+
+                  List<AccordionSection> lis = [];
+
+                  //get map of docSnapshots (aka the added badges)
+                  Map<int, QueryDocumentSnapshot<Object?>> docMap =
+                      snapshot.data!.docs.toList().asMap();
+
+                  for (MapEntry<int, QueryDocumentSnapshot<Object?>> me
+                      in docMap.entries) {
+                    QueryDocumentSnapshot? docData = me.value;
+
+                    dynamic data = docData.get('badgeID');
+                    int badgeID = data;
+
+                    if (docData.get('isComplete') || !docData.get('inProgress'))
+                      continue;
+
+                    MeritBadge mb = AllMeritBadges.getBadgeByID(badgeID);
+                    lis.add(
+                      getBadgeSection(
+                        mb,
+                        context,
+                        docData.get('requirements'),
+                      ),
+                    );
+
+                    reqMap[mb.id] = docData.get('requirements');
+                  }
+
+                  lis.sort((AccordionSection a, AccordionSection b) {
+                    return a.accordionId!.compareTo(b.accordionId!);
+                  });
+
+                  if (lis.isEmpty)
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
                         child: Text(
                           'Go add some badges!',
                           style: _headerStyle,
                         ),
-                      );
-                    }
-
-                    List<AccordionSection> lis = [];
-
-                    //get map of docSnapshots (aka the added badges)
-                    Map<int, QueryDocumentSnapshot<Object?>> docMap =
-                        snapshot.data!.docs.toList().asMap();
-
-                    for (MapEntry<int, QueryDocumentSnapshot<Object?>> me
-                        in docMap.entries) {
-                      QueryDocumentSnapshot? docData = me.value;
-
-                      dynamic data = docData.get('badgeID');
-                      int badgeID = data;
-
-                      if (docData.get('isComplete') ||
-                          !docData.get('inProgress')) continue;
-
-                      MeritBadge mb = AllMeritBadges.getBadgeByID(badgeID);
-                      lis.add(
-                        getBadgeSection(
-                          mb,
-                          context,
-                          docData.get('requirements'),
-                        ),
-                      );
-
-                      reqMap[mb.id] = docData.get('requirements');
-                    }
-
-                    lis.sort((AccordionSection a, AccordionSection b) {
-                      return a.index - b.index;
-                    });
-
-                    if (lis.isEmpty)
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            'Go add some badges!',
-                            style: _headerStyle,
-                          ),
-                        ),
-                      );
-
-                    Accordion acc = Accordion(
-                      children: lis,
-                      openAndCloseAnimation: false,
-                      headerBackgroundColor:
-                          AccordionTheme.headerBackgroundColor,
-                      headerBackgroundColorOpened:
-                          AccordionTheme.headerBackgroundColorOpened,
-                      contentBackgroundColor:
-                          AccordionTheme.contentBackgroundColor,
-                      contentBorderColor: AccordionTheme.contentBorderColor,
+                      ),
                     );
 
-                    return acc;
-                  },
-                ),
-              ],
-            ),
+                  Accordion acc = Accordion(
+                    children: lis,
+                    openAndCloseAnimation: false,
+                    headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+                    headerBackgroundColorOpened:
+                        AccordionTheme.headerBackgroundColorOpened,
+                    contentBackgroundColor:
+                        AccordionTheme.contentBackgroundColor,
+                    contentBorderColor: AccordionTheme.contentBorderColor,
+                  );
+
+                  return acc;
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -223,6 +230,7 @@ AccordionSection getBadgeSection(
   percent = double.parse(percent.toStringAsFixed(2));
 
   return AccordionSection(
+    accordionId: mb.name,
     index: mb.id,
     header: CustomAccordionHeader(
       title: mb.name,

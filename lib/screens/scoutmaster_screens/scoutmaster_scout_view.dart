@@ -24,6 +24,8 @@ class ScoutmasterScoutView extends StatelessWidget {
       for (MapEntry me in m.entries)
         lis.add(getBadgeSection(AllMeritBadges.getBadgeByID(me.key), me.value));
 
+    lis.sort((a, b) => a.accordionId!.compareTo(b.accordionId!));
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -33,9 +35,11 @@ class ScoutmasterScoutView extends StatelessWidget {
             (lis.length == 0)
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'This scout has no badges added',
-                      style: Theme.of(context).primaryTextTheme.displayMedium,
+                    child: Center(
+                      child: Text(
+                        'This scout has no badges added',
+                        style: Theme.of(context).primaryTextTheme.displayMedium,
+                      ),
                     ),
                   )
                 : CustomAccordion(
@@ -54,6 +58,7 @@ class ScoutmasterScoutView extends StatelessWidget {
         ),
         tooltip: 'Go back',
         backgroundColor: kColorDarkBlue,
+        hoverColor: kColorBlue,
       ),
     );
   }
@@ -73,6 +78,7 @@ CustomAccordionSection getBadgeSection(MeritBadge mb, dynamic map) {
   percent = double.parse(percent.toStringAsFixed(2));
 
   return CustomAccordionSection(
+    accordionId: mb.name,
     header: CustomAccordionHeader(
       title: mb.name,
       percent: percent,

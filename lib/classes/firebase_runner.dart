@@ -14,9 +14,9 @@ class FirebaseRunner {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static late UserCredential userCred;
-  static Person user = Person.create();
-  static Scout? scout = Scout.create();
-  static Scoutmaster? scoutmaster = Scoutmaster.create();
+  static Person? user;
+  static Scout? scout;
+  static Scoutmaster? scoutmaster;
 
   static Future<String> loginUserWithEandP(
       String email, String pass, BuildContext c) async {
@@ -27,13 +27,13 @@ class FirebaseRunner {
       print('Login Error ----------------------------');
       print(e.message);
       print(e.stackTrace);
-      if (e.message!.contains('wrong-password') ||
-          e.message!.contains('user-not-found') ||
-          e.message!.contains('password is invalid')) {
+      if (e.message!.contains('password') ||
+          e.message!.contains('user') ||
+          e.message!.contains('invalid')) {
         return 'wrongEmailPass';
-      } else if (e.message!.contains('too-many-requests')) {
+      } else if (e.message!.contains('requests')) {
         return 'tooMany';
-      } else if (e.message!.contains('network-request-failed')) {
+      } else if (e.message!.contains('network')) {
         return 'network';
       } else {
         return 'error';
@@ -53,9 +53,9 @@ class FirebaseRunner {
     } on FirebaseAuthException catch (e) {
       print('Reg Error ----------------------------');
       print(e);
-      if (e.message!.contains('email-already-in-use')) {
+      if (e.message!.contains('email')) {
         return 'emailInUse';
-      } else if (e.message!.contains('network-request-failed')) {
+      } else if (e.message!.contains('network')) {
         return 'network';
       } else {
         return 'error';
@@ -81,30 +81,44 @@ class FirebaseRunner {
           return 'addInfoError';
         });
 
+    user = Person(
+        fName: fn,
+        lName: ln,
+        e: email,
+        a: a,
+        troop: t,
+        cred: userCred,
+        uid: userCred.user!.uid);
+
+    addNotification(type: 'user', name: user!.name, desc: 'new user');
+
     sendUser(c, email);
     return res;
   }
 
   static void sendUser(BuildContext c, String email, {bool b = false}) async {
-    var user_info = firestore.collection('user_info').doc(userCred.user?.uid);
+    var user_info = firestore.collection('user_info').doc(userCred.user!.uid);
 
     var info = await user_info.get();
     var data = info.data();
 
     if (data!.isEmpty) return;
 
-    user = Person(
-        fName: data['fname'],
-        lName: data['lname'],
-        e: email,
-        a: data['age'],
-        troop: data['troop'],
-        cred: userCred,
-        uid: userCred.user!.uid);
-    if (user.age >= 18) {
+    //init user
+    if (user == null)
+      user = Person(
+          fName: data['fname'],
+          lName: data['lname'],
+          e: email,
+          a: data['age'],
+          troop: data['troop'],
+          cred: userCred,
+          uid: userCred.user!.uid);
+
+    if (user!.age >= 18) {
       var scoutsInfo = await firestore
           .collection('user_info')
-          .where('troop', isEqualTo: user.troop)
+          .where('troop', isEqualTo: user!.troop)
           .get();
       var scoutsDocs = scoutsInfo.docs;
 
@@ -118,34 +132,40 @@ class FirebaseRunner {
               lName: data['lname'],
               a: data['age'],
               e: data['email'],
-              troop: user.troop,
+              troop: user!.troop,
               cred: null,
               uid: data['uid']);
           scouts.add(s);
         }
 
       scoutmaster = Scoutmaster(
-          fName: user.fName,
-          lName: user.lName,
-          a: user.a,
-          e: user.e,
-          troop: user.troop,
-          cred: user.cred,
+          fName: user!.fName,
+          lName: user!.lName,
+          a: user!.a,
+          e: user!.e,
+          troop: user!.troop,
+          cred: user!.cred,
           scouts: scouts,
           uid: userCred.user!.uid);
 
-      Navigator.pushNamed(c, ScoutmasterScreen.screenID);
+      if (b)
+        Navigator.popAndPushNamed(c, ScoutmasterScreen.screenID);
+      else
+        Navigator.pushNamed(c, ScoutmasterScreen.screenID);
     } else {
       scout = Scout(
-          fName: user.fName,
-          lName: user.lName,
-          a: user.a,
-          e: user.e,
-          troop: user.troop,
-          cred: user.cred,
+          fName: user!.fName,
+          lName: user!.lName,
+          a: user!.a,
+          e: user!.e,
+          troop: user!.troop,
+          cred: user!.cred,
           uid: userCred.user!.uid);
 
-      Navigator.pushNamed(c, ScoutScreen.screenID, arguments: b);
+      if (b)
+        Navigator.popAndPushNamed(c, ScoutScreen.screenID);
+      else
+        Navigator.pushNamed(c, ScoutScreen.screenID);
     }
   }
 
@@ -168,6 +188,7 @@ class FirebaseRunner {
   static String logoutUser() {
     try {
       auth.signOut();
+      user = null;
       return 'Done';
     } catch (e) {
       return 'Error';
@@ -285,7 +306,7 @@ class FirebaseRunner {
       if (!checked)
         FirebaseFirestore.instance
             .collection('user_added_badges')
-            .doc('${user.cred?.user!.uid}::$id')
+            .doc('${user!.cred?.user!.uid}::$id')
             .delete();
       else {
         Map<String, dynamic> map = {};
@@ -296,10 +317,10 @@ class FirebaseRunner {
         }
         FirebaseFirestore.instance
             .collection('user_added_badges')
-            .doc('${user.cred?.user!.uid}::$id')
+            .doc('${user!.cred?.user!.uid}::$id')
             .set({
           'inProgress': checked,
-          'uid': user.cred?.user!.uid,
+          'uid': user!.cred?.user!.uid,
           'badgeID': id,
           'isComplete': false,
           'requirements': map,
@@ -320,7 +341,7 @@ class FirebaseRunner {
       for (int bid in lis) {
         FirebaseFirestore.instance
             .collection('user_added_badges')
-            .doc('${user.cred?.user!.uid}::$bid')
+            .doc('${user!.cred?.user!.uid}::$bid')
             .update({'requirements': map[bid]});
 
         bool compl = true;
@@ -363,10 +384,10 @@ class FirebaseRunner {
 
       FirebaseFirestore.instance
           .collection('user_added_badges')
-          .doc('${user.cred?.user!.uid}::$id')
+          .doc('${user!.cred?.user!.uid}::$id')
           .set({
         'inProgress': true,
-        'uid': user.cred?.user!.uid,
+        'uid': user!.cred?.user!.uid,
         'badgeID': id,
         'isComplete': false,
         'requirements': map,
@@ -388,14 +409,19 @@ class FirebaseRunner {
 
       FirebaseFirestore.instance
           .collection('user_added_badges')
-          .doc('${user.cred?.user!.uid}::$id')
+          .doc('${user!.cred?.user!.uid}::$id')
           .set({
         'inProgress': true,
-        'uid': user.cred?.user!.uid,
+        'uid': user!.cred?.user!.uid,
         'badgeID': id,
         'isComplete': true,
-        'requirements': true
+        'requirements': true,
       });
+
+      addNotification(
+          type: 'badge',
+          name: user!.name,
+          desc: AllMeritBadges.getBadgeByID(id).name);
     } catch (e) {
       return 'Error';
     }
@@ -415,4 +441,46 @@ class FirebaseRunner {
       });
     }
   } */
+
+  static Stream<QuerySnapshot> notificationsStream() {
+    return FirebaseFirestore.instance
+        .collection('notifications')
+        .where('troop', isEqualTo: user!.troop)
+        .snapshots();
+  }
+
+  static void addNotification(
+      {required String type,
+      required String name,
+      required String desc}) async {
+    String s = '';
+
+    try {
+      FirebaseFirestore.instance
+          .collection('notifications')
+          .doc('$type::$name::$desc')
+          .set({
+        'desc': desc,
+        'name': name,
+        'troop': user!.troop,
+        'type': type,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {}
+  }
+
+  static Future<String> removeNotification(
+      {required String type,
+      required String name,
+      required String desc}) async {
+    try {
+      FirebaseFirestore.instance
+          .collection('notifications')
+          .doc('$type::$name::$desc')
+          .delete();
+      return 'Done';
+    } catch (e) {}
+
+    return 'Error';
+  }
 }
