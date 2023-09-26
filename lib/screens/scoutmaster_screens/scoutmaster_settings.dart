@@ -6,7 +6,7 @@ import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:flutter/services.dart';
 
 import '../../classes/firebase_runner.dart';
-import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 
 class ScoutmasterSettings extends StatefulWidget {
   const ScoutmasterSettings({super.key});

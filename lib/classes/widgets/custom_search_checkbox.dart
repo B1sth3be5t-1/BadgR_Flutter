@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/firebase_runner.dart';
-import '../constants.dart';
+import '../colors_and_themes/constants.dart';
 import 'custom_alert.dart';
 
 class CustomSearchCheckbox extends StatefulWidget {

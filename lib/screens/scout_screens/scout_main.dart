@@ -9,7 +9,7 @@ import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
 import 'package:badgr/screens/scout_screens/scout_search.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 
 import '../../classes/person.dart';
 

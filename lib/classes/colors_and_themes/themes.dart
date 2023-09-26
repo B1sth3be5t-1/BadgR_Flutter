@@ -1,4 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
+import 'package:badgr/classes/colors_and_themes/custom_color.g.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -35,6 +37,8 @@ final kThemeLight = ThemeData(
     splashRadius: 17,
     side: BorderSide(width: 1.5, color: Colors.black),
   ),
+  colorScheme: lightColorScheme,
+  extensions: [lightCustomColors.harmonized(lightColorScheme)],
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     hoverColor: kColorLightBlue,
     backgroundColor: kColorBlue,
@@ -133,6 +137,8 @@ final kThemeDark = ThemeData(
     splashRadius: 17,
     side: BorderSide(width: 1.5, color: Colors.white),
   ),
+  colorScheme: darkColorScheme,
+  extensions: [darkCustomColors.harmonized(darkColorScheme)],
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     hoverColor: kColorLightBlue,
     backgroundColor: kColorBlue,

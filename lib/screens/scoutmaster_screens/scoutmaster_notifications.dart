@@ -1,12 +1,13 @@
 import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:accordion/accordion.dart';
 
-import '../../classes/constants.dart';
-import '../../classes/themes.dart';
+import '../../classes/colors_and_themes/constants.dart';
+import '../../classes/colors_and_themes/themes.dart';
 
 class ScoutmasterNotifications extends StatefulWidget {
   const ScoutmasterNotifications({super.key});
@@ -19,9 +20,11 @@ class ScoutmasterNotifications extends StatefulWidget {
 
 class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
   final _headerStyle = TextStyle(
-      color: isLight() ? kColorDarkBlue : kColorDarkBlue,
+      color: isLight() ? kColorDarkBlue : kColorLightPink,
       fontSize: 20,
       fontWeight: FontWeight.bold);
+
+  final List<CustomIconCloseButton> checks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +64,7 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                   }
 
                   List<AccordionSection> lis = [];
+                  checks.clear();
 
                   //get map of docSnapshots (aka the added badges)
                   Map<int, QueryDocumentSnapshot<Object?>> docMap =
@@ -83,6 +87,9 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                     String label =
                         dateString.substring(0, dateString.length - 7);
 
+                    checks.add(CustomIconCloseButton(
+                        name: name, type: type, desc: desc));
+
                     lis.add(
                       AccordionSection(
                         accordionId: d.toString(),
@@ -95,7 +102,7 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                           children: [
                             Expanded(
                               child: Icon(
-                                docData['type'] == 'badge'
+                                type == 'badge'
                                     ? Icons.check
                                     : Icons.person_add_alt_1,
                                 color: Theme.of(context).iconTheme.color,
@@ -103,23 +110,24 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                             ),
                             Expanded(
                               flex: 3,
-                              child: docData['type'] == 'badge'
+                              child: type == 'badge'
                                   ? Text(
                                       '$name has completed the merit badge: $desc',
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .displaySmall,
+                                          .labelSmall
+                                          ?.copyWith(fontSize: 15),
                                     )
                                   : Text(
                                       '$name has been added to your troop!',
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .displaySmall,
+                                          .labelSmall
+                                          ?.copyWith(fontSize: 15),
                                     ),
                             ),
                             Expanded(
-                              child: CustomIconCloseButton(
-                                  name: name, type: type, desc: desc),
+                              child: checks[checks.length - 1],
                             )
                           ],
                         ),
@@ -135,6 +143,7 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                   });
 
                   Accordion acc = Accordion(
+                    maxOpenSections: 1,
                     children: lis,
                     headerBackgroundColor: AccordionTheme.headerBackgroundColor,
                     contentBorderColor: AccordionTheme.contentBorderColor,
@@ -150,6 +159,25 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showDiag('Confirm',
+            'Are you sure you want to clear all notifications?', context, [
+          'No',
+          'Yes'
+        ]).then((value) => {
+              if (value == null)
+                null
+              else if (value == 'Yes')
+                for (CustomIconCloseButton c in checks) c.removeNot()
+            }),
+        child: Icon(
+          Icons.clear,
+          color: Colors.white,
+        ),
+        tooltip: 'Clear all',
+        backgroundColor: kColorDarkBlue,
+        hoverColor: kColorBlue,
       ),
     );
   }
@@ -169,5 +197,9 @@ class CustomIconCloseButton extends StatelessWidget {
       icon: Icon(Icons.close),
       tooltip: 'Remove Notification',
     );
+  }
+
+  void removeNot() {
+    FirebaseRunner.removeNotification(type: type, name: name, desc: desc);
   }
 }

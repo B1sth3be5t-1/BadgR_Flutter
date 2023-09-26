@@ -1,4 +1,4 @@
-import 'package:badgr/classes/constants.dart';
+import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/screens/user_flow/registration_screen.dart';
 import 'package:badgr/screens/user_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 
 import '../../classes/Widgets/custom_input.dart';
-import '../../classes/themes.dart';
+import '../../classes/colors_and_themes/themes.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screenID = 'LoginScreen';

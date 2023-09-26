@@ -8,7 +8,7 @@ import 'package:badgr/screens/user_flow/login_screen.dart';
 import 'package:badgr/screens/user_flow/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'classes/firebase_options.dart';
-import 'classes/themes.dart';
+import 'classes/colors_and_themes/themes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

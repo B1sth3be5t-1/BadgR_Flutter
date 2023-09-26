@@ -5,7 +5,7 @@ import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 
 class CustomAccordionSection extends StatelessWidget with CommonParams {
   final SectionController sectionCtrl = SectionController();

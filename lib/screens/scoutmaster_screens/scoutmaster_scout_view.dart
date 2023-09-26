@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:accordion/controllers.dart';
-import 'package:badgr/classes/constants.dart';
+import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/widgets/custom_accordion.dart';
 import 'package:flutter/material.dart';
 import '../../classes/merit_badge_info.dart';

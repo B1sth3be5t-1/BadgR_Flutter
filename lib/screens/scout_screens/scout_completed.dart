@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:accordion/accordion.dart';
 
-import '../../classes/constants.dart';
-import '../../classes/themes.dart';
+import '../../classes/colors_and_themes/constants.dart';
+import '../../classes/colors_and_themes/themes.dart';
 
 class ScoutCompleted extends StatefulWidget {
   const ScoutCompleted({super.key});

@@ -1,6 +1,6 @@
-import 'package:badgr/classes/constants.dart';
+import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
-import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';

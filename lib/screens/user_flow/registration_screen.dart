@@ -177,6 +177,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         setState(() {
                           showSpinner = true;
                         });
+
                         String res = '';
                         try {
                           res = await FirebaseRunner.registerUserWithEandP(
@@ -184,7 +185,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (res != 'done') {
                             throw const FormatException('hey');
                           }
-                          print(res);
                         } on FormatException {
                           if (res == 'emailInUse') {
                             showDiag(

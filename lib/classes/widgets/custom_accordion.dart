@@ -34,7 +34,7 @@ import 'package:badgr/classes/widgets/custom_accordion_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 
 /// The container list for all accordion sections.
 class CustomAccordion extends StatelessWidget with CommonParams {

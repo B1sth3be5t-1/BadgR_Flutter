@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:badgr/classes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 
 Widget CustomHeader(String s) {
   return Column(
