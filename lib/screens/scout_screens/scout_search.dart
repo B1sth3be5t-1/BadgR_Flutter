@@ -11,6 +11,8 @@ import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/widgets/custom_search_checkbox.dart';
 
+import '../../classes/colors_and_themes/color_schemes.g.dart';
+
 class ScoutSearch extends StatefulWidget {
   ScoutSearch({Key? key}) : super(key: key);
 
@@ -25,18 +27,14 @@ class _ScoutSearchState extends State<ScoutSearch> {
       : kThemeDark.primaryTextTheme.displaySmall;
   final _searchStyle = isLight()
       ? kThemeLight.primaryTextTheme.displayMedium
-      : kThemeDark.primaryTextTheme.displayMedium;
+          ?.copyWith(color: lightColorScheme.onPrimaryContainer)
+      : kThemeDark.primaryTextTheme.displayMedium
+          ?.copyWith(color: darkColorScheme.onPrimaryContainer);
   final TextEditingController _tec = TextEditingController();
   static Map<int, bool> bools = {};
   static Map<int, bool> completes = {};
 
-  Widget Acc = Padding(
-    padding: EdgeInsets.only(left: 5),
-    child: Text('Enter a search word',
-        style: isLight()
-            ? kThemeLight.primaryTextTheme.displayMedium
-            : kThemeDark.primaryTextTheme.displayMedium),
-  );
+  Widget Acc = Text('');
   bool showSpinner = false;
   bool fromButton = false;
 
@@ -49,6 +47,11 @@ class _ScoutSearchState extends State<ScoutSearch> {
       bools = value[0];
       completes = value[1];
     });
+    Acc = Padding(
+      padding: EdgeInsets.only(left: 5),
+      child: Text('Enter a search word', style: _headerStyle),
+    );
+
     setState(() {});
   }
 
@@ -71,7 +74,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
           padding: EdgeInsets.all(10),
           child: ListView(
             children: [
-              CustomHeader('Search'),
+              CustomHeader('Search', context),
               Flex(
                 direction: Axis.horizontal,
                 children: [

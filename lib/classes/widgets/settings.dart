@@ -36,7 +36,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: ListView(
           children: [
-            CustomHeader('Settings'),
+            CustomHeader('Settings', context),
             Accordion(
               contentBackgroundColor: AccordionTheme.contentBackgroundColor,
               maxOpenSections: 1,

@@ -8,6 +8,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../classes/firebase_runner.dart';
 import '../../classes/widgets/custom_page_header.dart';
+import '../../classes/widgets/custom_percent_bar.dart';
 
 class ScoutHome extends StatefulWidget {
   const ScoutHome({super.key});
@@ -25,7 +26,7 @@ class ScoutHomeState extends State<ScoutHome> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              CustomHeader('Welcome to BadgR!'),
+              CustomHeader('Welcome to BadgR!', context),
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseRunner.badgesByUserStream(),
                 builder: (BuildContext context,
@@ -111,21 +112,8 @@ class ScoutHomeState extends State<ScoutHome> {
                         ),
                         Expanded(
                           flex: 1,
-                          child: LinearPercentIndicator(
-                            center: percent < .45
-                                ? Text(
-                                    '${(percent * 100).toInt()}%',
-                                  )
-                                : Text(
-                                    '${(percent * 100).toInt()}%',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                            progressColor: LinProgTheme.progressColor,
-                            backgroundColor: LinProgTheme.backgroundColor,
+                          child: CustomPercentageIndicator(
                             percent: percent,
-                            lineHeight: 20,
-                            barRadius: Radius.circular(7.5),
-                            animation: true,
                           ),
                         )
                       ],

@@ -432,6 +432,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  rounded_background_text:
+    dependency: "direct main"
+    description:
+      name: rounded_background_text
+      sha256: "3acb9cc5a122cc25f11c5ff425e8ed9f103905e2171c19b7cd005cadecadd136"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.3"
   rxdart:
     dependency: transitive
     description:

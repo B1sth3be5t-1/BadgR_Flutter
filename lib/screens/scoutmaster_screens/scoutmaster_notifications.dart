@@ -1,3 +1,4 @@
+import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
@@ -19,22 +20,22 @@ class ScoutmasterNotifications extends StatefulWidget {
 }
 
 class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
-  final _headerStyle = TextStyle(
-      color: isLight() ? kColorDarkBlue : kColorLightPink,
-      fontSize: 20,
-      fontWeight: FontWeight.bold);
-
   final List<CustomIconCloseButton> checks = [];
 
   @override
   Widget build(BuildContext context) {
+    final _headerStyle = TextStyle(
+        color:
+            isLight() ? lightColorScheme.onPrimaryContainer : kColorLightPink,
+        fontSize: 20,
+        fontWeight: FontWeight.bold);
     return Scaffold(
       body: SizedBox.expand(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: ListView(
             children: [
-              CustomHeader('Notifications'),
+              CustomHeader('Notifications', context),
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseRunner.notificationsStream(),
                 builder: (BuildContext context,

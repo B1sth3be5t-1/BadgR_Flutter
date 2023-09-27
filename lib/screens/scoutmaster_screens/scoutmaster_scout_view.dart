@@ -5,7 +5,7 @@ import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/widgets/custom_accordion.dart';
 import 'package:flutter/material.dart';
 import '../../classes/merit_badge_info.dart';
-import '../../classes/widgets/custom_accordion_header.dart';
+import '../../classes/widgets/custom_percent_bar.dart';
 import '../../classes/widgets/custom_accordion_section.dart';
 import '../../classes/widgets/custom_page_header.dart';
 
@@ -31,7 +31,7 @@ class ScoutmasterScoutView extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
-            CustomHeader(name),
+            CustomHeader(name, context),
             (lis.length == 0)
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -79,7 +79,7 @@ CustomAccordionSection getBadgeSection(MeritBadge mb, dynamic map) {
 
   return CustomAccordionSection(
     accordionId: mb.name,
-    header: CustomAccordionHeader(
+    header: CustomPercentageIndicator(
       title: mb.name,
       percent: percent,
     ),

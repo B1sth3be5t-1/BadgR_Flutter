@@ -7,6 +7,9 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/Widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 
+import '../../classes/colors_and_themes/color_schemes.g.dart';
+import '../../classes/colors_and_themes/themes.dart';
+
 class RegistrationScreen extends StatefulWidget {
   static const String screenID = 'RegisterScreen';
 
@@ -241,8 +244,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   Navigator.pushReplacementNamed(
                       context, WelcomeScreen.screenID),
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.arrow_back,
+                  color: isLight()
+                      ? lightColorScheme.primary
+                      : darkColorScheme.primary,
                 ),
               ),
             ],

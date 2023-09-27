@@ -1,6 +1,6 @@
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
-import 'package:badgr/classes/widgets/custom_accordion_header.dart';
+import 'package:badgr/classes/widgets/custom_percent_bar.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,7 +39,7 @@ class _ScoutCompleted extends State<ScoutCompleted> {
             padding: const EdgeInsets.all(10.0),
             child: ListView(
               children: [
-                CustomHeader('Completed Badges'),
+                CustomHeader('Completed Badges', context),
                 StreamBuilder<QuerySnapshot>(
                   stream: FirebaseRunner.badgesByUserStream(),
                   builder: (BuildContext context,
@@ -114,7 +114,7 @@ class _ScoutCompleted extends State<ScoutCompleted> {
 AccordionSection getBadgeSection(MeritBadge mb, BuildContext context) {
   return AccordionSection(
     index: mb.id,
-    header: CustomAccordionHeader(
+    header: CustomPercentageIndicator(
       title: mb.name,
       percent: 1,
     ),

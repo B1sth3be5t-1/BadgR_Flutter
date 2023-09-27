@@ -103,51 +103,40 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
           NavigationDestination(
             icon: Icon(
               Icons.home_outlined,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             selectedIcon: Icon(
               Icons.home_rounded,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Home',
           ),
           NavigationDestination(
             icon: Icon(
               Icons.notifications_active_outlined,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             selectedIcon: Icon(
               Icons.notifications_active,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Notifications',
           ),
           NavigationDestination(
             icon: Icon(
               Icons.data_usage,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Troop Progress',
           ),
-          /*NavigationDestination(
-            selectedIcon: Icon(
-              Icons.check_box,
-              color: NavigationIconTheme.iconColor,
-            ),
-            icon: Icon(
-              Icons.check_box_outlined,
-              color: NavigationIconTheme.iconColor,
-            ),
-            label: 'Completed',
-          ), */
           NavigationDestination(
             selectedIcon: Icon(
               Icons.settings,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             icon: Icon(
               Icons.settings_outlined,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Settings',
           ),

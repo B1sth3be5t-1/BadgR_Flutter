@@ -55,8 +55,7 @@ class _scoutMainState extends State<ScoutScreen> {
           padding: EdgeInsets.all(10),
           child: Text(
             'Welcome $name!',
-            style: Theme.of(context).primaryTextTheme.displayLarge?.copyWith(
-                  fontSize: 25,
+            style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
                   overflow: TextOverflow.fade,
                 ),
           ),
@@ -123,47 +122,47 @@ class _scoutMainState extends State<ScoutScreen> {
           NavigationDestination(
             icon: Icon(
               Icons.home_outlined,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             selectedIcon: Icon(
               Icons.home_rounded,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Home',
           ),
           NavigationDestination(
             icon: Icon(
               Icons.search,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Search Badges',
           ),
           NavigationDestination(
             icon: Icon(
               Icons.data_usage,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Saved Badges',
           ),
           NavigationDestination(
             selectedIcon: Icon(
               Icons.check_box,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             icon: Icon(
               Icons.check_box_outlined,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Completed',
           ),
           NavigationDestination(
             selectedIcon: Icon(
               Icons.settings,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             icon: Icon(
               Icons.settings_outlined,
-              color: NavigationIconTheme.iconColor,
+              color: NavigationIconTheme.iconColor(context),
             ),
             label: 'Settings',
           ),

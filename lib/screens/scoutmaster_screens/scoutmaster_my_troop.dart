@@ -33,7 +33,7 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
           padding: const EdgeInsets.all(10.0),
           child: ListView(
             children: [
-              CustomHeader('My Troop Progress'),
+              CustomHeader('My Troop Progress', context),
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseRunner.scoutChangesStream(),
                 builder: (BuildContext context,

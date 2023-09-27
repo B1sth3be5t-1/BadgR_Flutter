@@ -7,6 +7,7 @@ import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 
 import '../../classes/Widgets/custom_input.dart';
+import '../../classes/colors_and_themes/color_schemes.g.dart';
 import '../../classes/colors_and_themes/themes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -155,8 +156,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushReplacementNamed(
                           context, WelcomeScreen.screenID)
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.arrow_back,
+                      color: isLight()
+                          ? lightColorScheme.primary
+                          : darkColorScheme.primary,
                     ),
                   ),
                   SizedBox(

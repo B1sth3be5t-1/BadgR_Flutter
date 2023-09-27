@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/widgets/custom_accordion.dart';
-import 'package:badgr/classes/widgets/custom_accordion_header.dart';
+import 'package:badgr/classes/widgets/custom_percent_bar.dart';
 import 'package:badgr/classes/widgets/custom_accordion_section.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:badgr/classes/widgets/custom_req_checkbox.dart';
@@ -45,7 +45,7 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
           padding: const EdgeInsets.all(10.0),
           child: ListView(
             children: [
-              CustomHeader('My Badges'),
+              CustomHeader('My Badges', context),
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseRunner.badgesByUserStream(),
                 builder: (BuildContext context,
@@ -209,6 +209,10 @@ AccordionSection getBadgeSection(
 
     lis.add(
       CustomAccordionSection(
+        headerBorderColor: AccordionTheme.customAccTextColor,
+        headerBorderWidth: 10,
+        headerBorderColorOpened: AccordionTheme.customAccTextColor,
+        headerBorderRadius: 10,
         headerBackgroundColor: AccordionTheme.customAccBackColor,
         header: Row(
           children: [
@@ -218,12 +222,34 @@ AccordionSection getBadgeSection(
               child: Text(
                 reqNum.toString() + ': ' + req,
                 softWrap: true,
+                style: TextStyle(
+                  color: AccordionTheme.customAccTextColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
         ),
       ),
     );
+    if (reqNum != mb.numReqs)
+      lis.add(
+        CustomAccordionSection(
+          header: SizedBox(
+            child: Padding(
+              padding: EdgeInsets.only(top: 2, bottom: 2, right: 20, left: 20),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: AccordionTheme.customAccTextColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+            ),
+            height: 14,
+            width: MediaQuery.of(context).size.width,
+          ),
+        ),
+      );
   }
 
   double percent = count * 1.0 / mb.numReqs;
@@ -232,11 +258,13 @@ AccordionSection getBadgeSection(
   return AccordionSection(
     accordionId: mb.name,
     index: mb.id,
-    header: CustomAccordionHeader(
+    header: CustomPercentageIndicator(
       title: mb.name,
       percent: percent,
     ),
     content: CustomAccordion(
+      contentBorderColor: AccordionTheme.customAccTextColor,
+      contentBorderWidth: 5,
       headerBackgroundColor: AccordionTheme.headerBackgroundColor,
       children: lis,
     ),

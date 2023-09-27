@@ -25,39 +25,41 @@ Color getBackgroundColor() {
 final kThemeLight = ThemeData(
   useMaterial3: true,
   appBarTheme: AppBarTheme(
-    backgroundColor: kColorXLightPink,
+    backgroundColor: lightColorScheme.tertiary,
   ),
-  buttonTheme: ButtonThemeData(
-      buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
+  buttonTheme: ButtonThemeData(buttonColor: lightColorScheme.primary),
   checkboxTheme: CheckboxThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) => kColorBlue),
+    fillColor: MaterialStateProperty.resolveWith(
+        (states) => lightColorScheme.onTertiaryContainer),
     checkColor: MaterialStateProperty.resolveWith((states) => Colors.white),
-    overlayColor:
-        MaterialStateProperty.resolveWith((states) => kColorLightBlue),
+    overlayColor: MaterialStateProperty.resolveWith(
+        (states) => lightColorScheme.tertiary),
     splashRadius: 17,
     side: BorderSide(width: 1.5, color: Colors.black),
   ),
   colorScheme: lightColorScheme,
   extensions: [lightCustomColors.harmonized(lightColorScheme)],
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    hoverColor: kColorLightBlue,
-    backgroundColor: kColorBlue,
+    hoverColor: lightColorScheme.onTertiary,
+    backgroundColor: lightColorScheme.tertiary,
   ),
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
-      iconColor: MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
+      iconColor: MaterialStateProperty.resolveWith(
+          (states) => lightColorScheme.onTertiary),
     ),
   ),
   iconTheme: IconThemeData(
-    color: kColorDarkBlue,
+    color: lightColorScheme.onTertiary,
   ),
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(color: Colors.black),
-    hintStyle: const TextStyle(
-      color: Colors.grey,
+    hintStyle: TextStyle(
+      color: lightColorScheme.onPrimaryContainer,
+      overflow: TextOverflow.fade,
     ),
-    errorStyle: const TextStyle(
-      color: kColorDarkPink,
+    errorStyle: TextStyle(
+      color: lightColorScheme.error,
       fontSize: 12,
       fontWeight: FontWeight.bold,
     ),
@@ -68,54 +70,60 @@ final kThemeLight = ThemeData(
     focusedBorder: kBorderFocused,
   ),
   listTileTheme: ListTileThemeData(
+      //todo not sure if this is used
       tileColor: kColorLightPink,
       selectedTileColor: kColorBlue,
       selectedColor: kColorXLightBlue),
   navigationBarTheme: NavigationBarThemeData(
-    indicatorColor: kColorBlue,
-    backgroundColor: kColorLightPink,
+    indicatorColor: lightColorScheme.onTertiaryContainer,
+    backgroundColor: lightColorScheme.tertiary,
     labelTextStyle: MaterialStateProperty.resolveWith(
-        (states) => TextStyle(color: Colors.black)),
+      (states) => TextStyle(color: lightColorScheme.onTertiary),
+    ),
   ),
-  scaffoldBackgroundColor: kColorXLightBlue,
-  primaryColor: kColorBlue,
-  primaryColorLight: kColorLightBlue,
-  primaryColorDark: kColorDarkBlue,
+  scaffoldBackgroundColor: lightColorScheme.primaryContainer,
   primaryTextTheme: TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
-    bodyMedium: TextStyle(fontSize: 20, color: Colors.white),
-    bodySmall: TextStyle(color: Colors.white),
+    bodyMedium: TextStyle(
+        fontSize: 20,
+        color: lightColorScheme.onPrimaryContainer), // search page
+    bodySmall: TextStyle(
+        color: lightColorScheme.onPrimaryContainer), // search checkbox
     displayLarge: TextStyle(
+      // BadgR Title
       fontSize: 45.0,
       fontWeight: FontWeight.w900,
-      color: kColorDarkBlue,
+      color: lightColorScheme.onPrimaryContainer,
     ),
     displayMedium: TextStyle(
+      // main pages welcome, CustomHeader
       fontSize: 30.0,
       fontWeight: FontWeight.bold,
-      color: kColorDarkBlue,
+      color: lightColorScheme.onTertiary,
     ),
     displaySmall: TextStyle(
-      color: kColorDarkBlue,
+      color: lightColorScheme.onSecondary,
       fontSize: 15,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.bold, //accordion header stuff
     ),
     headlineLarge: TextStyle(
       color: kColorDarkBlue,
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
-    headlineMedium: TextStyle(color: kColorDarkBlue, fontSize: 18),
+    headlineMedium: TextStyle(
+        color: lightColorScheme.onPrimaryContainer, fontSize: 18), //home pages
     labelLarge: TextStyle(color: Colors.white),
     labelMedium: TextStyle(color: Colors.black),
     labelSmall: TextStyle(color: Colors.black),
   ),
-  progressIndicatorTheme: ProgressIndicatorThemeData(color: kColorDarkBlue),
+  progressIndicatorTheme:
+      ProgressIndicatorThemeData(color: lightColorScheme.primary),
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       foregroundColor: MaterialStateProperty.resolveWith(_getColor),
-      backgroundColor:
-          MaterialStateProperty.resolveWith((states) => kColorDarkBlue),
+      backgroundColor: MaterialStateProperty.resolveWith(
+          (states) => lightColorScheme.primary),
     ),
   ),
 );
@@ -130,10 +138,11 @@ final kThemeDark = ThemeData(
   buttonTheme: ButtonThemeData(
       buttonColor: kColorDarkBlue, textTheme: ButtonTextTheme.normal),
   checkboxTheme: CheckboxThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) => kColorBlue),
+    fillColor: MaterialStateProperty.resolveWith(
+        (states) => lightColorScheme.onTertiaryContainer),
     checkColor: MaterialStateProperty.resolveWith((states) => Colors.white),
-    overlayColor:
-        MaterialStateProperty.resolveWith((states) => kColorLightBlue),
+    overlayColor: MaterialStateProperty.resolveWith(
+        (states) => lightColorScheme.onTertiaryContainer),
     splashRadius: 17,
     side: BorderSide(width: 1.5, color: Colors.white),
   ),
@@ -179,7 +188,7 @@ final kThemeDark = ThemeData(
     labelTextStyle: MaterialStateProperty.resolveWith(
         (states) => TextStyle(color: Colors.white)),
   ),
-  scaffoldBackgroundColor: kColorXDarkBlue,
+  scaffoldBackgroundColor: darkColorScheme.primaryContainer,
   primaryColor: kColorBlue,
   primaryColorLight: kColorLightBlue,
   primaryColorDark: kColorDarkBlue,
@@ -190,7 +199,7 @@ final kThemeDark = ThemeData(
     displayLarge: TextStyle(
       fontSize: 45.0,
       fontWeight: FontWeight.w900,
-      color: kColorKindaDarkBlue,
+      color: darkColorScheme.onPrimaryContainer, // here is BadgR
     ),
     displayMedium: TextStyle(
       fontSize: 30.0,
@@ -225,30 +234,39 @@ class AlertDiagTheme {
 }
 
 class AccordionTheme {
-  static Color headerBackgroundColor = kColorLightPink;
+  static Color headerBackgroundColor =
+      isLight() ? lightColorScheme.secondary : kColorBlue;
   static Color headerBackgroundColorOpened =
-      isLight() ? kColorBlue : kColorBlue;
+      isLight() ? lightColorScheme.tertiary : kColorBlue;
   static Color contentBackgroundColor = getBackgroundColor();
   static Color contentBorderColor =
-      isLight() ? kColorDarkBlue : kColorLightPink;
+      isLight() ? lightColorScheme.tertiary : kColorLightPink;
   static Color customAccBackColor =
-      isLight() ? kColorLightPink : kColorKindaLightPink;
+      isLight() ? lightColorScheme.tertiaryContainer : kColorKindaLightPink;
+  static Color customAccTextColor =
+      isLight() ? lightColorScheme.onTertiaryContainer : kColorDarkBlue;
 }
 
-class LinProgTheme {
-  static Color backgroundColor = isLight() ? kColorPink : kColorXLightBlue;
-  static Color progressColor = isLight() ? kColorDarkBlue : kColorBlue;
-
-  static Color textColor(double p) {
-    if (!isLight()) return Colors.black;
-    if (p < .45) return Colors.black;
-    return Colors.white;
+class CustomCheckBoxTheme {
+  static Color checkColor(bool c) {
+    if (c)
+      return isLight() ? lightColorScheme.onTertiaryContainer : kColorDarkBlue;
+    return isLight() ? Colors.white : kColorDarkBlue;
   }
 }
 
+class LinProgTheme {
+  static Color backgroundColor =
+      isLight() ? lightColorScheme.inversePrimary : kColorXLightBlue;
+  static Color progressColor =
+      isLight() ? lightColorScheme.onPrimaryContainer : kColorBlue;
+  static Color textColor =
+      isLight() ? lightColorScheme.onPrimaryContainer : kColorDarkBlue;
+}
+
 class NavigationIconTheme {
-  static Color iconColor = isLight() ? Colors.black : Colors.white;
-  static Color textColor = isLight() ? Colors.black : Colors.white;
+  static Color iconColor(BuildContext c) => Theme.of(c).colorScheme.onTertiary;
+  static Color textColor(BuildContext c) => Theme.of(c).colorScheme.onTertiary;
 }
 
 Color _getColor(Set<MaterialState> states) {
@@ -258,7 +276,7 @@ Color _getColor(Set<MaterialState> states) {
     MaterialState.focused,
   };
   if (states.any(interactiveStates.contains)) {
-    return kColorLightBlue;
+    return lightColorScheme.inversePrimary;
   }
   return Colors.white;
 }

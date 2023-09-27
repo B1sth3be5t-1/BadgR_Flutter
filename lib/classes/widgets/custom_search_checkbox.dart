@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import '../colors_and_themes/constants.dart';
+import '../colors_and_themes/themes.dart';
 import 'custom_alert.dart';
 
 class CustomSearchCheckbox extends StatefulWidget {
@@ -52,7 +53,7 @@ class _checkbox extends State<CustomSearchCheckbox> {
         ),
         Checkbox(
           value: checked,
-          checkColor: completed ? kColorDarkPink : Colors.white,
+          checkColor: CustomCheckBoxTheme.checkColor(completed),
           onChanged: completed
               ? null
               : (val) async {
