@@ -44,7 +44,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCd9UUNyr1Fs8bt3cBJrDKCvNxoBagyJ9A',
+    apiKey: 'AIzaSyBDXimIxEV1mXbitzyveoCAJZJBaAYozis',
     appId: '1:469697089497:web:bfcb692b6a58e42aabd3c8',
     messagingSenderId: '469697089497',
     projectId: 'badgr-88835',
@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '469697089497',
     projectId: 'badgr-88835',
     storageBucket: 'badgr-88835.appspot.com',
-    iosClientId: '469697089497-i9r77c45n0ifuce2p8bp10h9oj3up5rq.apps.googleusercontent.com',
+    iosClientId:
+        '469697089497-i9r77c45n0ifuce2p8bp10h9oj3up5rq.apps.googleusercontent.com',
     iosBundleId: 'com.b1sth3be5t.badgr',
   );
 
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '469697089497',
     projectId: 'badgr-88835',
     storageBucket: 'badgr-88835.appspot.com',
-    iosClientId: '469697089497-dk98v91406e0m6hulsnmou0a3o32q09h.apps.googleusercontent.com',
+    iosClientId:
+        '469697089497-dk98v91406e0m6hulsnmou0a3o32q09h.apps.googleusercontent.com',
     iosBundleId: 'com.b1sth3be5t.badgr.RunnerTests',
   );
 }

@@ -134,6 +134,7 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         child: Icon(Icons.add),
         tooltip: 'Submit',
         onPressed: () async {

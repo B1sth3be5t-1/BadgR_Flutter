@@ -200,7 +200,7 @@ class AllMeritBadges {
       }
     } catch (e) {
       print(e.toString() + '-----');
-      setAllBadges();
+      //setAllBadges();
     }
   }
 

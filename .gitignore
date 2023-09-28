@@ -32,7 +32,7 @@ migrate_working_dir/
 .pub/
 /build/
 
-/gitignoredFolder/
+/lib/classes/firebase_options.dart
 
 database-debug.log
 database.rules.json
@@ -43,6 +43,7 @@ firestore-debug.log
 .firebaserc
 storage.rules
 ui-debug.log
+
 
 # Symbolication related
 app.*.symbols

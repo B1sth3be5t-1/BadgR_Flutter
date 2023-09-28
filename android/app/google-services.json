@@ -14,21 +14,28 @@
       },
       "oauth_client": [
         {
-          "client_id": "469697089497-je2o0te2uq6km615jo26bvf1u8rkdoj6.apps.googleusercontent.com",
+          "client_id": "469697089497-cnsa5mlq2dqakamk6lj1uh0nvi3p0v93.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBu_NgIZoeaA4YH7MbVowZOiBeD3NGteLQ"
+          "current_key": "AIzaSyCE5UUF-Bc0I1HeJ8AKyIaoYryVYnJvMLk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "469697089497-je2o0te2uq6km615jo26bvf1u8rkdoj6.apps.googleusercontent.com",
+              "client_id": "469697089497-cnsa5mlq2dqakamk6lj1uh0nvi3p0v93.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "469697089497-dk98v91406e0m6hulsnmou0a3o32q09h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.b1sth3be5t.badgr.RunnerTests"
+              }
             }
           ]
         }

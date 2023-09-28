@@ -114,6 +114,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: null,
           onPressed: () async {
             fromButton = true;
             Widget a = await buildAccordion();
