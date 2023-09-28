@@ -32,6 +32,18 @@ migrate_working_dir/
 .pub/
 /build/
 
+/gitignoredFolder/
+
+database-debug.log
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
+firestore-debug.log
+.firebaserc
+storage.rules
+ui-debug.log
+
 # Symbolication related
 app.*.symbols
 
