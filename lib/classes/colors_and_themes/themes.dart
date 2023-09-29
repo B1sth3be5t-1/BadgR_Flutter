@@ -229,8 +229,10 @@ final kThemeDark = ThemeData(
 );
 
 class AlertDiagTheme {
-  static Color backgroundColor = isLight() ? kColorXLightBlue : kColorBlue;
-  static Color textColor = isLight() ? kColorDarkBlue : kColorXLightBlue;
+  static Color backgroundColor =
+      isLight() ? lightColorScheme.tertiaryContainer : kColorBlue;
+  static Color textColor =
+      isLight() ? lightColorScheme.onTertiaryContainer : kColorXLightBlue;
 }
 
 class AccordionTheme {

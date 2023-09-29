@@ -1,5 +1,6 @@
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/colors_and_themes/themes.dart';
+import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/widgets/custom_accordion_section.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:badgr/screens/scoutmaster_screens/scoutmaster_scout_view.dart';
@@ -70,6 +71,16 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
 
                   List<CustomAccordionSection> lis = [];
 
+                  for (MapEntry<String, List<Map<int, dynamic>>> me
+                      in mapData.entries) {
+                    me.value.sort((Map a, Map b) =>
+                        AllMeritBadges.getBadgeByID(a.entries.first.key)
+                            .name
+                            .compareTo(
+                                AllMeritBadges.getBadgeByID(b.entries.first.key)
+                                    .name));
+                  }
+
                   for (Scout s in sm.scouts) {
                     if (!mapData.containsKey(s.uid)) mapData[s.uid] = [];
 
@@ -88,7 +99,10 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
 
                                 Navigator.push(context, r);
                               },
-                              icon: Icon(Icons.arrow_forward_outlined),
+                              icon: Icon(
+                                Icons.arrow_forward_outlined,
+                                color: AccordionTheme.customAccTextColor,
+                              ),
                               tooltip: 'Open',
                             ),
                             SizedBox(
@@ -98,7 +112,9 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
                               s.name,
                               style: Theme.of(context)
                                   .primaryTextTheme
-                                  .headlineLarge,
+                                  .headlineLarge
+                                  ?.copyWith(
+                                      color: AccordionTheme.customAccTextColor),
                             ),
                           ],
                         ),

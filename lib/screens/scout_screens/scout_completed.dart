@@ -86,8 +86,9 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                       );
 
                     lis.sort((AccordionSection a, AccordionSection b) {
-                      return a.index - b.index;
+                      return a.accordionId!.compareTo(b.accordionId!);
                     });
+
                     Accordion acc = Accordion(
                       children: lis,
                       headerBackgroundColor:
@@ -113,7 +114,7 @@ class _ScoutCompleted extends State<ScoutCompleted> {
 
 AccordionSection getBadgeSection(MeritBadge mb, BuildContext context) {
   return AccordionSection(
-    index: mb.id,
+    accordionId: mb.name,
     header: CustomPercentageIndicator(
       title: mb.name,
       percent: 1,

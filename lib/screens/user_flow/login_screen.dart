@@ -49,43 +49,49 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 48.0,
               ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    CustomFormField(
-                      hintText: 'Enter your email',
-                      labelText: 'Email',
-                      obscureText: false,
-                      onChanged: (val) {
-                        email = val!;
-                      },
-                      validator: (val) {
-                        if (!val!.isValidEmail) return 'Enter valid email';
-                        return null;
-                      },
-                    ),
-                    CustomFormField(
-                      controller: _tex,
-                      labelText: 'Password',
-                      hintText: 'Enter your password',
-                      obscureText: true,
-                      onChanged: (val) {
-                        pass = val!;
-                      },
-                      validator: (val) {
-                        if (val! == '') return 'Enter a password';
-                        return null;
-                      },
-                    ),
-                  ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 8),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      CustomFormField(
+                        hintText: 'Enter your email',
+                        labelText: 'Email',
+                        obscureText: false,
+                        onChanged: (val) {
+                          email = val!;
+                        },
+                        validator: (val) {
+                          if (!val!.isValidEmail) return 'Enter valid email';
+                          return null;
+                        },
+                      ),
+                      CustomFormField(
+                        controller: _tex,
+                        labelText: 'Password',
+                        hintText: 'Enter your password',
+                        obscureText: true,
+                        onChanged: (val) {
+                          pass = val!;
+                        },
+                        validator: (val) {
+                          if (val! == '') return 'Enter a password';
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 24.0,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                padding: EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: MediaQuery.of(context).size.width / 8),
                 child: Material(
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,

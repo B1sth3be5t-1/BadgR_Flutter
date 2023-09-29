@@ -20,9 +20,28 @@ class ScoutmasterScoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CustomAccordionSection> lis = [];
-    for (Map m in data)
-      for (MapEntry me in m.entries)
-        lis.add(getBadgeSection(AllMeritBadges.getBadgeByID(me.key), me.value));
+
+    if (data.length > 1) {
+      for (int mi = 1; mi < data.length; mi++) {
+        if (mi == 1) {
+          lis.add(getBadgeSection(
+              AllMeritBadges.getBadgeByID(data.first.entries.first.key),
+              data.first.entries.first.value));
+        }
+        Map m = data[mi];
+        if (lis.last.accordionId !=
+            AllMeritBadges.getBadgeByID(m.entries.first.key).name)
+          for (MapEntry me in m.entries)
+            lis.add(
+                getBadgeSection(AllMeritBadges.getBadgeByID(me.key), me.value));
+      }
+    } else if (data.length == 1) {
+      lis.add(
+        getBadgeSection(
+            AllMeritBadges.getBadgeByID(data.first.entries.first.key),
+            data.first.entries.first.value),
+      );
+    }
 
     lis.sort((a, b) => a.accordionId!.compareTo(b.accordionId!));
 
