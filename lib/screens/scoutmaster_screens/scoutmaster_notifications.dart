@@ -94,10 +94,13 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                     lis.add(
                       AccordionSection(
                         accordionId: d.toString(),
-                        header: Text(
-                          'Notification Date: $label',
-                          style:
-                              Theme.of(context).primaryTextTheme.displaySmall,
+                        header: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            'Notification Date: $label',
+                            style:
+                                Theme.of(context).primaryTextTheme.displaySmall,
+                          ),
                         ),
                         content: Row(
                           children: [
@@ -106,26 +109,23 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                                 type == 'badge'
                                     ? Icons.check
                                     : Icons.person_add_alt_1,
-                                color: Theme.of(context).iconTheme.color,
+                                color: AccordionTheme.customAccTextColor(),
                               ),
                             ),
                             Expanded(
                               flex: 3,
-                              child: type == 'badge'
-                                  ? Text(
-                                      '$name has completed the merit badge: $desc',
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .labelSmall
-                                          ?.copyWith(fontSize: 15),
-                                    )
-                                  : Text(
-                                      '$name has been added to your troop!',
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .labelSmall
-                                          ?.copyWith(fontSize: 15),
-                                    ),
+                              child: Text(
+                                type == 'badge'
+                                    ? '$name has completed the merit badge: $desc'
+                                    : '$name has been added to your troop!',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .labelSmall
+                                    ?.copyWith(
+                                        fontSize: 15,
+                                        color: AccordionTheme
+                                            .customAccTextColor()),
+                              ),
                             ),
                             Expanded(
                               child: checks[checks.length - 1],
@@ -146,12 +146,13 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                   Accordion acc = Accordion(
                     maxOpenSections: 1,
                     children: lis,
-                    headerBackgroundColor: AccordionTheme.headerBackgroundColor,
-                    contentBorderColor: AccordionTheme.contentBorderColor,
+                    headerBackgroundColor:
+                        AccordionTheme.headerBackgroundColor(),
+                    contentBorderColor: AccordionTheme.contentBorderColor(),
                     contentBackgroundColor:
-                        AccordionTheme.contentBackgroundColor,
+                        AccordionTheme.contentBackgroundColor(),
                     headerBackgroundColorOpened:
-                        AccordionTheme.headerBackgroundColorOpened,
+                        AccordionTheme.headerBackgroundColorOpened(),
                   );
 
                   return acc;
@@ -174,11 +175,11 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
             }),
         child: Icon(
           Icons.clear,
-          color: Colors.white,
+          color: isLight()
+              ? lightColorScheme.onTertiary
+              : darkColorScheme.onTertiary,
         ),
         tooltip: 'Clear all',
-        backgroundColor: kColorDarkBlue,
-        hoverColor: kColorBlue,
       ),
     );
   }
@@ -195,7 +196,10 @@ class CustomIconCloseButton extends StatelessWidget {
     return IconButton(
       onPressed: () =>
           FirebaseRunner.removeNotification(type: type, name: name, desc: desc),
-      icon: Icon(Icons.close),
+      icon: Icon(
+        Icons.close,
+        color: AccordionTheme.customAccTextColor(),
+      ),
       tooltip: 'Remove Notification',
     );
   }

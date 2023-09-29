@@ -6,20 +6,24 @@ import 'package:rounded_background_text/rounded_background_text.dart';
 import '../colors_and_themes/color_schemes.g.dart';
 
 class CustomPercentageIndicator extends StatefulWidget {
-  CustomPercentageIndicator({this.title, required this.percent});
+  CustomPercentageIndicator(
+      {this.title, required this.percent, required this.axis});
 
   final String? title;
   final double percent;
+  final MainAxisAlignment axis;
 
   @override
-  _CAHState createState() => _CAHState(title: title, percent: percent);
+  _CAHState createState() =>
+      _CAHState(title: title, percent: percent, axis: axis);
 }
 
 class _CAHState extends State<CustomPercentageIndicator> {
-  _CAHState({required this.title, required this.percent});
+  _CAHState({required this.title, required this.percent, required this.axis});
 
   final String? title;
   double percent;
+  final MainAxisAlignment axis;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class _CAHState extends State<CustomPercentageIndicator> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: LinearPercentIndicator(
+        alignment: axis,
         barRadius: Radius.circular(7.5),
         trailing: Padding(
           padding: const EdgeInsets.only(right: 8.0),
@@ -41,17 +46,17 @@ class _CAHState extends State<CustomPercentageIndicator> {
         center: Center(
           child: RoundedBackgroundText(
             percent < 1 ? '${(percent * 100).toInt()}%' : 'Complete!',
-            backgroundColor: LinProgTheme.backgroundColor,
-            style: style?.copyWith(color: LinProgTheme.textColor),
+            backgroundColor: LinProgTheme.backgroundColor(),
+            style: style?.copyWith(color: LinProgTheme.textColor()),
           ),
         ),
-        width: 139,
+        width: MediaQuery.of(context).size.width / 3,
         lineHeight: 35.0,
         animation: true,
         animationDuration: 600,
         percent: percent,
-        backgroundColor: LinProgTheme.backgroundColor,
-        progressColor: LinProgTheme.progressColor,
+        backgroundColor: LinProgTheme.backgroundColor(),
+        progressColor: LinProgTheme.progressColor(),
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'dart:collection';
 
 import 'package:accordion/controllers.dart';
+import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
 import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/widgets/custom_accordion.dart';
 import 'package:flutter/material.dart';
+import '../../classes/colors_and_themes/themes.dart';
 import '../../classes/merit_badge_info.dart';
 import '../../classes/widgets/custom_percent_bar.dart';
 import '../../classes/widgets/custom_accordion_section.dart';
@@ -20,9 +22,28 @@ class ScoutmasterScoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CustomAccordionSection> lis = [];
-    for (Map m in data)
-      for (MapEntry me in m.entries)
-        lis.add(getBadgeSection(AllMeritBadges.getBadgeByID(me.key), me.value));
+
+    if (data.length > 1) {
+      for (int mi = 1; mi < data.length; mi++) {
+        if (mi == 1) {
+          lis.add(getBadgeSection(
+              AllMeritBadges.getBadgeByID(data.first.entries.first.key),
+              data.first.entries.first.value));
+        }
+        Map m = data[mi];
+        if (lis.last.accordionId !=
+            AllMeritBadges.getBadgeByID(m.entries.first.key).name)
+          for (MapEntry me in m.entries)
+            lis.add(
+                getBadgeSection(AllMeritBadges.getBadgeByID(me.key), me.value));
+      }
+    } else if (data.length == 1) {
+      lis.add(
+        getBadgeSection(
+            AllMeritBadges.getBadgeByID(data.first.entries.first.key),
+            data.first.entries.first.value),
+      );
+    }
 
     lis.sort((a, b) => a.accordionId!.compareTo(b.accordionId!));
 
@@ -38,11 +59,22 @@ class ScoutmasterScoutView extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'This scout has no badges added',
-                        style: Theme.of(context).primaryTextTheme.displayMedium,
+                        style: Theme.of(context)
+                            .primaryTextTheme
+                            .displayMedium
+                            ?.copyWith(
+                                color: isLight()
+                                    ? lightColorScheme.onPrimaryContainer
+                                    : darkColorScheme.onPrimaryContainer),
                       ),
                     ),
                   )
                 : CustomAccordion(
+                    headerBackgroundColor:
+                        AccordionTheme.headerBackgroundColor(),
+                    contentBackgroundColor:
+                        AccordionTheme.contentBackgroundColor(),
+                    contentBorderColor: AccordionTheme.contentBorderColor(),
                     scrollIntoViewOfItems: ScrollIntoViewOfItems.slow,
                     disableScrolling: false,
                     children: lis,
@@ -54,11 +86,11 @@ class ScoutmasterScoutView extends StatelessWidget {
         onPressed: () => Navigator.pop(context),
         child: Icon(
           Icons.arrow_back_outlined,
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.onTertiary,
         ),
         tooltip: 'Go back',
-        backgroundColor: kColorDarkBlue,
-        hoverColor: kColorBlue,
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        hoverColor: Theme.of(context).colorScheme.onTertiaryContainer,
       ),
     );
   }
@@ -80,6 +112,7 @@ CustomAccordionSection getBadgeSection(MeritBadge mb, dynamic map) {
   return CustomAccordionSection(
     accordionId: mb.name,
     header: CustomPercentageIndicator(
+      axis: MainAxisAlignment.start,
       title: mb.name,
       percent: percent,
     ),

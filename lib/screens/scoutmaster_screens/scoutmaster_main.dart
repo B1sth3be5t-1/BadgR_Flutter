@@ -53,7 +53,7 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
             'Welcome $name!',
             style: Theme.of(context)
                 .primaryTextTheme
-                .displayLarge
+                .displayMedium
                 ?.copyWith(fontSize: 30),
           ),
         ),

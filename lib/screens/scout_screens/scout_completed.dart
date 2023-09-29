@@ -86,17 +86,18 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                       );
 
                     lis.sort((AccordionSection a, AccordionSection b) {
-                      return a.index - b.index;
+                      return a.accordionId!.compareTo(b.accordionId!);
                     });
+
                     Accordion acc = Accordion(
                       children: lis,
                       headerBackgroundColor:
-                          AccordionTheme.headerBackgroundColor,
+                          AccordionTheme.headerBackgroundColor(),
                       headerBackgroundColorOpened:
-                          AccordionTheme.headerBackgroundColorOpened,
+                          AccordionTheme.headerBackgroundColorOpened(),
                       contentBackgroundColor:
-                          AccordionTheme.contentBackgroundColor,
-                      contentBorderColor: AccordionTheme.contentBorderColor,
+                          AccordionTheme.contentBackgroundColor(),
+                      contentBorderColor: AccordionTheme.contentBorderColor(),
                     );
 
                     return acc;
@@ -113,8 +114,9 @@ class _ScoutCompleted extends State<ScoutCompleted> {
 
 AccordionSection getBadgeSection(MeritBadge mb, BuildContext context) {
   return AccordionSection(
-    index: mb.id,
+    accordionId: mb.name,
     header: CustomPercentageIndicator(
+      axis: MainAxisAlignment.start,
       title: mb.name,
       percent: 1,
     ),

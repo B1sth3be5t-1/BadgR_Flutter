@@ -24,32 +24,41 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  height: 60.0,
-                  child: Hero(
-                    tag: 'head',
-                    child: Image.asset('images/BadgRHead.png'),
+            Center(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 60.0,
+                    child: Hero(
+                      tag: 'head',
+                      child: Image.asset('images/BadgRHead.png'),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 50.0),
-                  child: Text(
-                    'BadgR',
-                    style: AdaptiveTheme.of(context)
-                        .theme
-                        .primaryTextTheme
-                        .displayLarge,
+                  Padding(
+                    padding: EdgeInsets.only(left: 50.0),
+                    child: Text(
+                      'BadgR',
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .primaryTextTheme
+                          .displayLarge,
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 60.0,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 48.0,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding: EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: MediaQuery.of(context).size.width / 8),
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, LoginScreen.screenID);
@@ -60,7 +69,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding: EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: MediaQuery.of(context).size.width / 8),
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, RegistrationScreen.screenID);
@@ -71,11 +82,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 120),
+              padding: EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: MediaQuery.of(context).size.width / 8),
               child: TextButton(
                 onPressed: () => switchTheme(context),
-                child: Text('Switch app appearance'),
+                child: Center(child: Text('Switch app appearance')),
               ),
             ),
           ],

@@ -59,115 +59,122 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               const SizedBox(
                 height: 48.0,
               ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    CustomFormField(
-                      labelText: 'Email',
-                      hintText: 'Enter Email',
-                      obscureText: false,
-                      onChanged: (val) {
-                        email = val!;
-                        if (clickedBut) _formKey.currentState!.validate();
-                      },
-                      validator: (val) {
-                        if (!val!.isValidEmail) return 'Enter valid email';
-                        return null;
-                      },
-                    ),
-                    CustomFormField(
-                      labelText: 'Password',
-                      hintText: 'Enter Password',
-                      obscureText: true,
-                      onChanged: (val) {
-                        pass = val!;
-                        if (clickedBut) _formKey.currentState!.validate();
-                      },
-                      validator: (val) {
-                        if (!val!.isValidPassword)
-                          return 'Password must contain 8 characters, including a number and a special character';
-                        return null;
-                      },
-                    ),
-                    CustomFormField(
-                      labelText: 'First Name',
-                      hintText: 'Enter First Name',
-                      obscureText: false,
-                      onChanged: (val) {
-                        fname = val!;
-                        if (clickedBut) _formKey.currentState!.validate();
-                      },
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r"[a-zA-Z]+|\s"),
-                        )
-                      ],
-                      validator: (val) {
-                        if (!val!.isValidName) return 'Enter valid first name';
-                        return null;
-                      },
-                    ),
-                    CustomFormField(
-                      labelText: 'Last Name',
-                      hintText: 'Enter Last Name',
-                      obscureText: false,
-                      onChanged: (val) {
-                        lname = val!;
-                        if (clickedBut) _formKey.currentState!.validate();
-                      },
-                      validator: (val) {
-                        if (!val!.isValidName) return 'Enter valid last name';
-                        return null;
-                      },
-                    ),
-                    CustomFormField(
-                      labelText: 'Age',
-                      hintText: 'Enter Age',
-                      obscureText: false,
-                      onChanged: (val) {
-                        age = int.parse(val!);
-                        if (clickedBut) _formKey.currentState!.validate();
-                      },
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r"[0-9]"),
-                        )
-                      ],
-                      validator: (val) {
-                        if (val == '' ||
-                            int.parse(val!) >= 100 ||
-                            int.parse(val) <= 5) return 'Enter valid age';
-                        return null;
-                      },
-                    ),
-                    CustomFormField(
-                      hintText: 'Enter Troop Number',
-                      labelText: 'Troop',
-                      obscureText: false,
-                      onChanged: (val) {
-                        troop = int.parse(val!);
-                        if (clickedBut) _formKey.currentState!.validate();
-                      },
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r"[0-9]"),
-                        )
-                      ],
-                      validator: (val) {
-                        if (val == '' || int.parse(val!) <= 0)
-                          return 'Enter valid troop number';
-                        return null;
-                      },
-                    ),
-                  ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 8),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      CustomFormField(
+                        labelText: 'Email',
+                        hintText: 'Enter Email',
+                        obscureText: false,
+                        onChanged: (val) {
+                          email = val!;
+                          if (clickedBut) _formKey.currentState!.validate();
+                        },
+                        validator: (val) {
+                          if (!val!.isValidEmail) return 'Enter valid email';
+                          return null;
+                        },
+                      ),
+                      CustomFormField(
+                        labelText: 'Password',
+                        hintText: 'Enter Password',
+                        obscureText: true,
+                        onChanged: (val) {
+                          pass = val!;
+                          if (clickedBut) _formKey.currentState!.validate();
+                        },
+                        validator: (val) {
+                          if (!val!.isValidPassword)
+                            return 'Password must contain 8 characters, including a number and a special character';
+                          return null;
+                        },
+                      ),
+                      CustomFormField(
+                        labelText: 'First Name',
+                        hintText: 'Enter First Name',
+                        obscureText: false,
+                        onChanged: (val) {
+                          fname = val!;
+                          if (clickedBut) _formKey.currentState!.validate();
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r"[a-zA-Z]+|\s"),
+                          )
+                        ],
+                        validator: (val) {
+                          if (!val!.isValidName)
+                            return 'Enter valid first name';
+                          return null;
+                        },
+                      ),
+                      CustomFormField(
+                        labelText: 'Last Name',
+                        hintText: 'Enter Last Name',
+                        obscureText: false,
+                        onChanged: (val) {
+                          lname = val!;
+                          if (clickedBut) _formKey.currentState!.validate();
+                        },
+                        validator: (val) {
+                          if (!val!.isValidName) return 'Enter valid last name';
+                          return null;
+                        },
+                      ),
+                      CustomFormField(
+                        labelText: 'Age',
+                        hintText: 'Enter Age',
+                        obscureText: false,
+                        onChanged: (val) {
+                          age = int.parse(val!);
+                          if (clickedBut) _formKey.currentState!.validate();
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r"[0-9]"),
+                          )
+                        ],
+                        validator: (val) {
+                          if (val == '' ||
+                              int.parse(val!) >= 100 ||
+                              int.parse(val) <= 5) return 'Enter valid age';
+                          return null;
+                        },
+                      ),
+                      CustomFormField(
+                        hintText: 'Enter Troop Number',
+                        labelText: 'Troop',
+                        obscureText: false,
+                        onChanged: (val) {
+                          troop = int.parse(val!);
+                          if (clickedBut) _formKey.currentState!.validate();
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r"[0-9]"),
+                          )
+                        ],
+                        validator: (val) {
+                          if (val == '' || int.parse(val!) <= 0)
+                            return 'Enter valid troop number';
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 24.0,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                padding: EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: MediaQuery.of(context).size.width / 8),
                 child: Material(
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,

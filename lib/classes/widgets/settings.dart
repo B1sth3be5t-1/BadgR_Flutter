@@ -38,12 +38,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           children: [
             CustomHeader('Settings', context),
             Accordion(
-              contentBackgroundColor: AccordionTheme.contentBackgroundColor,
+              contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
               maxOpenSections: 1,
               headerBackgroundColorOpened:
-                  AccordionTheme.headerBackgroundColorOpened,
-              headerBackgroundColor: AccordionTheme.headerBackgroundColor,
-              contentBorderColor: AccordionTheme.contentBorderColor,
+                  AccordionTheme.headerBackgroundColorOpened(),
+              headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+              contentBorderColor: AccordionTheme.contentBorderColor(),
               scaleWhenAnimating: true,
               openAndCloseAnimation: true,
               headerPadding:

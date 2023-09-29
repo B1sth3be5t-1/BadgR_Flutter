@@ -122,7 +122,12 @@ class _ScoutSearchState extends State<ScoutSearch> {
               Acc = a;
             });
           },
-          child: Icon(Icons.clear),
+          child: Icon(
+            Icons.clear,
+            color: isLight()
+                ? lightColorScheme.onTertiary
+                : darkColorScheme.onTertiary,
+          ),
           tooltip: 'Collapse Boxes',
         ),
       ),
@@ -155,9 +160,12 @@ class _ScoutSearchState extends State<ScoutSearch> {
       if (bools[mb.id] != null) isChecked = true;
       if (completes[mb.id] != null) isComplete = true;
       AccordionSection AS = AccordionSection(
-          header: Text(
-            mb.name,
-            style: _headerStyle,
+          header: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              mb.name,
+              style: _headerStyle,
+            ),
           ),
           content: Row(
             children: [
@@ -193,10 +201,10 @@ class _ScoutSearchState extends State<ScoutSearch> {
 
     Widget acc = Accordion(
       maxOpenSections: 20,
-      headerBackgroundColor: AccordionTheme.headerBackgroundColor,
-      headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened,
-      contentBackgroundColor: AccordionTheme.contentBackgroundColor,
-      contentBorderColor: AccordionTheme.contentBorderColor,
+      headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+      headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened(),
+      contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
+      contentBorderColor: AccordionTheme.contentBorderColor(),
       children: lis,
     );
     return acc;

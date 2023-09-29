@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:accordion/accordion.dart';
 
+import '../../classes/colors_and_themes/color_schemes.g.dart';
 import '../../classes/colors_and_themes/constants.dart';
 import '../../classes/colors_and_themes/themes.dart';
 import '../../classes/widgets/custom_alert.dart';
@@ -118,12 +119,13 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
                   Accordion acc = Accordion(
                     children: lis,
                     openAndCloseAnimation: false,
-                    headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+                    headerBackgroundColor:
+                        AccordionTheme.headerBackgroundColor(),
                     headerBackgroundColorOpened:
-                        AccordionTheme.headerBackgroundColorOpened,
+                        AccordionTheme.headerBackgroundColorOpened(),
                     contentBackgroundColor:
-                        AccordionTheme.contentBackgroundColor,
-                    contentBorderColor: AccordionTheme.contentBorderColor,
+                        AccordionTheme.contentBackgroundColor(),
+                    contentBorderColor: AccordionTheme.contentBorderColor(),
                   );
 
                   return acc;
@@ -135,7 +137,12 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: null,
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: isLight()
+              ? lightColorScheme.onTertiary
+              : darkColorScheme.onTertiary,
+        ),
         tooltip: 'Submit',
         onPressed: () async {
           if (changed.isEmpty) {
@@ -210,11 +217,11 @@ AccordionSection getBadgeSection(
 
     lis.add(
       CustomAccordionSection(
-        headerBorderColor: AccordionTheme.customAccTextColor,
+        headerBorderColor: AccordionTheme.customAccTextColor(),
         headerBorderWidth: 10,
-        headerBorderColorOpened: AccordionTheme.customAccTextColor,
+        headerBorderColorOpened: AccordionTheme.customAccTextColor(),
         headerBorderRadius: 10,
-        headerBackgroundColor: AccordionTheme.customAccBackColor,
+        headerBackgroundColor: AccordionTheme.customAccBackColor(),
         header: Row(
           children: [
             CustomReqCheckbox(
@@ -224,7 +231,7 @@ AccordionSection getBadgeSection(
                 reqNum.toString() + ': ' + req,
                 softWrap: true,
                 style: TextStyle(
-                  color: AccordionTheme.customAccTextColor,
+                  color: AccordionTheme.customAccTextColor(),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -236,12 +243,17 @@ AccordionSection getBadgeSection(
     if (reqNum != mb.numReqs)
       lis.add(
         CustomAccordionSection(
+          headerBorderColor: AccordionTheme.customAccTextColor(),
+          headerBorderWidth: 10,
+          headerBorderColorOpened: AccordionTheme.customAccTextColor(),
+          headerBorderRadius: 10,
+          headerBackgroundColor: AccordionTheme.customAccBackColor(),
           header: SizedBox(
             child: Padding(
               padding: EdgeInsets.only(top: 2, bottom: 2, right: 20, left: 20),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: AccordionTheme.customAccTextColor,
+                  color: AccordionTheme.customAccTextColor(),
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
@@ -260,13 +272,14 @@ AccordionSection getBadgeSection(
     accordionId: mb.name,
     index: mb.id,
     header: CustomPercentageIndicator(
+      axis: MainAxisAlignment.start,
       title: mb.name,
       percent: percent,
     ),
     content: CustomAccordion(
-      contentBorderColor: AccordionTheme.customAccTextColor,
+      contentBorderColor: AccordionTheme.customAccTextColor(),
       contentBorderWidth: 5,
-      headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+      headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
       children: lis,
     ),
   );

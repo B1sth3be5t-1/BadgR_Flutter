@@ -1,5 +1,6 @@
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/settings.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
@@ -41,16 +42,20 @@ class _ScoutSettingsState extends State<ScoutSettings> {
       key: _formKey,
       child: Accordion(
         maxOpenSections: 5,
-        headerBackgroundColor: AccordionTheme.headerBackgroundColor,
-        headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened,
-        contentBackgroundColor: AccordionTheme.contentBackgroundColor,
-        contentBorderColor: AccordionTheme.contentBorderColor,
+        headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+        headerBackgroundColorOpened:
+            AccordionTheme.headerBackgroundColorOpened(),
+        contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
+        contentBorderColor: AccordionTheme.contentBorderColor(),
         children: [
           AccordionSection(
             isOpen: true,
-            header: Text(
-              'Edit first name',
-              style: Theme.of(context).primaryTextTheme.displaySmall,
+            header: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text(
+                'Edit first name',
+                style: Theme.of(context).primaryTextTheme.displaySmall,
+              ),
             ),
             onCloseSection: () {
               _controller1.clear();
@@ -73,9 +78,12 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             ),
           ),
           AccordionSection(
-            header: Text(
-              'Edit last name',
-              style: _headerStyle,
+            header: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text(
+                'Edit last name',
+                style: _headerStyle,
+              ),
             ),
             onCloseSection: () {
               _controller2.clear();
@@ -98,9 +106,12 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             ),
           ),
           AccordionSection(
-            header: Text(
-              'Update age',
-              style: _headerStyle,
+            header: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text(
+                'Update age',
+                style: _headerStyle,
+              ),
             ),
             onCloseSection: () {
               _controller3.clear();
@@ -124,9 +135,12 @@ class _ScoutSettingsState extends State<ScoutSettings> {
             ),
           ),
           AccordionSection(
-            header: Text(
-              'Change troop',
-              style: _headerStyle,
+            header: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text(
+                'Change troop',
+                style: _headerStyle,
+              ),
             ),
             onCloseSection: () {
               _controller4.clear();
@@ -150,9 +164,12 @@ class _ScoutSettingsState extends State<ScoutSettings> {
           ),
           AccordionSection(
             isOpen: true,
-            header: Text(
-              'Buttons',
-              style: _headerStyle,
+            header: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text(
+                'Buttons',
+                style: _headerStyle,
+              ),
             ),
             content: Flex(
               direction: Axis.horizontal,

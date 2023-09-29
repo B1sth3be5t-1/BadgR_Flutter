@@ -44,7 +44,11 @@ class CustomFormField extends StatelessWidget {
           icon: icon,
           hintText: hintText,
           labelText: labelText,
+          labelStyle: TextStyle(
+              color: Theme.of(context).primaryTextTheme.labelSmall?.color),
           errorText: errorText,
+          hintStyle: TextStyle(
+              color: Theme.of(context).primaryTextTheme.labelSmall?.color),
         ),
         cursorColor: kColorBlue,
         textAlign: TextAlign.center,

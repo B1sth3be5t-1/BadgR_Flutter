@@ -81,116 +81,79 @@ class ScoutHomeState extends State<ScoutHome> {
 
                   double percent = complReqs * 1.0 / totalReqs;
 
-                  Widget r3 = Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Row(
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "• ",
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headlineMedium,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Your percentage completion of saved badges is: ',
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headlineMedium,
-                                  softWrap: true,
-                                  overflow: TextOverflow.fade,
-                                  maxLines: 2,
-                                ),
-                              ),
-                            ],
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            'Follow the Navigation Bar on the bottom of the page to begin your journey!',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium,
                           ),
                         ),
-                        Expanded(
-                          flex: 1,
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            '• You have $numBadges merit badge(s) in progress',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            '• $numEagle of those are required for Eagle Scout',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            '• Percentage of saved badges complete: ',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium,
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
+                            maxLines: 2,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
                           child: CustomPercentageIndicator(
+                            axis: MainAxisAlignment.center,
                             percent: percent,
                           ),
-                        )
-                      ],
-                    ),
-                  );
-
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          'Follow the Navigation Bar on the bottom of the page to begin your journey!',
-                          textAlign: TextAlign.center,
-                          style:
-                              Theme.of(context).primaryTextTheme.headlineMedium,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "• ",
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
-                            ),
-                            Text(
-                              'You have $numBadges merit badge(s) in progress',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
-                            ),
-                          ],
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "• ",
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
-                            ),
-                            Text(
-                              '$numEagle of those are required for Eagle Scout',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
-                            ),
-                          ],
-                        ),
-                      ),
-                      r3,
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height / 2 - 50,
-                        child: FittedBox(
-                          fit: BoxFit.fitHeight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.asset(
-                                'images/app_full_pic_pink.png',
-                                fit: BoxFit.fitHeight,
+                        Container(
+                          height: MediaQuery.of(context).size.height / 2 - 50,
+                          child: FittedBox(
+                            fit: BoxFit.fitHeight,
+                            child: Padding(
+                              padding: const EdgeInsets.all(14.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.asset(
+                                  'images/app_full_pic_pink.png',
+                                  fit: BoxFit.fitHeight,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),

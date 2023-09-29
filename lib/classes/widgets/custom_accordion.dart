@@ -155,7 +155,7 @@ class CustomAccordion extends StatelessWidget with CommonParams {
               scrollIntoViewOfItems: scrollIntoViewOfItems,
               headerBackgroundColor:
                   child.headerBackgroundColor ?? headerBackgroundColor,
-              headerBorderColor: AccordionTheme.headerBackgroundColor,
+              headerBorderColor: AccordionTheme.headerBackgroundColor(),
               headerBorderWidth: 0,
               headerBorderRadius:
                   child.headerBorderRadius ?? headerBorderRadius,
