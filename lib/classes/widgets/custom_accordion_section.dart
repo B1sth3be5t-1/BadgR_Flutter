@@ -119,7 +119,7 @@ class CustomAccordionSection extends StatelessWidget with CommonParams {
                   bottom: Radius.circular(_isOpen ? 0 : borderRadius),
                 ),
                 border: Border.all(
-                  color: AccordionTheme.headerBackgroundColor,
+                  color: AccordionTheme.headerBackgroundColor(),
                   width: (10),
                   style: (0) <= 0 ? BorderStyle.none : BorderStyle.solid,
                 ),

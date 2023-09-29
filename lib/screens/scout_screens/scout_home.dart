@@ -96,73 +96,41 @@ class ScoutHomeState extends State<ScoutHome> {
                                 .headlineMedium,
                           ),
                         ),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "• ",
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headlineMedium,
-                                ),
-                                Text(
-                                  'You have $numBadges merit badge(s) in progress',
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headlineMedium,
-                                ),
-                              ],
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            '• You have $numBadges merit badge(s) in progress',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                "• ",
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headlineMedium,
-                              ),
-                              Text(
-                                '$numEagle of those are required for Eagle Scout',
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headlineMedium,
-                              ),
-                            ],
+                          child: Text(
+                            '• $numEagle of those are required for Eagle Scout',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                "• ",
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headlineMedium,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Percentage of saved badges complete: ',
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headlineMedium,
-                                  softWrap: true,
-                                  overflow: TextOverflow.fade,
-                                  maxLines: 2,
-                                ),
-                              ),
-                              Expanded(
-                                child: CustomPercentageIndicator(
-                                  percent: percent,
-                                ),
-                              )
-                            ],
+                          child: Text(
+                            '• Percentage of saved badges complete: ',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium,
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
+                            maxLines: 2,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: CustomPercentageIndicator(
+                            axis: MainAxisAlignment.center,
+                            percent: percent,
                           ),
                         ),
                         SizedBox(

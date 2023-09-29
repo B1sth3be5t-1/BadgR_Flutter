@@ -210,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ],
-                          backgroundColor: AlertDiagTheme.backgroundColor,
+                          backgroundColor: AlertDiagTheme.backgroundColor(),
                         ),
                       ).then((value) async {
                         if (value == null) return;

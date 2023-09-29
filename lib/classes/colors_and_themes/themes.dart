@@ -84,11 +84,11 @@ final kThemeLight = ThemeData(
   scaffoldBackgroundColor: lightColorScheme.primaryContainer,
   primaryTextTheme: TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
-    bodyMedium: TextStyle(
-        fontSize: 20,
-        color: lightColorScheme.onPrimaryContainer), // search page
-    bodySmall: TextStyle(
-        color: lightColorScheme.onPrimaryContainer), // search checkbox
+    bodyMedium:
+        TextStyle(fontSize: 20, color: lightColorScheme.onPrimaryContainer),
+    // search page
+    bodySmall: TextStyle(color: lightColorScheme.onPrimaryContainer),
+    // search checkbox
     displayLarge: TextStyle(
       // BadgR Title
       fontSize: 45.0,
@@ -111,8 +111,9 @@ final kThemeLight = ThemeData(
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
-    headlineMedium: TextStyle(
-        color: lightColorScheme.onPrimaryContainer, fontSize: 18), //home pages
+    headlineMedium:
+        TextStyle(color: lightColorScheme.onPrimaryContainer, fontSize: 18),
+    //home pages
     labelLarge: TextStyle(color: Colors.white),
     labelMedium: TextStyle(color: Colors.black),
     labelSmall: TextStyle(color: Colors.black),
@@ -192,10 +193,11 @@ final kThemeDark = ThemeData(
   scaffoldBackgroundColor: darkColorScheme.primaryContainer,
   primaryTextTheme: TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
-    bodyMedium: TextStyle(
-        fontSize: 20, color: darkColorScheme.onPrimaryContainer), // search page
-    bodySmall:
-        TextStyle(color: darkColorScheme.onPrimaryContainer), // search checkbox
+    bodyMedium:
+        TextStyle(fontSize: 20, color: darkColorScheme.onPrimaryContainer),
+    // search page
+    bodySmall: TextStyle(color: darkColorScheme.onPrimaryContainer),
+    // search checkbox
     displayLarge: TextStyle(
       // BadgR Title
       fontSize: 45.0,
@@ -218,8 +220,9 @@ final kThemeDark = ThemeData(
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
-    headlineMedium: TextStyle(
-        color: darkColorScheme.onPrimaryContainer, fontSize: 18), //home pages
+    headlineMedium:
+        TextStyle(color: darkColorScheme.onPrimaryContainer, fontSize: 18),
+    //home pages
     labelLarge: TextStyle(color: Colors.white),
     labelMedium: TextStyle(color: Colors.white),
     labelSmall: TextStyle(color: Colors.white),
@@ -236,26 +239,32 @@ final kThemeDark = ThemeData(
 );
 
 class AlertDiagTheme {
-  static Color backgroundColor = isLight()
+  static Color backgroundColor() => isLight()
       ? lightColorScheme.tertiaryContainer
       : darkColorScheme.tertiaryContainer;
-  static Color textColor = isLight()
+
+  static Color textColor() => isLight()
       ? lightColorScheme.onTertiaryContainer
       : darkColorScheme.onTertiaryContainer;
 }
 
 class AccordionTheme {
-  static Color headerBackgroundColor =
+  static Color headerBackgroundColor() =>
       isLight() ? lightColorScheme.secondary : darkColorScheme.secondary;
-  static Color headerBackgroundColorOpened =
+
+  static Color headerBackgroundColorOpened() =>
       isLight() ? lightColorScheme.tertiary : darkColorScheme.tertiary;
-  static Color contentBackgroundColor = getBackgroundColor();
-  static Color contentBorderColor =
+
+  static Color contentBackgroundColor() => getBackgroundColor();
+
+  static Color contentBorderColor() =>
       isLight() ? lightColorScheme.tertiary : darkColorScheme.tertiary;
-  static Color customAccBackColor = isLight()
+
+  static Color customAccBackColor() => isLight()
       ? lightColorScheme.tertiaryContainer
       : darkColorScheme.tertiaryContainer;
-  static Color customAccTextColor = isLight()
+
+  static Color customAccTextColor() => isLight()
       ? lightColorScheme.onTertiaryContainer
       : darkColorScheme.onTertiaryContainer;
 }
@@ -271,19 +280,22 @@ class CustomCheckBoxTheme {
 }
 
 class LinProgTheme {
-  static Color backgroundColor = isLight()
+  static Color backgroundColor() => isLight()
       ? lightColorScheme.inversePrimary
       : darkColorScheme.inversePrimary;
-  static Color progressColor = isLight()
+
+  static Color progressColor() => isLight()
       ? lightColorScheme.onPrimaryContainer
       : darkColorScheme.onPrimaryContainer;
-  static Color textColor = isLight()
+
+  static Color textColor() => isLight()
       ? lightColorScheme.onPrimaryContainer
       : darkColorScheme.onPrimaryContainer;
 }
 
 class NavigationIconTheme {
   static Color iconColor(BuildContext c) => Theme.of(c).colorScheme.onTertiary;
+
   static Color textColor(BuildContext c) => Theme.of(c).colorScheme.onTertiary;
 }
 

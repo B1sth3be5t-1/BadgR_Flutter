@@ -70,10 +70,11 @@ class ScoutmasterScoutView extends StatelessWidget {
                     ),
                   )
                 : CustomAccordion(
-                    headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+                    headerBackgroundColor:
+                        AccordionTheme.headerBackgroundColor(),
                     contentBackgroundColor:
-                        AccordionTheme.contentBackgroundColor,
-                    contentBorderColor: AccordionTheme.contentBorderColor,
+                        AccordionTheme.contentBackgroundColor(),
+                    contentBorderColor: AccordionTheme.contentBorderColor(),
                     scrollIntoViewOfItems: ScrollIntoViewOfItems.slow,
                     disableScrolling: false,
                     children: lis,
@@ -85,11 +86,11 @@ class ScoutmasterScoutView extends StatelessWidget {
         onPressed: () => Navigator.pop(context),
         child: Icon(
           Icons.arrow_back_outlined,
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.onTertiary,
         ),
         tooltip: 'Go back',
-        backgroundColor: kColorDarkBlue,
-        hoverColor: kColorBlue,
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        hoverColor: Theme.of(context).colorScheme.onTertiaryContainer,
       ),
     );
   }
@@ -111,6 +112,7 @@ CustomAccordionSection getBadgeSection(MeritBadge mb, dynamic map) {
   return CustomAccordionSection(
     accordionId: mb.name,
     header: CustomPercentageIndicator(
+      axis: MainAxisAlignment.start,
       title: mb.name,
       percent: percent,
     ),

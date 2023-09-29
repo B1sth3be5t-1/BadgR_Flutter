@@ -41,10 +41,11 @@ class _ScoutmasterSettingsState extends State<ScoutmasterSettings> {
       key: _formKey,
       child: Accordion(
         maxOpenSections: 5,
-        headerBackgroundColor: AccordionTheme.headerBackgroundColor,
-        headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened,
-        contentBackgroundColor: AccordionTheme.contentBackgroundColor,
-        contentBorderColor: AccordionTheme.contentBorderColor,
+        headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+        headerBackgroundColorOpened:
+            AccordionTheme.headerBackgroundColorOpened(),
+        contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
+        contentBorderColor: AccordionTheme.contentBorderColor(),
         children: [
           AccordionSection(
             isOpen: true,

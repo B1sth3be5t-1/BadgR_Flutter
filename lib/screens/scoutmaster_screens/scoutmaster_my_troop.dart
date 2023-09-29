@@ -87,7 +87,7 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
                     lis.add(
                       CustomAccordionSection(
                         headerBackgroundColor:
-                            AccordionTheme.customAccBackColor,
+                            AccordionTheme.customAccBackColor(),
                         header: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -101,7 +101,7 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
                               },
                               icon: Icon(
                                 Icons.arrow_forward_outlined,
-                                color: AccordionTheme.customAccTextColor,
+                                color: AccordionTheme.customAccTextColor(),
                               ),
                               tooltip: 'Open',
                             ),
@@ -114,7 +114,8 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
                                   .primaryTextTheme
                                   .headlineLarge
                                   ?.copyWith(
-                                      color: AccordionTheme.customAccTextColor),
+                                      color:
+                                          AccordionTheme.customAccTextColor()),
                             ),
                           ],
                         ),
@@ -124,7 +125,8 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
 
                   return CustomAccordion(
                     children: lis,
-                    headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+                    headerBackgroundColor:
+                        AccordionTheme.headerBackgroundColor(),
                   );
                 },
               ),

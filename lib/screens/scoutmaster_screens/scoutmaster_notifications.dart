@@ -109,7 +109,7 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                                 type == 'badge'
                                     ? Icons.check
                                     : Icons.person_add_alt_1,
-                                color: AccordionTheme.customAccTextColor,
+                                color: AccordionTheme.customAccTextColor(),
                               ),
                             ),
                             Expanded(
@@ -123,8 +123,8 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                                     .labelSmall
                                     ?.copyWith(
                                         fontSize: 15,
-                                        color:
-                                            AccordionTheme.customAccTextColor),
+                                        color: AccordionTheme
+                                            .customAccTextColor()),
                               ),
                             ),
                             Expanded(
@@ -146,12 +146,13 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
                   Accordion acc = Accordion(
                     maxOpenSections: 1,
                     children: lis,
-                    headerBackgroundColor: AccordionTheme.headerBackgroundColor,
-                    contentBorderColor: AccordionTheme.contentBorderColor,
+                    headerBackgroundColor:
+                        AccordionTheme.headerBackgroundColor(),
+                    contentBorderColor: AccordionTheme.contentBorderColor(),
                     contentBackgroundColor:
-                        AccordionTheme.contentBackgroundColor,
+                        AccordionTheme.contentBackgroundColor(),
                     headerBackgroundColorOpened:
-                        AccordionTheme.headerBackgroundColorOpened,
+                        AccordionTheme.headerBackgroundColorOpened(),
                   );
 
                   return acc;
@@ -197,7 +198,7 @@ class CustomIconCloseButton extends StatelessWidget {
           FirebaseRunner.removeNotification(type: type, name: name, desc: desc),
       icon: Icon(
         Icons.close,
-        color: AccordionTheme.customAccTextColor,
+        color: AccordionTheme.customAccTextColor(),
       ),
       tooltip: 'Remove Notification',
     );

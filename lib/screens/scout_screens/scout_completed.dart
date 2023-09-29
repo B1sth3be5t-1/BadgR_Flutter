@@ -92,12 +92,12 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                     Accordion acc = Accordion(
                       children: lis,
                       headerBackgroundColor:
-                          AccordionTheme.headerBackgroundColor,
+                          AccordionTheme.headerBackgroundColor(),
                       headerBackgroundColorOpened:
-                          AccordionTheme.headerBackgroundColorOpened,
+                          AccordionTheme.headerBackgroundColorOpened(),
                       contentBackgroundColor:
-                          AccordionTheme.contentBackgroundColor,
-                      contentBorderColor: AccordionTheme.contentBorderColor,
+                          AccordionTheme.contentBackgroundColor(),
+                      contentBorderColor: AccordionTheme.contentBorderColor(),
                     );
 
                     return acc;
@@ -116,6 +116,7 @@ AccordionSection getBadgeSection(MeritBadge mb, BuildContext context) {
   return AccordionSection(
     accordionId: mb.name,
     header: CustomPercentageIndicator(
+      axis: MainAxisAlignment.start,
       title: mb.name,
       percent: 1,
     ),

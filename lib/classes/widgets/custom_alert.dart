@@ -20,7 +20,7 @@ Future<String?> showDiag(
       title: Text(title),
       content: Text(mess),
       actions: ac,
-      backgroundColor: AlertDiagTheme.backgroundColor,
+      backgroundColor: AlertDiagTheme.backgroundColor(),
     ),
   );
 }

@@ -1,5 +1,6 @@
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/settings.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
@@ -41,10 +42,11 @@ class _ScoutSettingsState extends State<ScoutSettings> {
       key: _formKey,
       child: Accordion(
         maxOpenSections: 5,
-        headerBackgroundColor: AccordionTheme.headerBackgroundColor,
-        headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened,
-        contentBackgroundColor: AccordionTheme.contentBackgroundColor,
-        contentBorderColor: AccordionTheme.contentBorderColor,
+        headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+        headerBackgroundColorOpened:
+            AccordionTheme.headerBackgroundColorOpened(),
+        contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
+        contentBorderColor: AccordionTheme.contentBorderColor(),
         children: [
           AccordionSection(
             isOpen: true,
