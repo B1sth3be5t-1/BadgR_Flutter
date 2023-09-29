@@ -1,9 +1,11 @@
 import 'dart:collection';
 
 import 'package:accordion/controllers.dart';
+import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
 import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/widgets/custom_accordion.dart';
 import 'package:flutter/material.dart';
+import '../../classes/colors_and_themes/themes.dart';
 import '../../classes/merit_badge_info.dart';
 import '../../classes/widgets/custom_percent_bar.dart';
 import '../../classes/widgets/custom_accordion_section.dart';
@@ -57,11 +59,21 @@ class ScoutmasterScoutView extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'This scout has no badges added',
-                        style: Theme.of(context).primaryTextTheme.displayMedium,
+                        style: Theme.of(context)
+                            .primaryTextTheme
+                            .displayMedium
+                            ?.copyWith(
+                                color: isLight()
+                                    ? lightColorScheme.onPrimaryContainer
+                                    : darkColorScheme.onPrimaryContainer),
                       ),
                     ),
                   )
                 : CustomAccordion(
+                    headerBackgroundColor: AccordionTheme.headerBackgroundColor,
+                    contentBackgroundColor:
+                        AccordionTheme.contentBackgroundColor,
+                    contentBorderColor: AccordionTheme.contentBorderColor,
                     scrollIntoViewOfItems: ScrollIntoViewOfItems.slow,
                     disableScrolling: false,
                     children: lis,

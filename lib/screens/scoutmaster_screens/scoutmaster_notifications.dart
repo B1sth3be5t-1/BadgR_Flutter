@@ -174,7 +174,9 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
             }),
         child: Icon(
           Icons.clear,
-          color: Colors.white,
+          color: isLight()
+              ? lightColorScheme.onTertiary
+              : darkColorScheme.onTertiary,
         ),
         tooltip: 'Clear all',
       ),

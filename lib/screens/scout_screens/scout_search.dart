@@ -122,7 +122,12 @@ class _ScoutSearchState extends State<ScoutSearch> {
               Acc = a;
             });
           },
-          child: Icon(Icons.clear),
+          child: Icon(
+            Icons.clear,
+            color: isLight()
+                ? lightColorScheme.onTertiary
+                : darkColorScheme.onTertiary,
+          ),
           tooltip: 'Collapse Boxes',
         ),
       ),

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:accordion/accordion.dart';
 
+import '../../classes/colors_and_themes/color_schemes.g.dart';
 import '../../classes/colors_and_themes/constants.dart';
 import '../../classes/colors_and_themes/themes.dart';
 import '../../classes/widgets/custom_alert.dart';
@@ -135,7 +136,12 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: null,
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: isLight()
+              ? lightColorScheme.onTertiary
+              : darkColorScheme.onTertiary,
+        ),
         tooltip: 'Submit',
         onPressed: () async {
           if (changed.isEmpty) {
@@ -236,6 +242,11 @@ AccordionSection getBadgeSection(
     if (reqNum != mb.numReqs)
       lis.add(
         CustomAccordionSection(
+          headerBorderColor: AccordionTheme.customAccTextColor,
+          headerBorderWidth: 10,
+          headerBorderColorOpened: AccordionTheme.customAccTextColor,
+          headerBorderRadius: 10,
+          headerBackgroundColor: AccordionTheme.customAccBackColor,
           header: SizedBox(
             child: Padding(
               padding: EdgeInsets.only(top: 2, bottom: 2, right: 20, left: 20),
