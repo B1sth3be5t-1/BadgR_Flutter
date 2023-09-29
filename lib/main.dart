@@ -1,7 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:badgr/screens/scoutmaster_screens/scoutmaster_main.dart';
-import 'package:badgr/screens/scoutmaster_screens/scoutmaster_scout_view.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/screens/user_flow/welcome_screen.dart';
 import 'package:badgr/screens/user_flow/login_screen.dart';
@@ -14,6 +13,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(BadgR(savedThemeMode: savedThemeMode));
 }
 

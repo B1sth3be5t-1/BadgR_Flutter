@@ -30,7 +30,7 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
   @override
   void initState() {
     super.initState();
-    AllMeritBadges.setAllBadges();
+    AllMeritBadges.setAllBadges(context);
     currentPageIndex = 0;
     lis.add(ScoutmasterHome());
     lis.add(ScoutmasterNotifications());

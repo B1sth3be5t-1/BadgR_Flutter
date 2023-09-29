@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'firebase_runner.dart';
 
@@ -170,12 +172,12 @@ class MeritBadge {
 class AllMeritBadges {
   static Map<int, MeritBadge> allBadges = Map();
 
-  static void setAllBadges() async {
+  static void setAllBadges(BuildContext c) async {
     allBadges = await FirebaseRunner.setAllBadges();
 
     try {
       //get json from assets
-      var input = await rootBundle.loadString('badgeReqs.json');
+      String input = await rootBundle.loadString('assets/badgeReqs.json');
       //create json map
       var js = await json.decode(input);
 
@@ -200,7 +202,8 @@ class AllMeritBadges {
       }
     } catch (e) {
       print(e.toString() + '-----');
-      //setAllBadges();
+      showDiag('Error', e.toString(), c, ['Ok thanks'])
+          .then((value) => setAllBadges(c));
     }
   }
 
