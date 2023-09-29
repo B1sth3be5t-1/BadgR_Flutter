@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/colors_and_themes/themes.dart';
 
-import '../colors_and_themes/color_schemes.g.dart';
-
 Widget CustomHeader(String s, BuildContext context) {
-  Color c = isLight()
-      ? lightColorScheme.onPrimaryContainer
-      : darkColorScheme.onPrimaryContainer;
+  Color c = Theme.of(context).colorScheme.onPrimaryContainer;
 
   return Column(
     children: [

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'firebase_runner.dart';
 
@@ -162,7 +161,7 @@ class MeritBadge {
     for (String str in name.split(' ')) {
       s += str.capitalize();
     }
-    return s.substring(0, s.length - 1);
+    return this.isEagleRequired ? s.substring(0, s.length - 1) : s;
   }
 
   String? getReq(int num) {

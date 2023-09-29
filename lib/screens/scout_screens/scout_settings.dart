@@ -1,6 +1,5 @@
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
-import 'package:badgr/screens/scout_screens/scout_main.dart';
 import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/settings.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';

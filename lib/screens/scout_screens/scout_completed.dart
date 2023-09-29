@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:accordion/accordion.dart';
 
-import '../../classes/colors_and_themes/constants.dart';
 import '../../classes/colors_and_themes/themes.dart';
 
 class ScoutCompleted extends StatefulWidget {
@@ -24,10 +23,7 @@ class ScoutCompleted extends StatefulWidget {
 class _ScoutCompleted extends State<ScoutCompleted> {
   bool showSpinner = false;
 
-  final _headerStyle = TextStyle(
-      color: isLight() ? kColorDarkBlue : kColorDarkBlue,
-      fontSize: 20,
-      fontWeight: FontWeight.bold);
+  final _headerStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +46,10 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                       return Center(
                         child: Text(
                           'Go add some badges!',
-                          style: _headerStyle,
+                          style: _headerStyle.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer),
                         ),
                       );
                     }
@@ -80,7 +79,10 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
                             'Go finish some badges!',
-                            style: _headerStyle,
+                            style: _headerStyle.copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer),
                           ),
                         ),
                       );

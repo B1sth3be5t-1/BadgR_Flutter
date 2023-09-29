@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:rounded_background_text/rounded_background_text.dart';
 
-import '../colors_and_themes/color_schemes.g.dart';
-
 class CustomPercentageIndicator extends StatefulWidget {
   CustomPercentageIndicator(
       {this.title, required this.percent, required this.axis});

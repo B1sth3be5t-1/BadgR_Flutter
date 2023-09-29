@@ -2,7 +2,6 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
 import 'package:badgr/classes/colors_and_themes/custom_color.g.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
 
 bool _isLight = true;
 
@@ -69,11 +68,6 @@ final kThemeLight = ThemeData(
     enabledBorder: kBorderEnabled,
     focusedBorder: kBorderFocused,
   ),
-  listTileTheme: ListTileThemeData(
-      //todo not sure if this is used
-      tileColor: kColorLightPink,
-      selectedTileColor: kColorBlue,
-      selectedColor: kColorXLightBlue),
   navigationBarTheme: NavigationBarThemeData(
     indicatorColor: lightColorScheme.onTertiaryContainer,
     backgroundColor: lightColorScheme.tertiary,
@@ -107,7 +101,8 @@ final kThemeLight = ThemeData(
       fontWeight: FontWeight.bold, //accordion header stuff
     ),
     headlineLarge: TextStyle(
-      color: kColorDarkBlue,
+      // scoutmaster my troop
+      color: AccordionTheme.customAccTextColor(),
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
@@ -178,11 +173,6 @@ final kThemeDark = ThemeData(
     enabledBorder: kBorderEnabled,
     focusedBorder: kBorderFocused,
   ),
-  listTileTheme: ListTileThemeData(
-    tileColor: kColorLightPink,
-    selectedTileColor: kColorBlue,
-    selectedColor: kColorXLightBlue,
-  ),
   navigationBarTheme: NavigationBarThemeData(
     indicatorColor: darkColorScheme.onTertiaryContainer,
     backgroundColor: darkColorScheme.tertiary,
@@ -216,7 +206,7 @@ final kThemeDark = ThemeData(
       fontWeight: FontWeight.bold, //accordion header stuff
     ),
     headlineLarge: TextStyle(
-      color: kColorDarkBlue,
+      color: AccordionTheme.customAccTextColor(),
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
@@ -250,7 +240,7 @@ class AlertDiagTheme {
 
 class AccordionTheme {
   static Color headerBackgroundColor() =>
-      isLight() ? lightColorScheme.secondary : darkColorScheme.secondary;
+      isLight() ? lightColorScheme.secondary : darkColorScheme.primary;
 
   static Color headerBackgroundColorOpened() =>
       isLight() ? lightColorScheme.tertiary : darkColorScheme.tertiary;
@@ -286,7 +276,7 @@ class LinProgTheme {
 
   static Color progressColor() => isLight()
       ? lightColorScheme.onPrimaryContainer
-      : darkColorScheme.onPrimaryContainer;
+      : darkColorScheme.onTertiary;
 
   static Color textColor() => isLight()
       ? lightColorScheme.onPrimaryContainer
@@ -320,3 +310,18 @@ bool isLight() {
 void setLight(bool b) {
   _isLight = b;
 }
+
+final kBorder = OutlineInputBorder(
+  borderSide: BorderSide(color: Colors.black, width: 2.0),
+  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+);
+
+final kBorderFocused = OutlineInputBorder(
+  borderSide: BorderSide(color: Colors.black, width: 4.0),
+  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+);
+
+final kBorderEnabled = OutlineInputBorder(
+  borderSide: BorderSide(color: Colors.black, width: 1.0),
+  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+);

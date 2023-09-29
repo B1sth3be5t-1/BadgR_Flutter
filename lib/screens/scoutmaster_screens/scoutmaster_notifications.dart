@@ -6,8 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:accordion/accordion.dart';
-
-import '../../classes/colors_and_themes/constants.dart';
 import '../../classes/colors_and_themes/themes.dart';
 
 class ScoutmasterNotifications extends StatefulWidget {
@@ -25,8 +23,7 @@ class ScoutmasterNotificationsState extends State<ScoutmasterNotifications> {
   @override
   Widget build(BuildContext context) {
     final _headerStyle = TextStyle(
-        color:
-            isLight() ? lightColorScheme.onPrimaryContainer : kColorLightPink,
+        color: Theme.of(context).colorScheme.onPrimaryContainer,
         fontSize: 20,
         fontWeight: FontWeight.bold);
     return Scaffold(

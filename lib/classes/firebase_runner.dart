@@ -217,6 +217,8 @@ class FirebaseRunner {
 
     for (Scout s in scouts) lis.add(s.uid);
 
+    if (lis.isEmpty) lis.add(' ');
+
     return FirebaseFirestore.instance
         .collection('user_added_badges')
         .where('uid', whereIn: lis)
@@ -453,8 +455,6 @@ class FirebaseRunner {
       {required String type,
       required String name,
       required String desc}) async {
-    String s = '';
-
     try {
       FirebaseFirestore.instance
           .collection('notifications')

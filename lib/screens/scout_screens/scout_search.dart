@@ -1,8 +1,5 @@
-import 'dart:js_interop';
-
 import 'package:badgr/classes/colors_and_themes/themes.dart';
 import 'package:accordion/accordion.dart';
-import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:flutter/material.dart';
@@ -90,22 +87,16 @@ class _ScoutSearchState extends State<ScoutSearch> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Material(
-                      color: kColorDarkBlue,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(30.0)),
-                      elevation: 5.0,
-                      child: TextButton(
-                        onPressed: () async {
-                          fromButton = true;
-                          Widget a = await buildAccordion();
-                          setState(() {
-                            Acc = a;
-                          });
-                        },
-                        child: Text(
-                          'Search',
-                        ),
+                    child: TextButton(
+                      onPressed: () async {
+                        fromButton = true;
+                        Widget a = await buildAccordion();
+                        setState(() {
+                          Acc = a;
+                        });
+                      },
+                      child: Text(
+                        'Search',
                       ),
                     ),
                   ),

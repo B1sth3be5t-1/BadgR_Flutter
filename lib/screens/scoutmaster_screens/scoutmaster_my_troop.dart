@@ -44,7 +44,14 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
                   } else if (snapshot.data?.docs.length == 0) {
                     return Center(
                       child: Text(
-                        'None of your scouts have any badges in progress!',
+                        'You have no scouts in your troop!',
+                        style: Theme.of(context)
+                            .primaryTextTheme
+                            .displayMedium
+                            ?.copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer),
                       ),
                     );
                   }
@@ -112,10 +119,7 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
                               s.name,
                               style: Theme.of(context)
                                   .primaryTextTheme
-                                  .headlineLarge
-                                  ?.copyWith(
-                                      color:
-                                          AccordionTheme.customAccTextColor()),
+                                  .headlineLarge,
                             ),
                           ],
                         ),

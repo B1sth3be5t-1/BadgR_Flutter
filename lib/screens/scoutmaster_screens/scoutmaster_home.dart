@@ -1,14 +1,11 @@
-import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
-import 'package:badgr/classes/colors_and_themes/themes.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../classes/firebase_runner.dart';
 import '../../classes/widgets/custom_page_header.dart';
-import '../../classes/widgets/custom_percent_bar.dart';
 
 class ScoutmasterHome extends StatefulWidget {
   const ScoutmasterHome({super.key});
@@ -47,7 +44,13 @@ class ScoutmasterHomeState extends State<ScoutmasterHome> {
                   } else if (snapshot.data?.docs.length == 0) {
                     return Text(
                       'You have no Scouts in your troop!',
-                      style: Theme.of(context).primaryTextTheme.displayMedium,
+                      style: Theme.of(context)
+                          .primaryTextTheme
+                          .displayMedium
+                          ?.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer),
                     );
                   }
                   Map<int, QueryDocumentSnapshot<Object?>> docMap =

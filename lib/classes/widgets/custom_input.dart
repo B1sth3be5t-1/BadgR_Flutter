@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:badgr/classes/colors_and_themes/constants.dart';
 import 'package:badgr/classes/colors_and_themes/themes.dart';
 
 class CustomFormField extends StatelessWidget {
@@ -58,7 +57,7 @@ class CustomFormField extends StatelessWidget {
           hintStyle: TextStyle(
               color: Theme.of(context).primaryTextTheme.labelSmall?.color),
         ),
-        cursorColor: kColorBlue,
+        cursorColor: Theme.of(context).colorScheme.onPrimaryContainer,
         textAlign: TextAlign.center,
       ),
     );
