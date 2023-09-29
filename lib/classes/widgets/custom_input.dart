@@ -14,7 +14,9 @@ class CustomFormField extends StatelessWidget {
       required this.labelText,
       this.inputFormatters,
       this.onChanged,
-      this.validator})
+      this.validator,
+      required this.isLast,
+      this.focusNode})
       : super(key: key);
 
   final String hintText;
@@ -26,17 +28,23 @@ class CustomFormField extends StatelessWidget {
   final TextEditingController? controller;
   final Icon? icon;
   final String? labelText;
+  final bool isLast;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        scrollPadding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         controller: controller,
+        textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
         inputFormatters: inputFormatters,
         validator: validator,
         onChanged: onChanged,
         obscureText: obscureText,
+        focusNode: focusNode,
         style: isLight()
             ? kThemeLight.primaryTextTheme.labelMedium
             : kThemeDark.primaryTextTheme.labelMedium,

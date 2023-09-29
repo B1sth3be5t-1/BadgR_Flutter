@@ -1,5 +1,6 @@
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:badgr/screens/scoutmaster_screens/scoutmaster_home.dart';
 import 'package:badgr/screens/scoutmaster_screens/scoutmaster_my_troop.dart';
 import 'package:badgr/screens/scoutmaster_screens/scoutmaster_notifications.dart';
 import 'package:badgr/screens/scoutmaster_screens/scoutmaster_settings.dart';
@@ -31,12 +32,7 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
     super.initState();
     AllMeritBadges.setAllBadges();
     currentPageIndex = 0;
-    lis.add(
-      ColoredBox(
-        color: Colors.red,
-        child: Text('Page1'),
-      ),
-    );
+    lis.add(ScoutmasterHome());
     lis.add(ScoutmasterNotifications());
     lis.add(ScoutmasterMyTroop(sm: sm));
     lis.add(const ScoutmasterSettings());

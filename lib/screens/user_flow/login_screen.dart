@@ -6,9 +6,10 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 
-import '../../classes/Widgets/custom_input.dart';
+import 'package:badgr/classes/widgets/custom_input.dart';
 import '../../classes/colors_and_themes/color_schemes.g.dart';
 import '../../classes/colors_and_themes/themes.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screenID = 'LoginScreen';
@@ -28,9 +29,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _tex = TextEditingController();
 
+  final _emailFocus = FocusNode();
+  final _passFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -67,6 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (!val!.isValidEmail) return 'Enter valid email';
                           return null;
                         },
+                        isLast: false,
+                        focusNode: _emailFocus,
                       ),
                       CustomFormField(
                         controller: _tex,
@@ -80,6 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (val! == '') return 'Enter a password';
                           return null;
                         },
+                        isLast: true,
+                        focusNode: _passFocus,
                       ),
                     ],
                   ),
@@ -96,58 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
                   child: TextButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          showSpinner = true;
-                        });
-                        String res = '';
-                        try {
-                          res = await FirebaseRunner.loginUserWithEandP(
-                              email.toLowerCase(), pass, context);
-                          if (res != 'done') throw FormatException('heyyyyy!');
-                        } on FormatException {
-                          if (res == 'wrongEmailPass') {
-                            showDiag(
-                                'Login Error',
-                                'The username or password is incorrect',
-                                context,
-                                ['Register', 'Ok']).then((value) {
-                              if (value == null) return;
-
-                              if (value == 'Register') {
-                                Navigator.pushNamed(
-                                    context, RegistrationScreen.screenID);
-                              }
-                            });
-                          } else if (res == 'tooMany') {
-                            showDiag(
-                                'Login Error',
-                                'You have entered too many incorrect password attempts. \nPlease try again later',
-                                context,
-                                ['Ok']);
-                          } else if (res == 'network') {
-                            showDiag(
-                                'Login Error',
-                                'A network error has occurred',
-                                context,
-                                ['Ok']);
-                          } else if (res != 'done') {
-                            showDiag(
-                                'Login Error',
-                                'An unknown error has occurred',
-                                context,
-                                ['Ok']);
-                          }
-                        }
-                        setState(() {
-                          showSpinner = false;
-                          pass = '';
-                        });
-                      }
-                      _tex.clear();
-                      pass = '';
-                    },
+                    onPressed: () => fun(),
                     child: const Text(
                       'Log In',
                     ),
@@ -258,5 +216,48 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void fun() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        showSpinner = true;
+      });
+      String res = '';
+      try {
+        res = await FirebaseRunner.loginUserWithEandP(
+            email.toLowerCase(), pass, context);
+        if (res != 'done') throw FormatException('heyyyyy!');
+      } on FormatException {
+        if (res == 'wrongEmailPass') {
+          showDiag('Login Error', 'The username or password is incorrect',
+              context, ['Register', 'Ok']).then((value) {
+            if (value == null) return;
+
+            if (value == 'Register') {
+              Navigator.pushNamed(context, RegistrationScreen.screenID);
+            }
+          });
+        } else if (res == 'tooMany') {
+          showDiag(
+              'Login Error',
+              'You have entered too many incorrect password attempts. \nPlease try again later',
+              context,
+              ['Ok']);
+        } else if (res == 'network') {
+          showDiag(
+              'Login Error', 'A network error has occurred', context, ['Ok']);
+        } else if (res != 'done') {
+          showDiag(
+              'Login Error', 'An unknown error has occurred', context, ['Ok']);
+        }
+      }
+      setState(() {
+        showSpinner = false;
+        pass = '';
+      });
+    }
+    _tex.clear();
+    pass = '';
   }
 }

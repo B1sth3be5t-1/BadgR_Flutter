@@ -74,6 +74,7 @@ class _ScoutmasterSettingsState extends State<ScoutmasterSettings> {
                 if (!val!.isValidName) return 'Enter valid first name';
                 return null;
               },
+              isLast: false,
             ),
           ),
           AccordionSection(
@@ -102,6 +103,7 @@ class _ScoutmasterSettingsState extends State<ScoutmasterSettings> {
                 if (!val!.isValidName) return 'Enter valid last name';
                 return null;
               },
+              isLast: false,
             ),
           ),
           AccordionSection(
@@ -131,6 +133,7 @@ class _ScoutmasterSettingsState extends State<ScoutmasterSettings> {
                   return 'Enter valid age';
                 return null;
               },
+              isLast: false,
             ),
           ),
           AccordionSection(
@@ -159,6 +162,7 @@ class _ScoutmasterSettingsState extends State<ScoutmasterSettings> {
                 if (int.parse(val!) <= 0) return 'Enter valid troop';
                 return null;
               },
+              isLast: false,
             ),
           ),
           AccordionSection(

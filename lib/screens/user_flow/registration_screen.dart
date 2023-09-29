@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:badgr/screens/user_flow/login_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:badgr/classes/Widgets/custom_input.dart';
+import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 
 import '../../classes/colors_and_themes/color_schemes.g.dart';
@@ -41,6 +41,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -78,6 +79,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (!val!.isValidEmail) return 'Enter valid email';
                           return null;
                         },
+                        isLast: false,
                       ),
                       CustomFormField(
                         labelText: 'Password',
@@ -92,6 +94,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             return 'Password must contain 8 characters, including a number and a special character';
                           return null;
                         },
+                        isLast: false,
                       ),
                       CustomFormField(
                         labelText: 'First Name',
@@ -111,6 +114,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             return 'Enter valid first name';
                           return null;
                         },
+                        isLast: false,
                       ),
                       CustomFormField(
                         labelText: 'Last Name',
@@ -124,6 +128,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (!val!.isValidName) return 'Enter valid last name';
                           return null;
                         },
+                        isLast: false,
                       ),
                       CustomFormField(
                         labelText: 'Age',
@@ -144,6 +149,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               int.parse(val) <= 5) return 'Enter valid age';
                           return null;
                         },
+                        isLast: false,
                       ),
                       CustomFormField(
                         hintText: 'Enter Troop Number',
@@ -163,6 +169,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             return 'Enter valid troop number';
                           return null;
                         },
+                        isLast: true,
                       ),
                     ],
                   ),
