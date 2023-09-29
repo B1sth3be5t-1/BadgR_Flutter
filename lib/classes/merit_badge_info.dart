@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:badgr/classes/widgets/custom_alert.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'firebase_runner.dart';
 
@@ -176,6 +177,7 @@ class AllMeritBadges {
     allBadges = await FirebaseRunner.setAllBadges();
 
     try {
+      WidgetsFlutterBinding.ensureInitialized();
       //get json from assets
       String input = await rootBundle.loadString('assets/badgeReqs.json');
       //create json map
