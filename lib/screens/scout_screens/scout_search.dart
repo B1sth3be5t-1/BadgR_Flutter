@@ -1,3 +1,4 @@
+import 'package:accordion/controllers.dart';
 import 'package:badgr/classes/colors_and_themes/themes.dart';
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:badgr/classes/widgets/custom_search_checkbox.dart';
+import 'package:badgr/classes/widgets/custom_search_switch.dart';
 
 import '../../classes/colors_and_themes/color_schemes.g.dart';
 
@@ -181,7 +182,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
               SizedBox(
                 width: 10,
               ),
-              CustomSearchCheckbox(
+              CustomSearchSwitch(
                 checked: isChecked,
                 id: mb.id,
                 completed: isComplete,
@@ -192,13 +193,18 @@ class _ScoutSearchState extends State<ScoutSearch> {
       lis.add(AS);
     }
 
-    Widget acc = Accordion(
-      maxOpenSections: 20,
-      headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
-      headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened(),
-      contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
-      contentBorderColor: AccordionTheme.contentBorderColor(),
-      children: lis,
+    Widget acc = SingleChildScrollView(
+      child: Accordion(
+        scrollIntoViewOfItems: ScrollIntoViewOfItems
+            .none, // todo maybe? mess around with scrolling
+        maxOpenSections: 20,
+        headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+        headerBackgroundColorOpened:
+            AccordionTheme.headerBackgroundColorOpened(),
+        contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
+        contentBorderColor: AccordionTheme.contentBorderColor(),
+        children: lis,
+      ),
     );
     return acc;
   }

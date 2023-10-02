@@ -259,14 +259,16 @@ class AccordionTheme {
       : darkColorScheme.onTertiaryContainer;
 }
 
-class CustomCheckBoxTheme {
-  static Color checkColor(bool c) {
-    if (c)
-      return isLight()
-          ? lightColorScheme.onTertiaryContainer
-          : darkColorScheme.onTertiaryContainer;
-    return isLight() ? Colors.white : Colors.black;
-  }
+class CustomSwitchTheme {
+  static Color activeTrackColor = isLight()
+      ? lightColorScheme.onTertiaryContainer
+      : darkColorScheme.onTertiaryContainer;
+  static Color activeColor = isLight() ? Colors.white : Colors.black;
+  static Color inactiveColor =
+      isLight() ? lightColorScheme.secondary : darkColorScheme.primary;
+  static Color inactiveTrackColor = isLight()
+      ? lightColorScheme.primaryContainer
+      : darkColorScheme.primaryContainer;
 }
 
 class LinProgTheme {

@@ -91,15 +91,17 @@ class _ScoutCompleted extends State<ScoutCompleted> {
                       return a.accordionId!.compareTo(b.accordionId!);
                     });
 
-                    Accordion acc = Accordion(
-                      children: lis,
-                      headerBackgroundColor:
-                          AccordionTheme.headerBackgroundColor(),
-                      headerBackgroundColorOpened:
-                          AccordionTheme.headerBackgroundColorOpened(),
-                      contentBackgroundColor:
-                          AccordionTheme.contentBackgroundColor(),
-                      contentBorderColor: AccordionTheme.contentBorderColor(),
+                    Widget acc = SingleChildScrollView(
+                      child: Accordion(
+                        children: lis,
+                        headerBackgroundColor:
+                            AccordionTheme.headerBackgroundColor(),
+                        headerBackgroundColorOpened:
+                            AccordionTheme.headerBackgroundColorOpened(),
+                        contentBackgroundColor:
+                            AccordionTheme.contentBackgroundColor(),
+                        contentBorderColor: AccordionTheme.contentBorderColor(),
+                      ),
                     );
 
                     return acc;
