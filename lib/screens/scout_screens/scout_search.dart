@@ -77,7 +77,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 direction: Axis.horizontal,
                 children: [
                   Expanded(
-                    flex: 5,
+                    flex: 4,
                     child: CustomFormField(
                       labelText: 'Badge Name',
                       controller: _tec,
@@ -87,7 +87,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: TextButton(
                       onPressed: () async {
                         fromButton = true;
@@ -195,8 +195,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
 
     Widget acc = SingleChildScrollView(
       child: Accordion(
-        scrollIntoViewOfItems: ScrollIntoViewOfItems
-            .none, // todo maybe? mess around with scrolling
+        disableScrolling: true,
         maxOpenSections: 20,
         headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
         headerBackgroundColorOpened:

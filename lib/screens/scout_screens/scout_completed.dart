@@ -93,6 +93,7 @@ class _ScoutCompleted extends State<ScoutCompleted> {
 
                     Widget acc = SingleChildScrollView(
                       child: Accordion(
+                        disableScrolling: true,
                         children: lis,
                         headerBackgroundColor:
                             AccordionTheme.headerBackgroundColor(),

@@ -268,7 +268,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).viewInsets.bottom + 20,
+                  height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
               ],
             ),

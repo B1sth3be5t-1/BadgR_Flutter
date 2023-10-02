@@ -103,15 +103,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.symmetric(
                           vertical: 16.0,
                           horizontal: MediaQuery.of(context).size.width / 8),
-                      child: Material(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(30.0)),
-                        elevation: 5.0,
-                        child: TextButton(
-                          onPressed: () => fun(),
-                          child: const Text(
-                            'Log In',
-                          ),
+                      child: TextButton(
+                        onPressed: () => fun(),
+                        child: const Text(
+                          'Log In',
                         ),
                       ),
                     ),
@@ -222,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).viewInsets.bottom + 20,
+                      height: MediaQuery.of(context).viewInsets.bottom + 100,
                     ),
                   ],
                 ),

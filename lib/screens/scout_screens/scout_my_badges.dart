@@ -120,6 +120,7 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
 
                   Widget acc = SingleChildScrollView(
                     child: Accordion(
+                      disableScrolling: true,
                       children: lis,
                       openAndCloseAnimation: false,
                       headerBackgroundColor:
@@ -288,6 +289,7 @@ AccordionSection getBadgeSection(
       percent: percent,
     ),
     content: CustomAccordion(
+      disableScrolling: true,
       contentBorderColor: AccordionTheme.customAccTextColor(),
       contentBorderWidth: 5,
       headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
