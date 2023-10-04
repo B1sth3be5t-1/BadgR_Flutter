@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
 import 'package:badgr/classes/colors_and_themes/custom_color.g.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 bool _isLight = true;
@@ -39,7 +40,8 @@ final kThemeLight = ThemeData(
   colorScheme: lightColorScheme,
   extensions: [lightCustomColors.harmonized(lightColorScheme)],
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    hoverColor: lightColorScheme.onTertiary,
+    hoverElevation: 5,
+    hoverColor: lightColorScheme.primary,
     backgroundColor: lightColorScheme.tertiary,
   ),
   iconButtonTheme: IconButtonThemeData(
@@ -259,14 +261,16 @@ class AccordionTheme {
       : darkColorScheme.onTertiaryContainer;
 }
 
-class CustomCheckBoxTheme {
-  static Color checkColor(bool c) {
-    if (c)
-      return isLight()
-          ? lightColorScheme.onTertiaryContainer
-          : darkColorScheme.onTertiaryContainer;
-    return isLight() ? Colors.white : Colors.black;
-  }
+class CustomSwitchTheme {
+  static Color activeTrackColor = isLight()
+      ? lightColorScheme.onTertiaryContainer
+      : darkColorScheme.onTertiaryContainer;
+  static Color activeColor = isLight() ? Colors.white : Colors.black;
+  static Color inactiveColor =
+      isLight() ? lightColorScheme.secondary : darkColorScheme.primary;
+  static Color inactiveTrackColor = isLight()
+      ? lightColorScheme.primaryContainer
+      : darkColorScheme.primaryContainer;
 }
 
 class LinProgTheme {

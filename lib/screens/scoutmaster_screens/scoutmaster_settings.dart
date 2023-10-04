@@ -40,6 +40,7 @@ class _ScoutmasterSettingsState extends State<ScoutmasterSettings> {
     return Form(
       key: _formKey,
       child: Accordion(
+        disableScrolling: true,
         maxOpenSections: 5,
         headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
         headerBackgroundColorOpened:

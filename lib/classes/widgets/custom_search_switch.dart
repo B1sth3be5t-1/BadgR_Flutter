@@ -3,16 +3,16 @@ import 'package:badgr/classes/firebase_runner.dart';
 import '../colors_and_themes/themes.dart';
 import 'custom_alert.dart';
 
-class CustomSearchCheckbox extends StatefulWidget {
-  CustomSearchCheckbox(
+class CustomSearchSwitch extends StatefulWidget {
+  CustomSearchSwitch(
       {required this.id, required this.checked, required this.completed});
 
   final int id;
   final bool checked;
   final bool completed;
 
-  _checkbox createState() =>
-      _checkbox(id: id, checked: checked, completed: completed);
+  _searchSwitch createState() =>
+      _searchSwitch(id: id, checked: checked, completed: completed);
 
   int getId() {
     return id;
@@ -23,8 +23,9 @@ class CustomSearchCheckbox extends StatefulWidget {
   }
 }
 
-class _checkbox extends State<CustomSearchCheckbox> {
-  _checkbox({required this.id, required this.checked, required this.completed});
+class _searchSwitch extends State<CustomSearchSwitch> {
+  _searchSwitch(
+      {required this.id, required this.checked, required this.completed});
 
   final int id;
   bool checked;
@@ -50,15 +51,18 @@ class _checkbox extends State<CustomSearchCheckbox> {
         SizedBox(
           width: 10,
         ),
-        Checkbox(
+        Switch(
           value: checked,
-          checkColor: CustomCheckBoxTheme.checkColor(completed),
+          activeColor: CustomSwitchTheme.activeColor,
+          activeTrackColor: CustomSwitchTheme.activeTrackColor,
+          inactiveTrackColor: CustomSwitchTheme.inactiveTrackColor,
+          inactiveThumbColor: CustomSwitchTheme.inactiveColor,
           onChanged: completed
               ? null
               : (val) async {
                   String str = "";
                   try {
-                    str = await FirebaseRunner.toggleAddedBadge(id, val!);
+                    str = await FirebaseRunner.toggleAddedBadge(id, val);
                     if (str != "Done") throw Exception('Error!');
                   } catch (e) {
                     showDiag(

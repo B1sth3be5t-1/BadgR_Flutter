@@ -47,10 +47,10 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
           padding: EdgeInsets.all(10),
           child: Text(
             'Welcome $name!',
-            style: Theme.of(context)
-                .primaryTextTheme
-                .displayMedium
-                ?.copyWith(fontSize: 30),
+            style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
+                  fontSize: 30,
+                  overflow: TextOverflow.ellipsis,
+                ),
           ),
         ),
         leading: Padding(

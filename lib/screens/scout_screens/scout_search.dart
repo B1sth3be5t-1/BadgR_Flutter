@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:badgr/classes/widgets/custom_input.dart';
 import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:badgr/classes/widgets/custom_search_checkbox.dart';
+import 'package:badgr/classes/widgets/custom_search_switch.dart';
 
 import '../../classes/colors_and_themes/color_schemes.g.dart';
 
@@ -76,7 +76,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 direction: Axis.horizontal,
                 children: [
                   Expanded(
-                    flex: 5,
+                    flex: 4,
                     child: CustomFormField(
                       labelText: 'Badge Name',
                       controller: _tec,
@@ -86,11 +86,11 @@ class _ScoutSearchState extends State<ScoutSearch> {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: TextButton(
                       onPressed: () async {
                         fromButton = true;
-                        Widget a = await buildAccordion();
+                        Widget a = await buildAccordion(false);
                         setState(() {
                           Acc = a;
                         });
@@ -110,7 +110,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
           heroTag: null,
           onPressed: () async {
             fromButton = true;
-            Widget a = await buildAccordion();
+            Widget a = await buildAccordion(true);
             setState(() {
               Acc = a;
             });
@@ -127,9 +127,18 @@ class _ScoutSearchState extends State<ScoutSearch> {
     );
   }
 
-  Future<Widget> buildAccordion() async {
+  Future<Widget> buildAccordion(bool fromFAB) async {
     List<AccordionSection> lis = [];
     List<MeritBadge> mbs = FirebaseRunner.getSearchResults(_tec.text);
+
+    if (fromFAB && (_tec.text.isEmpty || _tec.text == ''))
+      return Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: Text(
+          'Enter a search word',
+          style: _searchStyle,
+        ),
+      );
 
     if (mbs.isEmpty)
       return Padding(
@@ -171,17 +180,13 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 width: 20,
               ),
               Expanded(
+                child: Text(''),
                 flex: 1,
-                child: Text(
-                  mb.name,
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).primaryTextTheme.bodyMedium,
-                ),
               ),
               SizedBox(
                 width: 10,
               ),
-              CustomSearchCheckbox(
+              CustomSearchSwitch(
                 checked: isChecked,
                 id: mb.id,
                 completed: isComplete,
@@ -192,13 +197,21 @@ class _ScoutSearchState extends State<ScoutSearch> {
       lis.add(AS);
     }
 
-    Widget acc = Accordion(
-      maxOpenSections: 20,
-      headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
-      headerBackgroundColorOpened: AccordionTheme.headerBackgroundColorOpened(),
-      contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
-      contentBorderColor: AccordionTheme.contentBorderColor(),
-      children: lis,
+    Widget acc = Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width / 12),
+      child: SingleChildScrollView(
+        child: Accordion(
+          disableScrolling: true,
+          maxOpenSections: 20,
+          headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+          headerBackgroundColorOpened:
+              AccordionTheme.headerBackgroundColorOpened(),
+          contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
+          contentBorderColor: AccordionTheme.contentBorderColor(),
+          children: lis,
+        ),
+      ),
     );
     return acc;
   }

@@ -38,6 +38,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           children: [
             CustomHeader('Settings', context),
             Accordion(
+              disableScrolling: true,
               contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
               maxOpenSections: 1,
               headerBackgroundColorOpened:

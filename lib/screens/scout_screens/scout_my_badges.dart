@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:accordion/controllers.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/widgets/custom_accordion.dart';
@@ -118,16 +119,20 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
                       ),
                     );
 
-                  Accordion acc = Accordion(
-                    children: lis,
-                    openAndCloseAnimation: false,
-                    headerBackgroundColor:
-                        AccordionTheme.headerBackgroundColor(),
-                    headerBackgroundColorOpened:
-                        AccordionTheme.headerBackgroundColorOpened(),
-                    contentBackgroundColor:
-                        AccordionTheme.contentBackgroundColor(),
-                    contentBorderColor: AccordionTheme.contentBorderColor(),
+                  Widget acc = SingleChildScrollView(
+                    child: Accordion(
+                      scrollIntoViewOfItems: ScrollIntoViewOfItems.fast,
+                      disableScrolling: true,
+                      children: lis,
+                      openAndCloseAnimation: false,
+                      headerBackgroundColor:
+                          AccordionTheme.headerBackgroundColor(),
+                      headerBackgroundColorOpened:
+                          AccordionTheme.headerBackgroundColorOpened(),
+                      contentBackgroundColor:
+                          AccordionTheme.contentBackgroundColor(),
+                      contentBorderColor: AccordionTheme.contentBorderColor(),
+                    ),
                   );
 
                   return acc;
@@ -137,9 +142,9 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         heroTag: null,
-        child: Icon(
+        icon: Icon(
           Icons.add,
           color: isLight()
               ? lightColorScheme.onTertiary
@@ -169,6 +174,13 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
             return;
           }
         },
+        label: Text(
+          'Submit',
+          style: _headerStyle.copyWith(
+              color: isLight()
+                  ? lightColorScheme.onTertiary
+                  : darkColorScheme.onTertiary),
+        ),
       ),
     );
   }
@@ -279,6 +291,7 @@ AccordionSection getBadgeSection(
       percent: percent,
     ),
     content: CustomAccordion(
+      disableScrolling: true,
       contentBorderColor: AccordionTheme.customAccTextColor(),
       contentBorderWidth: 5,
       headerBackgroundColor: AccordionTheme.headerBackgroundColor(),

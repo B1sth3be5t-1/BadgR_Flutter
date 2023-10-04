@@ -55,9 +55,10 @@ class _scoutMainState extends State<ScoutScreen> {
           padding: EdgeInsets.all(10),
           child: Text(
             'Welcome $name!',
-            style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
-                  overflow: TextOverflow.fade,
-                ),
+            style: Theme.of(context)
+                .primaryTextTheme
+                .displayMedium
+                ?.copyWith(fontSize: 30, overflow: TextOverflow.ellipsis),
           ),
         ),
         leading: Padding(
@@ -111,9 +112,9 @@ class _scoutMainState extends State<ScoutScreen> {
             currentPageIndex = index;
             if (index == 2 && ScoutMyBadgesState.isTodo) {
               getChildren(myBadges: true);
+              print('here------');
               return;
             }
-            currentPageIndex = index;
             getChildren(myBadges: false);
           });
         },

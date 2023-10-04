@@ -40,6 +40,7 @@ class _ScoutSettingsState extends State<ScoutSettings> {
     return Form(
       key: _formKey,
       child: Accordion(
+        disableScrolling: true,
         maxOpenSections: 5,
         headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
         headerBackgroundColorOpened:

@@ -9,12 +9,13 @@ import '../../classes/widgets/custom_accordion_section.dart';
 import '../../classes/widgets/custom_page_header.dart';
 
 class ScoutmasterScoutView extends StatelessWidget {
-  const ScoutmasterScoutView({required this.data, required this.name});
+  ScoutmasterScoutView({required this.data, required this.name});
 
   static final String screenID = '/scoutmasterScoutView';
 
   final List<Map<int, dynamic>> data;
   final String name;
+  final _headerStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -47,47 +48,56 @@ class ScoutmasterScoutView extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            CustomHeader(name, context),
-            (lis.length == 0)
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Text(
-                        'This scout has no badges added',
-                        style: Theme.of(context)
-                            .primaryTextTheme
-                            .displayMedium
-                            ?.copyWith(
-                                color: isLight()
-                                    ? lightColorScheme.onPrimaryContainer
-                                    : darkColorScheme.onPrimaryContainer),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              CustomHeader(name, context),
+              (lis.length == 0)
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          'This scout has no badges added',
+                          style: Theme.of(context)
+                              .primaryTextTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  color: isLight()
+                                      ? lightColorScheme.onPrimaryContainer
+                                      : darkColorScheme.onPrimaryContainer),
+                        ),
                       ),
+                    )
+                  : CustomAccordion(
+                      headerBackgroundColor:
+                          AccordionTheme.headerBackgroundColor(),
+                      contentBackgroundColor:
+                          AccordionTheme.contentBackgroundColor(),
+                      contentBorderColor: AccordionTheme.contentBorderColor(),
+                      scrollIntoViewOfItems: ScrollIntoViewOfItems.slow,
+                      disableScrolling: true,
+                      children: lis,
                     ),
-                  )
-                : CustomAccordion(
-                    headerBackgroundColor:
-                        AccordionTheme.headerBackgroundColor(),
-                    contentBackgroundColor:
-                        AccordionTheme.contentBackgroundColor(),
-                    contentBorderColor: AccordionTheme.contentBorderColor(),
-                    scrollIntoViewOfItems: ScrollIntoViewOfItems.slow,
-                    disableScrolling: false,
-                    children: lis,
-                  ),
-          ],
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.pop(context),
-        child: Icon(
+        icon: Icon(
           Icons.arrow_back_outlined,
           color: Theme.of(context).colorScheme.onTertiary,
         ),
-        tooltip: 'Go back',
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
-        hoverColor: Theme.of(context).colorScheme.onTertiaryContainer,
+        tooltip: 'Return',
+        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        hoverColor: Theme.of(context).colorScheme.primary,
+        label: Text(
+          'Go Back',
+          style: _headerStyle.copyWith(
+              color: isLight()
+                  ? lightColorScheme.onTertiary
+                  : darkColorScheme.onTertiary),
+        ),
       ),
     );
   }
