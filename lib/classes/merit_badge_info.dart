@@ -47,7 +47,7 @@ List<MeritBadge> badges = [
   MeritBadge(42, 'Drafting', false, 7, Map()),
   MeritBadge(43, 'Electricity', false, 11, Map()),
   MeritBadge(44, 'Electronics', false, 6, Map()),
-  MeritBadge(45, 'Emergency Preparedness', true, 9, Map()),
+  MeritBadge(45, 'Emergency Preparedness ☆', true, 9, Map()),
   MeritBadge(46, 'Energy', false, 5, Map()),
   MeritBadge(47, 'Engineering', false, 9, Map()),
   MeritBadge(48, 'Entrepreneurship', false, 6, Map()),

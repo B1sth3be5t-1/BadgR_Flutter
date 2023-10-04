@@ -91,7 +91,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                     child: TextButton(
                       onPressed: () async {
                         fromButton = true;
-                        Widget a = await buildAccordion();
+                        Widget a = await buildAccordion(false);
                         setState(() {
                           Acc = a;
                         });
@@ -111,7 +111,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
           heroTag: null,
           onPressed: () async {
             fromButton = true;
-            Widget a = await buildAccordion();
+            Widget a = await buildAccordion(true);
             setState(() {
               Acc = a;
             });
@@ -128,9 +128,18 @@ class _ScoutSearchState extends State<ScoutSearch> {
     );
   }
 
-  Future<Widget> buildAccordion() async {
+  Future<Widget> buildAccordion(bool fromFAB) async {
     List<AccordionSection> lis = [];
     List<MeritBadge> mbs = FirebaseRunner.getSearchResults(_tec.text);
+
+    if (fromFAB && (_tec.text.isEmpty || _tec.text == ''))
+      return Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: Text(
+          'Enter a search word',
+          style: _searchStyle,
+        ),
+      );
 
     if (mbs.isEmpty)
       return Padding(

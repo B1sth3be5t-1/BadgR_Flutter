@@ -194,14 +194,21 @@ class CustomIconCloseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () =>
-          FirebaseRunner.removeNotification(type: type, name: name, desc: desc),
-      icon: Icon(
-        Icons.close,
-        color: AccordionTheme.customAccTextColor(),
+    return Container(
+      decoration: BoxDecoration(
+        border:
+            Border.all(color: AccordionTheme.customAccTextColor(), width: 2),
+        shape: BoxShape.circle,
       ),
-      tooltip: 'Remove Notification',
+      child: IconButton(
+        onPressed: () => FirebaseRunner.removeNotification(
+            type: type, name: name, desc: desc),
+        icon: Icon(
+          Icons.close,
+          color: AccordionTheme.customAccTextColor(),
+        ),
+        tooltip: 'Remove Notification',
+      ),
     );
   }
 
