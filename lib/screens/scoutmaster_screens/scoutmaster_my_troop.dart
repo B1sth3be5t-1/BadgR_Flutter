@@ -32,109 +32,117 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
       body: SizedBox.expand(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: ListView(
-            children: [
-              CustomHeader('My Troop Progress', context),
-              StreamBuilder<QuerySnapshot>(
-                stream: FirebaseRunner.scoutChangesStream(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData || snapshot.hasError) {
-                    return Text('An error has occurred');
-                  } else if (snapshot.data?.docs.length == 0) {
-                    return Center(
-                      child: Text(
-                        'You have no scouts in your troop!',
-                        style: Theme.of(context)
-                            .primaryTextTheme
-                            .displayMedium
-                            ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer),
-                      ),
-                    );
-                  }
-
-                  //get map of docSnapshots (aka the added badges)
-                  Map<int, QueryDocumentSnapshot<Object?>> docMap =
-                      snapshot.data!.docs.toList().asMap();
-
-                  for (MapEntry<int, QueryDocumentSnapshot<Object?>> me
-                      in docMap.entries) {
-                    QueryDocumentSnapshot? docData = me.value;
-
-                    List<Map<int, dynamic>>? curUID = mapData[docData['uid']];
-
-                    if (curUID == null) {
-                      mapData[docData['uid']] = [];
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                CustomHeader('My Troop Progress', context),
+                StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseRunner.scoutChangesStream(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData || snapshot.hasError) {
+                      return Text('An error has occurred');
+                    } else if (snapshot.data?.docs.length == 0) {
+                      return Center(
+                        child: Text(
+                          'You have no scouts in your troop!',
+                          style: Theme.of(context)
+                              .primaryTextTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer),
+                        ),
+                      );
                     }
 
-                    //if docData['requirements'] is a bool and true, then add to completed
-                    Map<int, dynamic> map = {};
-                    map[docData['badgeID']] = docData['requirements'];
-                    mapData[docData['uid']]!.add(map);
-                  }
+                    //get map of docSnapshots (aka the added badges)
+                    Map<int, QueryDocumentSnapshot<Object?>> docMap =
+                        snapshot.data!.docs.toList().asMap();
 
-                  List<CustomAccordionSection> lis = [];
+                    for (MapEntry<int, QueryDocumentSnapshot<Object?>> me
+                        in docMap.entries) {
+                      QueryDocumentSnapshot? docData = me.value;
 
-                  for (MapEntry<String, List<Map<int, dynamic>>> me
-                      in mapData.entries) {
-                    me.value.sort((Map a, Map b) =>
-                        AllMeritBadges.getBadgeByID(a.entries.first.key)
-                            .name
-                            .compareTo(
-                                AllMeritBadges.getBadgeByID(b.entries.first.key)
-                                    .name));
-                  }
+                      List<Map<int, dynamic>>? curUID = mapData[docData['uid']];
 
-                  for (Scout s in sm.scouts) {
-                    if (!mapData.containsKey(s.uid)) mapData[s.uid] = [];
+                      if (curUID == null) {
+                        mapData[docData['uid']] = [];
+                      }
 
-                    lis.add(
-                      CustomAccordionSection(
-                        headerBackgroundColor:
-                            AccordionTheme.customAccBackColor(),
-                        header: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Route r = MaterialPageRoute(
-                                    builder: (context) => ScoutmasterScoutView(
-                                        data: mapData[s.uid]!, name: s.name));
+                      //if docData['requirements'] is a bool and true, then add to completed
+                      Map<int, dynamic> map = {};
+                      map[docData['badgeID']] = docData['requirements'];
+                      mapData[docData['uid']]!.add(map);
+                    }
 
-                                Navigator.push(context, r);
-                              },
-                              icon: Icon(
-                                Icons.arrow_forward_outlined,
-                                color: AccordionTheme.customAccTextColor(),
+                    List<CustomAccordionSection> lis = [];
+
+                    for (MapEntry<String, List<Map<int, dynamic>>> me
+                        in mapData.entries) {
+                      me.value.sort((Map a, Map b) =>
+                          AllMeritBadges.getBadgeByID(a.entries.first.key)
+                              .name
+                              .compareTo(AllMeritBadges.getBadgeByID(
+                                      b.entries.first.key)
+                                  .name));
+                    }
+
+                    for (Scout s in sm.scouts) {
+                      if (!mapData.containsKey(s.uid)) mapData[s.uid] = [];
+
+                      lis.add(
+                        CustomAccordionSection(
+                          headerBackgroundColor:
+                              AccordionTheme.customAccBackColor(),
+                          header: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  Route r = MaterialPageRoute(
+                                      builder: (context) =>
+                                          ScoutmasterScoutView(
+                                              data: mapData[s.uid]!,
+                                              name: s.name));
+
+                                  Navigator.push(context, r);
+                                },
+                                icon: Icon(
+                                  Icons.arrow_forward_outlined,
+                                  color: AccordionTheme.customAccTextColor(),
+                                ),
+                                tooltip: 'Open',
                               ),
-                              tooltip: 'Open',
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              s.name,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineLarge,
-                            ),
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                s.name,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headlineLarge!
+                                    .copyWith(
+                                        color: AccordionTheme
+                                            .customAccTextColor()),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }
+                      );
+                    }
 
-                  return CustomAccordion(
-                    children: lis,
-                    headerBackgroundColor:
-                        AccordionTheme.headerBackgroundColor(),
-                  );
-                },
-              ),
-            ],
+                    return CustomAccordion(
+                      disableScrolling: true,
+                      children: lis,
+                      headerBackgroundColor:
+                          AccordionTheme.headerBackgroundColor(),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -56,7 +56,7 @@ class _scoutMainState extends State<ScoutScreen> {
           child: Text(
             'Welcome $name!',
             style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
-                  overflow: TextOverflow.fade,
+                  fontSize: 30,
                 ),
           ),
         ),
@@ -111,9 +111,9 @@ class _scoutMainState extends State<ScoutScreen> {
             currentPageIndex = index;
             if (index == 2 && ScoutMyBadgesState.isTodo) {
               getChildren(myBadges: true);
+              print('here------');
               return;
             }
-            currentPageIndex = index;
             getChildren(myBadges: false);
           });
         },

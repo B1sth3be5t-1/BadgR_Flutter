@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:accordion/controllers.dart';
 import 'package:badgr/classes/firebase_runner.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
 import 'package:badgr/classes/widgets/custom_accordion.dart';
@@ -120,6 +121,7 @@ class ScoutMyBadgesState extends State<ScoutMyBadges> {
 
                   Widget acc = SingleChildScrollView(
                     child: Accordion(
+                      scrollIntoViewOfItems: ScrollIntoViewOfItems.fast,
                       disableScrolling: true,
                       children: lis,
                       openAndCloseAnimation: false,
