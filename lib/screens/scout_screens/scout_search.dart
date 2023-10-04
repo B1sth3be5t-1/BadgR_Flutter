@@ -1,4 +1,3 @@
-import 'package:accordion/controllers.dart';
 import 'package:badgr/classes/colors_and_themes/themes.dart';
 import 'package:accordion/accordion.dart';
 import 'package:badgr/classes/merit_badge_info.dart';
@@ -181,12 +180,8 @@ class _ScoutSearchState extends State<ScoutSearch> {
                 width: 20,
               ),
               Expanded(
+                child: Text(''),
                 flex: 1,
-                child: Text(
-                  mb.name,
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).primaryTextTheme.bodyMedium,
-                ),
               ),
               SizedBox(
                 width: 10,
@@ -202,16 +197,20 @@ class _ScoutSearchState extends State<ScoutSearch> {
       lis.add(AS);
     }
 
-    Widget acc = SingleChildScrollView(
-      child: Accordion(
-        disableScrolling: true,
-        maxOpenSections: 20,
-        headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
-        headerBackgroundColorOpened:
-            AccordionTheme.headerBackgroundColorOpened(),
-        contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
-        contentBorderColor: AccordionTheme.contentBorderColor(),
-        children: lis,
+    Widget acc = Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width / 12),
+      child: SingleChildScrollView(
+        child: Accordion(
+          disableScrolling: true,
+          maxOpenSections: 20,
+          headerBackgroundColor: AccordionTheme.headerBackgroundColor(),
+          headerBackgroundColorOpened:
+              AccordionTheme.headerBackgroundColorOpened(),
+          contentBackgroundColor: AccordionTheme.contentBackgroundColor(),
+          contentBorderColor: AccordionTheme.contentBorderColor(),
+          children: lis,
+        ),
       ),
     );
     return acc;

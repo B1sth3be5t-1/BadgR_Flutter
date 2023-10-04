@@ -55,9 +55,10 @@ class _scoutMainState extends State<ScoutScreen> {
           padding: EdgeInsets.all(10),
           child: Text(
             'Welcome $name!',
-            style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
-                  fontSize: 30,
-                ),
+            style: Theme.of(context)
+                .primaryTextTheme
+                .displayMedium
+                ?.copyWith(fontSize: 30, overflow: TextOverflow.ellipsis),
           ),
         ),
         leading: Padding(
