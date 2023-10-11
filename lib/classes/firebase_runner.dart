@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:BadgR/classes/widgets/custom_alert.dart';
-import 'package:BadgR/screens/scout_screens/scout_main.dart';
-import 'package:BadgR/screens/scout_screens/scout_my_badges.dart';
-import 'package:BadgR/screens/scoutmaster_screens/scoutmaster_main.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:badgr/screens/scout_screens/scout_main.dart';
+import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
+import 'package:badgr/screens/scoutmaster_screens/scoutmaster_main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:BadgR/classes/person.dart';
+import 'package:badgr/classes/person.dart';
 
 import 'merit_badge_info.dart';
 

@@ -1,12 +1,12 @@
-import 'package:BadgR/classes/colors_and_themes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 import 'package:accordion/accordion.dart';
-import 'package:BadgR/classes/merit_badge_info.dart';
-import 'package:BadgR/classes/firebase_runner.dart';
+import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:badgr/classes/firebase_runner.dart';
 import 'package:flutter/material.dart';
-import 'package:BadgR/classes/widgets/custom_input.dart';
-import 'package:BadgR/classes/widgets/custom_page_header.dart';
+import 'package:badgr/classes/widgets/custom_input.dart';
+import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:BadgR/classes/widgets/custom_search_switch.dart';
+import 'package:badgr/classes/widgets/custom_search_switch.dart';
 
 import '../../classes/colors_and_themes/color_schemes.g.dart';
 

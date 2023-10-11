@@ -1,9 +1,9 @@
-import 'package:BadgR/classes/firebase_runner.dart';
-import 'package:BadgR/classes/colors_and_themes/themes.dart';
-import 'package:BadgR/classes/merit_badge_info.dart';
-import 'package:BadgR/classes/widgets/custom_accordion_section.dart';
-import 'package:BadgR/classes/widgets/custom_page_header.dart';
-import 'package:BadgR/screens/scoutmaster_screens/scoutmaster_scout_view.dart';
+import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
+import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:badgr/classes/widgets/custom_accordion_section.dart';
+import 'package:badgr/classes/widgets/custom_page_header.dart';
+import 'package:badgr/screens/scoutmaster_screens/scoutmaster_scout_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

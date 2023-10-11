@@ -1,8 +1,8 @@
-import 'package:BadgR/screens/user_flow/login_screen.dart';
-import 'package:BadgR/screens/user_flow/registration_screen.dart';
+import 'package:badgr/screens/user_flow/login_screen.dart';
+import 'package:badgr/screens/user_flow/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:BadgR/classes/colors_and_themes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String screenID = 'badgr_screen';

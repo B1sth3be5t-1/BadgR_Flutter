@@ -1,7 +1,7 @@
-import 'package:BadgR/classes/colors_and_themes/color_schemes.g.dart';
-import 'package:BadgR/classes/firebase_runner.dart';
-import 'package:BadgR/classes/widgets/custom_alert.dart';
-import 'package:BadgR/classes/widgets/custom_page_header.dart';
+import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
+import 'package:badgr/classes/firebase_runner.dart';
+import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:badgr/classes/widgets/custom_page_header.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';

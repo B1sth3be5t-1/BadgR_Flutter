@@ -1,6 +1,6 @@
 import 'package:accordion/controllers.dart';
-import 'package:BadgR/classes/colors_and_themes/color_schemes.g.dart';
-import 'package:BadgR/classes/widgets/custom_accordion.dart';
+import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
+import 'package:badgr/classes/widgets/custom_accordion.dart';
 import 'package:flutter/material.dart';
 import '../../classes/colors_and_themes/themes.dart';
 import '../../classes/merit_badge_info.dart';

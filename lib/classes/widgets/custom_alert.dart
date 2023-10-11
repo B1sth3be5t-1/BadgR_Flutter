@@ -1,4 +1,4 @@
-import 'package:BadgR/classes/colors_and_themes/themes.dart';
+import 'package:badgr/classes/colors_and_themes/themes.dart';
 import 'package:flutter/material.dart';
 
 Future<String?> showDiag(

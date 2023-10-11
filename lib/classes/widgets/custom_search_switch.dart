@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:BadgR/classes/firebase_runner.dart';
+import 'package:badgr/classes/firebase_runner.dart';
 import '../colors_and_themes/themes.dart';
 import 'custom_alert.dart';
 

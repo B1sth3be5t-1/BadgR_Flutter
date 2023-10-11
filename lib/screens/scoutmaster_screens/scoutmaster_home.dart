@@ -1,4 +1,4 @@
-import 'package:BadgR/classes/merit_badge_info.dart';
+import 'package:badgr/classes/merit_badge_info.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
