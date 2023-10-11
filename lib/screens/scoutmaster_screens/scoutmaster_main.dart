@@ -1,14 +1,14 @@
-import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/classes/widgets/custom_alert.dart';
-import 'package:badgr/screens/scoutmaster_screens/scoutmaster_home.dart';
-import 'package:badgr/screens/scoutmaster_screens/scoutmaster_my_troop.dart';
-import 'package:badgr/screens/scoutmaster_screens/scoutmaster_notifications.dart';
-import 'package:badgr/screens/scoutmaster_screens/scoutmaster_settings.dart';
+import 'package:BadgR/classes/firebase_runner.dart';
+import 'package:BadgR/classes/widgets/custom_alert.dart';
+import 'package:BadgR/screens/scoutmaster_screens/scoutmaster_home.dart';
+import 'package:BadgR/screens/scoutmaster_screens/scoutmaster_my_troop.dart';
+import 'package:BadgR/screens/scoutmaster_screens/scoutmaster_notifications.dart';
+import 'package:BadgR/screens/scoutmaster_screens/scoutmaster_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
-import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:BadgR/classes/merit_badge_info.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:badgr/classes/colors_and_themes/themes.dart';
+import 'package:BadgR/classes/colors_and_themes/themes.dart';
 
 import '../../classes/person.dart';
 

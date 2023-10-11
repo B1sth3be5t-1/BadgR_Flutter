@@ -1,10 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:badgr/screens/scout_screens/scout_main.dart';
-import 'package:badgr/screens/scoutmaster_screens/scoutmaster_main.dart';
+import 'package:BadgR/screens/scout_screens/scout_main.dart';
+import 'package:BadgR/screens/scoutmaster_screens/scoutmaster_main.dart';
 import 'package:flutter/material.dart';
-import 'package:badgr/screens/user_flow/welcome_screen.dart';
-import 'package:badgr/screens/user_flow/login_screen.dart';
-import 'package:badgr/screens/user_flow/registration_screen.dart';
+import 'package:BadgR/screens/user_flow/welcome_screen.dart';
+import 'package:BadgR/screens/user_flow/login_screen.dart';
+import 'package:BadgR/screens/user_flow/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'classes/firebase_options.dart';
 import 'classes/colors_and_themes/themes.dart';

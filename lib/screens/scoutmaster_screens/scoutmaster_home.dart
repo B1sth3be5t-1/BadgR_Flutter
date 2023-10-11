@@ -1,4 +1,4 @@
-import 'package:badgr/classes/merit_badge_info.dart';
+import 'package:BadgR/classes/merit_badge_info.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +67,6 @@ class ScoutmasterHomeState extends State<ScoutmasterHome> {
                         in docMap.entries) {
                       QueryDocumentSnapshot? docData = me.value;
 
-                      print(docData.toString());
-
                       if (docData.get('isComplete'))
                         numComplete++;
                       else
@@ -79,77 +77,80 @@ class ScoutmasterHomeState extends State<ScoutmasterHome> {
                       if (mb.isEagleRequired) numEagle++;
                     }
 
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              'Follow the Navigation Bar on the bottom of the page to begin your journey!',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
+                    return SingleChildScrollView(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                'Follow the Navigation Bar on the bottom of the page to begin your journey!',
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headlineMedium,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              '• Your troop has $numScouts scout(s) in it',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '• Your troop has $numScouts scout(s) in it',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headlineMedium,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              '• Your Scouts have completed $numComplete merit badge(s)',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '• Your Scouts have completed $numComplete merit badge(s)',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headlineMedium,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              '• Your Scouts have $numBadges merit badge(s) in progress',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '• Your Scouts have $numBadges merit badge(s) in progress',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headlineMedium,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              '• $numEagle of the ${numComplete + numBadges} total badges are required for Eagle Scout',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headlineMedium,
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '• $numEagle of the ${numComplete + numBadges} total badges are required for Eagle Scout',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headlineMedium,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height / 2 - 50,
-                            child: FittedBox(
-                              fit: BoxFit.fitHeight,
-                              child: Padding(
-                                padding: const EdgeInsets.all(14.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.asset(
-                                    'images/app_full_pic_pink.png',
-                                    fit: BoxFit.fitHeight,
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height:
+                                  MediaQuery.of(context).size.height / 2 - 50,
+                              child: FittedBox(
+                                fit: BoxFit.fitHeight,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.asset(
+                                      'images/app_full_pic_pink.png',
+                                      fit: BoxFit.fitHeight,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

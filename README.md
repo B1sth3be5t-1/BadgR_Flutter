@@ -1,16 +1,14 @@
-# badgr
+# BadgR
 
-A new Flutter project.
+The merit badge tracker for Scouts
 
-## Getting Started
+## About BadgR
 
-This project is a starting point for a Flutter application.
+BadgR is a reimagining of Scout BSA's Scoutbook application.
+This project uses Flutter and Google's Firebase platform to host and run this app.
 
-A few resources to get you started if this is your first Flutter project:
+This project is intended entirely for personal and school usage. Unless approved by
+Scouts BSA, this application will not be monetized in any way
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Click here for the Web Link](https://badgr-88835.firebaseapp.com/#/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
