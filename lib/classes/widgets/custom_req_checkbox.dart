@@ -1,4 +1,4 @@
-import 'package:badgr/screens/scout_screens/scout_my_badges.dart';
+import 'package:BadgR/screens/scout_screens/scout_my_badges.dart';
 import 'package:flutter/material.dart';
 
 class CustomReqCheckbox extends StatefulWidget {

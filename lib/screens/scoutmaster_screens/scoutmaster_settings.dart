@@ -1,12 +1,12 @@
 import 'package:accordion/accordion.dart';
-import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:BadgR/classes/widgets/custom_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:badgr/classes/widgets/settings.dart';
-import 'package:badgr/classes/widgets/custom_input.dart';
+import 'package:BadgR/classes/widgets/settings.dart';
+import 'package:BadgR/classes/widgets/custom_input.dart';
 import 'package:flutter/services.dart';
 
 import '../../classes/firebase_runner.dart';
-import 'package:badgr/classes/colors_and_themes/themes.dart';
+import 'package:BadgR/classes/colors_and_themes/themes.dart';
 
 class ScoutmasterSettings extends StatefulWidget {
   const ScoutmasterSettings({super.key});

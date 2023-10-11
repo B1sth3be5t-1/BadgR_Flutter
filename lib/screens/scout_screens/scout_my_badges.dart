@@ -1,13 +1,13 @@
 import 'dart:collection';
 
 import 'package:accordion/controllers.dart';
-import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/classes/merit_badge_info.dart';
-import 'package:badgr/classes/widgets/custom_accordion.dart';
-import 'package:badgr/classes/widgets/custom_percent_bar.dart';
-import 'package:badgr/classes/widgets/custom_accordion_section.dart';
-import 'package:badgr/classes/widgets/custom_page_header.dart';
-import 'package:badgr/classes/widgets/custom_req_checkbox.dart';
+import 'package:BadgR/classes/firebase_runner.dart';
+import 'package:BadgR/classes/merit_badge_info.dart';
+import 'package:BadgR/classes/widgets/custom_accordion.dart';
+import 'package:BadgR/classes/widgets/custom_percent_bar.dart';
+import 'package:BadgR/classes/widgets/custom_accordion_section.dart';
+import 'package:BadgR/classes/widgets/custom_page_header.dart';
+import 'package:BadgR/classes/widgets/custom_req_checkbox.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -283,6 +283,7 @@ AccordionSection getBadgeSection(
   percent = double.parse(percent.toStringAsFixed(2));
 
   return AccordionSection(
+    scrollIntoViewOfItems: ScrollIntoViewOfItems.none,
     accordionId: mb.name,
     index: mb.id,
     header: CustomPercentageIndicator(

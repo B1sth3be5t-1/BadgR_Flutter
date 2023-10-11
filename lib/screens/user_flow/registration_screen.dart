@@ -1,11 +1,11 @@
-import 'package:badgr/classes/firebase_runner.dart';
-import 'package:badgr/screens/user_flow/welcome_screen.dart';
+import 'package:BadgR/classes/firebase_runner.dart';
+import 'package:BadgR/screens/user_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:badgr/screens/user_flow/login_screen.dart';
+import 'package:BadgR/screens/user_flow/login_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:badgr/classes/widgets/custom_input.dart';
-import 'package:badgr/classes/widgets/custom_alert.dart';
+import 'package:BadgR/classes/widgets/custom_input.dart';
+import 'package:BadgR/classes/widgets/custom_alert.dart';
 
 import '../../classes/colors_and_themes/color_schemes.g.dart';
 import '../../classes/colors_and_themes/themes.dart';

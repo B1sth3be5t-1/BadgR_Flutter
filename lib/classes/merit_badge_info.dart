@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:badgr/classes/widgets/custom_alert.dart';
-import 'package:badgr/classes/widgets/custom_input.dart';
+import 'package:BadgR/classes/widgets/custom_alert.dart';
+import 'package:BadgR/classes/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'firebase_runner.dart';

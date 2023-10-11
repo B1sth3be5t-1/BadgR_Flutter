@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:badgr/classes/colors_and_themes/themes.dart';
+import 'package:BadgR/classes/colors_and_themes/themes.dart';
 
 class CustomFormField extends StatelessWidget {
   CustomFormField(
