@@ -1,5 +1,5 @@
-name: badgr
-description: A new Flutter project.
+name: BadgR
+description: The merit badge tracker for Scouts
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1

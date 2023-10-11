@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:badgr/classes/colors_and_themes/themes.dart';
+import 'package:BadgR/classes/colors_and_themes/themes.dart';
 
 Widget CustomHeader(String s, BuildContext context) {
   Color c = Theme.of(context).colorScheme.onPrimaryContainer;

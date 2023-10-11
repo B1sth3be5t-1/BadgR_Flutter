@@ -1,7 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:badgr/classes/colors_and_themes/color_schemes.g.dart';
-import 'package:badgr/classes/colors_and_themes/custom_color.g.dart';
-import 'package:dynamic_color/dynamic_color.dart';
+import 'package:BadgR/classes/colors_and_themes/color_schemes.g.dart';
+import 'package:BadgR/classes/colors_and_themes/custom_color.g.dart';
 import 'package:flutter/material.dart';
 
 bool _isLight = true;
