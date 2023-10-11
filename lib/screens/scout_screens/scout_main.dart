@@ -49,123 +49,127 @@ class _scoutMainState extends State<ScoutScreen> {
   @override
   Widget build(BuildContext context) {
     AdaptiveTheme.of(context).mode.isLight ? setLight(true) : setLight(false);
-    return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: EdgeInsets.all(10),
-          child: Text(
-            'Welcome $name!',
-            style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
-                  fontSize: 30,
-                ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              'Welcome $name!',
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .displayMedium
+                  ?.copyWith(fontSize: 25, overflow: TextOverflow.ellipsis),
+            ),
           ),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: IconButton(
-            onPressed: () async {
-              String logout = '';
-              try {
-                logout = FirebaseRunner.logoutUser();
-                if (logout != 'Done')
-                  throw Exception('Error!');
-                else {
-                  Navigator.pop(context);
+          leading: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: IconButton(
+              onPressed: () async {
+                String logout = '';
+                try {
+                  logout = FirebaseRunner.logoutUser();
+                  if (logout != 'Done')
+                    throw Exception('Error!');
+                  else {
+                    Navigator.pop(context);
+                  }
+                } catch (e) {
+                  showDiag(
+                      'Error',
+                      'An error occurred while logging out. \nPlease try again',
+                      context,
+                      ['Ok']);
                 }
-              } catch (e) {
-                showDiag(
-                    'Error',
-                    'An error occurred while logging out. \nPlease try again',
-                    context,
-                    ['Ok']);
-              }
-            },
-            icon: Icon(Icons.arrow_back),
-            tooltip: 'Logout',
+              },
+              icon: Icon(Icons.arrow_back),
+              tooltip: 'Logout',
+            ),
           ),
         ),
-      ),
-      body: SizedBox.expand(
-        child: FadeIndexedStack(
-          beginOpacity: 0.5,
-          endOpacity: 1.0,
-          curve: Curves.easeIn,
-          duration: const Duration(milliseconds: 400),
-          index: currentPageIndex,
-          children: lis,
+        body: SizedBox.expand(
+          child: FadeIndexedStack(
+            beginOpacity: 0.5,
+            endOpacity: 1.0,
+            curve: Curves.easeIn,
+            duration: const Duration(milliseconds: 400),
+            index: currentPageIndex,
+            children: lis,
+          ),
         ),
-      ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          if (firstNotif &&
-              currentPageIndex == 2 &&
-              ScoutMyBadgesState.getChangedBool()) {
-            showDiag(
-                'Reminder',
-                'Make sure to click submit on \nthe Saved Badges page \nbefore you exit the app to \nsave your requirement changes!',
-                context,
-                ['Ok']);
-            firstNotif = false;
-          }
-          setState(() {
-            currentPageIndex = index;
-            if (index == 2 && ScoutMyBadgesState.isTodo) {
-              getChildren(myBadges: true);
-              return;
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            if (firstNotif &&
+                currentPageIndex == 2 &&
+                ScoutMyBadgesState.getChangedBool()) {
+              showDiag(
+                  'Reminder',
+                  'Make sure to click submit on \nthe Saved Badges page \nbefore you exit the app to \nsave your requirement changes!',
+                  context,
+                  ['Ok']);
+              firstNotif = false;
             }
-            getChildren(myBadges: false);
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: <Widget>[
-          NavigationDestination(
-            icon: Icon(
-              Icons.home_outlined,
-              color: NavigationIconTheme.iconColor(context),
+            setState(() {
+              currentPageIndex = index;
+              if (index == 2 && ScoutMyBadgesState.isTodo) {
+                getChildren(myBadges: true);
+                print('here------');
+                return;
+              }
+              getChildren(myBadges: false);
+            });
+          },
+          selectedIndex: currentPageIndex,
+          destinations: <Widget>[
+            NavigationDestination(
+              icon: Icon(
+                Icons.home_outlined,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              selectedIcon: Icon(
+                Icons.home_rounded,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Home',
             ),
-            selectedIcon: Icon(
-              Icons.home_rounded,
-              color: NavigationIconTheme.iconColor(context),
+            NavigationDestination(
+              icon: Icon(
+                Icons.search,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Search Badges',
             ),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.search,
-              color: NavigationIconTheme.iconColor(context),
+            NavigationDestination(
+              icon: Icon(
+                Icons.data_usage,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Saved Badges',
             ),
-            label: 'Search Badges',
-          ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.data_usage,
-              color: NavigationIconTheme.iconColor(context),
+            NavigationDestination(
+              selectedIcon: Icon(
+                Icons.check_box,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              icon: Icon(
+                Icons.check_box_outlined,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Completed',
             ),
-            label: 'Saved Badges',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(
-              Icons.check_box,
-              color: NavigationIconTheme.iconColor(context),
+            NavigationDestination(
+              selectedIcon: Icon(
+                Icons.settings,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              icon: Icon(
+                Icons.settings_outlined,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Settings',
             ),
-            icon: Icon(
-              Icons.check_box_outlined,
-              color: NavigationIconTheme.iconColor(context),
-            ),
-            label: 'Completed',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(
-              Icons.settings,
-              color: NavigationIconTheme.iconColor(context),
-            ),
-            icon: Icon(
-              Icons.settings_outlined,
-              color: NavigationIconTheme.iconColor(context),
-            ),
-            label: 'Settings',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

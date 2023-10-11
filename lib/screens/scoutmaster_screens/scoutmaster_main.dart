@@ -41,102 +41,104 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
   @override
   Widget build(BuildContext context) {
     AdaptiveTheme.of(context).mode.isLight ? setLight(true) : setLight(false);
-    return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: EdgeInsets.all(10),
-          child: Text(
-            'Welcome $name!',
-            style: Theme.of(context)
-                .primaryTextTheme
-                .displayMedium
-                ?.copyWith(fontSize: 30),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              'Welcome $name!',
+              style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
+                    fontSize: 25,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+            ),
           ),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: IconButton(
-            onPressed: () async {
-              String logout = '';
-              try {
-                logout = FirebaseRunner.logoutUser();
-                if (logout != 'Done')
-                  throw Exception('Error!');
-                else {
-                  Navigator.pop(context);
+          leading: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: IconButton(
+              onPressed: () async {
+                String logout = '';
+                try {
+                  logout = FirebaseRunner.logoutUser();
+                  if (logout != 'Done')
+                    throw Exception('Error!');
+                  else {
+                    Navigator.pop(context);
+                  }
+                } catch (e) {
+                  showDiag(
+                      'Error',
+                      'An error occurred while logging out. \nPlease try again',
+                      context,
+                      ['Ok']);
                 }
-              } catch (e) {
-                showDiag(
-                    'Error',
-                    'An error occurred while logging out. \nPlease try again',
-                    context,
-                    ['Ok']);
-              }
-            },
-            icon: Icon(Icons.arrow_back),
-            tooltip: 'Logout',
+              },
+              icon: Icon(Icons.arrow_back),
+              tooltip: 'Logout',
+            ),
           ),
         ),
-      ),
-      body: SizedBox.expand(
-        child: FadeIndexedStack(
-          beginOpacity: 0.5,
-          endOpacity: 1.0,
-          curve: Curves.easeIn,
-          duration: const Duration(milliseconds: 400),
-          index: currentPageIndex,
-          children: lis,
+        body: SizedBox.expand(
+          child: FadeIndexedStack(
+            beginOpacity: 0.5,
+            endOpacity: 1.0,
+            curve: Curves.easeIn,
+            duration: const Duration(milliseconds: 400),
+            index: currentPageIndex,
+            children: lis,
+          ),
         ),
-      ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: <Widget>[
-          NavigationDestination(
-            icon: Icon(
-              Icons.home_outlined,
-              color: NavigationIconTheme.iconColor(context),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          selectedIndex: currentPageIndex,
+          destinations: <Widget>[
+            NavigationDestination(
+              icon: Icon(
+                Icons.home_outlined,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              selectedIcon: Icon(
+                Icons.home_rounded,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Home',
             ),
-            selectedIcon: Icon(
-              Icons.home_rounded,
-              color: NavigationIconTheme.iconColor(context),
+            NavigationDestination(
+              icon: Icon(
+                Icons.notifications_active_outlined,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              selectedIcon: Icon(
+                Icons.notifications_active,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Notifications',
             ),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.notifications_active_outlined,
-              color: NavigationIconTheme.iconColor(context),
+            NavigationDestination(
+              icon: Icon(
+                Icons.data_usage,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Troop Progress',
             ),
-            selectedIcon: Icon(
-              Icons.notifications_active,
-              color: NavigationIconTheme.iconColor(context),
+            NavigationDestination(
+              selectedIcon: Icon(
+                Icons.settings,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              icon: Icon(
+                Icons.settings_outlined,
+                color: NavigationIconTheme.iconColor(context),
+              ),
+              label: 'Settings',
             ),
-            label: 'Notifications',
-          ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.data_usage,
-              color: NavigationIconTheme.iconColor(context),
-            ),
-            label: 'Troop Progress',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(
-              Icons.settings,
-              color: NavigationIconTheme.iconColor(context),
-            ),
-            icon: Icon(
-              Icons.settings_outlined,
-              color: NavigationIconTheme.iconColor(context),
-            ),
-            label: 'Settings',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
