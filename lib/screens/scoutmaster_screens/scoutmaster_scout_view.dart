@@ -45,58 +45,60 @@ class ScoutmasterScoutView extends StatelessWidget {
 
     lis.sort((a, b) => a.accordionId!.compareTo(b.accordionId!));
 
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              CustomHeader(name, context),
-              (lis.length == 0)
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          'This scout has no badges added',
-                          style: Theme.of(context)
-                              .primaryTextTheme
-                              .displayMedium
-                              ?.copyWith(
-                                  color: isLight()
-                                      ? lightColorScheme.onPrimaryContainer
-                                      : darkColorScheme.onPrimaryContainer),
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                CustomHeader(name, context),
+                (lis.length == 0)
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            'This scout has no badges added',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .displayMedium
+                                ?.copyWith(
+                                    color: isLight()
+                                        ? lightColorScheme.onPrimaryContainer
+                                        : darkColorScheme.onPrimaryContainer),
+                          ),
                         ),
+                      )
+                    : CustomAccordion(
+                        headerBackgroundColor:
+                            AccordionTheme.headerBackgroundColor(),
+                        contentBackgroundColor:
+                            AccordionTheme.contentBackgroundColor(),
+                        contentBorderColor: AccordionTheme.contentBorderColor(),
+                        scrollIntoViewOfItems: ScrollIntoViewOfItems.slow,
+                        disableScrolling: true,
+                        children: lis,
                       ),
-                    )
-                  : CustomAccordion(
-                      headerBackgroundColor:
-                          AccordionTheme.headerBackgroundColor(),
-                      contentBackgroundColor:
-                          AccordionTheme.contentBackgroundColor(),
-                      contentBorderColor: AccordionTheme.contentBorderColor(),
-                      scrollIntoViewOfItems: ScrollIntoViewOfItems.slow,
-                      disableScrolling: true,
-                      children: lis,
-                    ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pop(context),
-        icon: Icon(
-          Icons.arrow_back_outlined,
-          color: Theme.of(context).colorScheme.onTertiary,
-        ),
-        tooltip: 'Return',
-        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-        hoverColor: Theme.of(context).colorScheme.primary,
-        label: Text(
-          'Go Back',
-          style: _headerStyle.copyWith(
-              color: isLight()
-                  ? lightColorScheme.onTertiary
-                  : darkColorScheme.onTertiary),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(
+            Icons.arrow_back_outlined,
+            color: Theme.of(context).colorScheme.onTertiary,
+          ),
+          tooltip: 'Return',
+          backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+          hoverColor: Theme.of(context).colorScheme.primary,
+          label: Text(
+            'Go Back',
+            style: _headerStyle.copyWith(
+                color: isLight()
+                    ? lightColorScheme.onTertiary
+                    : darkColorScheme.onTertiary),
+          ),
         ),
       ),
     );

@@ -89,6 +89,7 @@ class _ScoutSearchState extends State<ScoutSearch> {
                     flex: 2,
                     child: TextButton(
                       onPressed: () async {
+                        FocusManager.instance.primaryFocus?.unfocus();
                         fromButton = true;
                         Widget a = await buildAccordion(false);
                         setState(() {
@@ -169,29 +170,33 @@ class _ScoutSearchState extends State<ScoutSearch> {
               style: _headerStyle,
             ),
           ),
-          content: Row(
-            children: [
-              Image.asset(
-                'images/badges/${mb.getBadgeIconName()}.png',
-                width: 100,
-                height: 100,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Text(''),
-                flex: 1,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              CustomSearchSwitch(
-                checked: isChecked,
-                id: mb.id,
-                completed: isComplete,
-              ),
-            ],
+          content: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'images/badges/${mb.getBadgeIconName()}.png',
+                  width: 100,
+                  height: 100,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Flexible(
+                  child: Text(''),
+                  fit: FlexFit.loose,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                CustomSearchSwitch(
+                  checked: isChecked,
+                  id: mb.id,
+                  completed: isComplete,
+                ),
+              ],
+            ),
           ));
 
       lis.add(AS);

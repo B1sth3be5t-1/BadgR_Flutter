@@ -45,17 +45,21 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              'Welcome $name!',
-              style: Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
-                    fontSize: 25,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+            padding: EdgeInsets.all(7),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                'Welcome $name!',
+                style:
+                    Theme.of(context).primaryTextTheme.displayMedium?.copyWith(
+                          fontSize: 25,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+              ),
             ),
           ),
           leading: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.only(left: 5, bottom: 5, top: 5),
             child: IconButton(
               onPressed: () async {
                 String logout = '';
@@ -117,7 +121,7 @@ class _scoutmasterMainState extends State<ScoutmasterScreen> {
                 Icons.notifications_active,
                 color: NavigationIconTheme.iconColor(context),
               ),
-              label: 'Notifications',
+              label: 'Notification',
             ),
             NavigationDestination(
               icon: Icon(

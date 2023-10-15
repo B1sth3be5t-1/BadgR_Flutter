@@ -27,34 +27,41 @@ class _CAHState extends State<CustomPercentageIndicator> {
   Widget build(BuildContext context) {
     TextStyle? style = Theme.of(context).primaryTextTheme.displaySmall;
 
+    double fs = style!.fontSize! - 3;
+
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: LinearPercentIndicator(
-        alignment: axis,
-        barRadius: Radius.circular(7.5),
-        trailing: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: title == null
-              ? null
-              : Text(
-                  title!,
-                  style: style,
-                ),
-        ),
-        center: Center(
-          child: RoundedBackgroundText(
-            percent < 1 ? '${(percent * 100).toInt()}%' : 'Complete!',
-            backgroundColor: LinProgTheme.backgroundColor(),
-            style: style?.copyWith(color: LinProgTheme.textColor()),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
+        child: LinearPercentIndicator(
+          alignment: axis,
+          barRadius: Radius.circular(7.5),
+          trailing: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: title == null
+                ? null
+                : Text(
+                    title!,
+                    style: style,
+                  ),
           ),
+          center: Center(
+            child: RoundedBackgroundText(
+              percent < 1 ? '${(percent * 100).toInt()}%' : 'Complete!',
+              backgroundColor: LinProgTheme.backgroundColor(),
+              style:
+                  style.copyWith(color: LinProgTheme.textColor(), fontSize: fs),
+            ),
+          ),
+          width: MediaQuery.of(context).size.width / 4,
+          lineHeight: 35.0,
+          animation: true,
+          animationDuration: 600,
+          percent: percent,
+          backgroundColor: LinProgTheme.backgroundColor(),
+          progressColor: LinProgTheme.progressColor(),
         ),
-        width: MediaQuery.of(context).size.width / 3,
-        lineHeight: 35.0,
-        animation: true,
-        animationDuration: 600,
-        percent: percent,
-        backgroundColor: LinProgTheme.backgroundColor(),
-        progressColor: LinProgTheme.progressColor(),
       ),
     );
   }
