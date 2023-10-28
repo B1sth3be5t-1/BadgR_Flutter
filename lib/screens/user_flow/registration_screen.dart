@@ -195,6 +195,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           horizontal: MediaQuery.of(context).size.width / 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           IconButton(
                             onPressed: () => {
@@ -208,86 +209,82 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   : darkColorScheme.primary,
                             ),
                           ),
-                          Material(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(30.0)),
-                            elevation: 5.0,
-                            child: TextButton(
-                              onPressed: () async {
+                          TextButton(
+                            onPressed: () async {
+                              setState(() {
+                                clickedBut = true;
+                              });
+                              if (_formKey.currentState!.validate()) {
                                 setState(() {
-                                  clickedBut = true;
+                                  showSpinner = true;
                                 });
-                                if (_formKey.currentState!.validate()) {
-                                  setState(() {
-                                    showSpinner = true;
-                                  });
 
-                                  String res = '';
-                                  try {
-                                    res = await FirebaseRunner
-                                        .registerUserWithEandP(email, pass,
-                                            fname, lname, troop, age, context);
-                                    if (res != 'done') {
-                                      throw const FormatException('hey');
-                                    }
-                                  } on FormatException {
-                                    if (res == 'emailInUse') {
-                                      showDiag(
-                                          'Registration Error',
-                                          'This email is already in use',
-                                          context,
-                                          ['Login', 'Ok']).then((value) {
-                                        if (value == null) return;
-
-                                        if (value == 'Login') {
-                                          Navigator.pushNamed(
-                                              context, LoginScreen.screenID);
-                                        }
-                                      });
-                                    } else if (res == 'network') {
-                                      showDiag(
-                                          'Registration Error',
-                                          'A network error has occurred',
-                                          context,
-                                          ['Ok']);
-                                    } else if (res == 'addInfoError') {
-                                      showDiag(
-                                          'Registration Error',
-                                          'An error has occurred with user info, but your account was added. \nChange your info in settings as soon as possible',
-                                          context,
-                                          ['Ok']).then((value) {
-                                        if (value == null) return;
-
-                                        if (value == 'Ok') {
-                                          FirebaseRunner.sendUser(
-                                              context, email);
-                                        }
-                                      });
-                                    } else {
-                                      showDiag(
-                                          'Registration Error',
-                                          'An unknown error has occurred',
-                                          context,
-                                          ['Ok']);
-                                    }
+                                String res = '';
+                                try {
+                                  res = await FirebaseRunner
+                                      .registerUserWithEandP(email, pass, fname,
+                                          lname, troop, age, context);
+                                  if (res != 'done') {
+                                    throw const FormatException('hey');
                                   }
-                                  setState(() {
-                                    showSpinner = false;
-                                  });
+                                } on FormatException {
+                                  if (res == 'emailInUse') {
+                                    showDiag(
+                                        'Registration Error',
+                                        'This email is already in use',
+                                        context,
+                                        ['Login', 'Ok']).then((value) {
+                                      if (value == null) return;
+
+                                      if (value == 'Login') {
+                                        Navigator.pushNamed(
+                                            context, LoginScreen.screenID);
+                                      }
+                                    });
+                                  } else if (res == 'network') {
+                                    showDiag(
+                                        'Registration Error',
+                                        'A network error has occurred',
+                                        context,
+                                        ['Ok']);
+                                  } else if (res == 'addInfoError') {
+                                    showDiag(
+                                        'Registration Error',
+                                        'An error has occurred with user info, but your account was added. \nChange your info in settings as soon as possible',
+                                        context,
+                                        ['Ok']).then((value) {
+                                      if (value == null) return;
+
+                                      if (value == 'Ok') {
+                                        FirebaseRunner.sendUser(context, email);
+                                      }
+                                    });
+                                  } else {
+                                    showDiag(
+                                        'Registration Error',
+                                        'An unknown error has occurred',
+                                        context,
+                                        ['Ok']);
+                                  }
                                 }
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: const Text(
-                                  'Register',
-                                ),
+                                setState(() {
+                                  showSpinner = false;
+                                });
+                              }
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 9.0),
+                              child: const Text(
+                                'Register',
                               ),
                             ),
                           ),
                           IconButton(
                             onPressed: null,
-                            icon: Text(''),
+                            icon: Text(
+                              '',
+                            ),
                           ),
                         ],
                       ),

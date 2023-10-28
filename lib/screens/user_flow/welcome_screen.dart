@@ -26,31 +26,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Center(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 60.0,
-                      child: Hero(
-                        tag: 'head',
-                        child: Image.asset('images/BadgRHead.png'),
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 60.0,
+                        child: Hero(
+                          tag: 'head',
+                          child: Image.asset('images/BadgRHead.png'),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 50.0),
-                      child: Text(
-                        'BadgR',
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .primaryTextTheme
-                            .displayLarge,
+                      Padding(
+                        padding: EdgeInsets.only(left: 50.0),
+                        child: Text(
+                          'BadgR',
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .primaryTextTheme
+                              .displayLarge,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 60.0,
-                    ),
-                  ],
+                      SizedBox(
+                        width: 60.0,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(

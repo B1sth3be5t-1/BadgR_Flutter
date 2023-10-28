@@ -53,17 +53,20 @@ class _scoutMainState extends State<ScoutScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              'Welcome $name!',
-              style: Theme.of(context)
-                  .primaryTextTheme
-                  .displayMedium
-                  ?.copyWith(fontSize: 25, overflow: TextOverflow.ellipsis),
+            padding: EdgeInsets.all(7),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                'Welcome $name!',
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .displayMedium
+                    ?.copyWith(fontSize: 25, overflow: TextOverflow.ellipsis),
+              ),
             ),
           ),
           leading: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
             child: IconButton(
               onPressed: () async {
                 String logout = '';
@@ -113,7 +116,6 @@ class _scoutMainState extends State<ScoutScreen> {
               currentPageIndex = index;
               if (index == 2 && ScoutMyBadgesState.isTodo) {
                 getChildren(myBadges: true);
-                print('here------');
                 return;
               }
               getChildren(myBadges: false);
@@ -155,7 +157,7 @@ class _scoutMainState extends State<ScoutScreen> {
                 Icons.check_box_outlined,
                 color: NavigationIconTheme.iconColor(context),
               ),
-              label: 'Completed',
+              label: 'Complete',
             ),
             NavigationDestination(
               selectedIcon: Icon(

@@ -96,38 +96,43 @@ class ScoutmasterMyTroopState extends State<ScoutmasterMyTroop> {
                         CustomAccordionSection(
                           headerBackgroundColor:
                               AccordionTheme.customAccBackColor(),
-                          header: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Route r = MaterialPageRoute(
-                                      builder: (context) =>
-                                          ScoutmasterScoutView(
-                                              data: mapData[s.uid]!,
-                                              name: s.name));
+                          header: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    Route r = MaterialPageRoute(
+                                        builder: (context) =>
+                                            ScoutmasterScoutView(
+                                                data: mapData[s.uid]!,
+                                                name: s.name));
 
-                                  Navigator.push(context, r);
-                                },
-                                icon: Icon(
-                                  Icons.arrow_forward_outlined,
-                                  color: AccordionTheme.customAccTextColor(),
+                                    Navigator.push(context, r);
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_outlined,
+                                    color: AccordionTheme.customAccTextColor(),
+                                  ),
+                                  tooltip: 'Open',
                                 ),
-                                tooltip: 'Open',
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                s.name,
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                        color: AccordionTheme
-                                            .customAccTextColor()),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  s.name,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headlineLarge!
+                                      .copyWith(
+                                          color: AccordionTheme
+                                              .customAccTextColor()),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
